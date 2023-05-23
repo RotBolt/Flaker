@@ -6,13 +6,14 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        maven("https://maven.google.com")
     }
 }
 
-rootProject.name = "FlakyNetworkSimulator"
-include(":app")
- 
+rootProject.name = "Flaker"
+include(":flaker-android-app")
+include(":flaker-retrofit")
+include(":flaker-ktor")
