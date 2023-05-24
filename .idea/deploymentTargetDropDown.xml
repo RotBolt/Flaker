@@ -8,6 +8,9 @@
       <entry key="flaker-android-app">
         <State />
       </entry>
+      <entry key="flaker-android-ui">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

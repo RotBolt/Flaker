@@ -14,6 +14,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Flaker"
-include(":flaker-android-app")
+include(":flaker-android-ui")
 include(":flaker-retrofit")
 include(":flaker-ktor")
