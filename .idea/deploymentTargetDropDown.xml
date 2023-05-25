@@ -2,13 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="Flaker:flaker-android-ui [build]">
+        <State />
+      </entry>
       <entry key="Flaker:flaker-ktor [build]">
-        <State />
-      </entry>
-      <entry key="flaker-android-app">
-        <State />
-      </entry>
-      <entry key="flaker-android-ui">
         <State />
       </entry>
     </value>
