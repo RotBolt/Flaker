@@ -9,9 +9,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/flaker-android" />
+            <option value="$PROJECT_DIR$/flaker-android-ktor" />
+            <option value="$PROJECT_DIR$/flaker-android-retrofit" />
             <option value="$PROJECT_DIR$/flaker-android-ui" />
-            <option value="$PROJECT_DIR$/flaker-ktor" />
-            <option value="$PROJECT_DIR$/flaker-retrofit" />
+            <option value="$PROJECT_DIR$/flaker-ktor-core" />
+            <option value="$PROJECT_DIR$/flaker-retrofit-core" />
           </set>
         </option>
       </GradleProjectSettings>

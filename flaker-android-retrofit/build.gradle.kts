@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "io.rotlabs.flakerandroidapp"
+    namespace = "io.rotlabs.flakerandroidretrofit"
     compileSdk = 33
 
     defaultConfig {
@@ -40,6 +40,9 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":flaker-android-ui"))
+    implementation(project(":flaker-retrofit-core"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

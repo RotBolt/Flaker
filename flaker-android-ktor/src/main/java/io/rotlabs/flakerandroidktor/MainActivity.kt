@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp
+package io.rotlabs.flakerandroidktor
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlakyNetworkSimulator">
         <activity
-            android:name=".MainActivity"
+            android:name="io.rotlabs.flakerandroidretrofit.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FlakyNetworkSimulator">

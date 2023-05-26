@@ -1,24 +1,24 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'flaker_ktor'
+    spec.name                     = 'flaker_ktor_core'
     spec.version                  = '0.0.1'
     spec.homepage                 = 'https://github.com/RotBolt/Flaker'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = 'Multiplatform Kotlin flaker library'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/FlakerKtorModule.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/FlakerKtorCoreModule.framework'
     spec.libraries                = 'c++'
                 
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':flaker-ktor',
-        'PRODUCT_MODULE_NAME' => 'FlakerKtorModule',
+        'KOTLIN_PROJECT_PATH' => ':flaker-ktor-core',
+        'PRODUCT_MODULE_NAME' => 'FlakerKtorCoreModule',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build flaker_ktor',
+            :name => 'Build flaker_ktor_core',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

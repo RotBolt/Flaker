@@ -12,7 +12,7 @@ version = "0.0.1"
 kotlin {
 
     android()
-    val frameworkName = "FlakerKtorModule"
+    val frameworkName = "FlakerKtorCoreModule"
     val xcFramework = XCFramework(frameworkName)
 
     ios() // Necessary for iosMain
@@ -43,7 +43,7 @@ kotlin {
 
         framework {
             // Required properties
-            baseName = "FlakerKtorModule"
+            baseName = "FlakerKtorCoreModule"
 
             // Optional properties
             isStatic = true
