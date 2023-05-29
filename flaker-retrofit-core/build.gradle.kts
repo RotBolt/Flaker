@@ -36,10 +36,13 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
+    implementation(project(":flaker-db"))
+
     implementation(libs.retrofit.mock)
     implementation(libs.okttp)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }

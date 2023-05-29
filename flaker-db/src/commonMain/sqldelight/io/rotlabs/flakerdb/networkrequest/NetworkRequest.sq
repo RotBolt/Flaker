@@ -1,0 +1,17 @@
+CREATE TABLE network_request (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    host TEXT NOT NULL,
+    path TEXT NOT NULL,
+    method TEXT NOT NULL,
+    request_time INTEGER NOT NULL,
+    response_code INTEGER NOT NULL,
+    response_time_taken INTEGER NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM network_request;
+
+insert:
+INSERT INTO network_request
+VALUES (?, ?, ?, ?, ?, ?, ?);

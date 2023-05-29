@@ -16,6 +16,7 @@ ktor = "2.3.0"
 constraintlayout = "2.1.4"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
+sqlDelight = "2.0.0-alpha05"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -37,6 +38,9 @@ material = { group = "com.google.android.material", name = "material", version.r
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 retrofit-mock = { group = "com.squareup.retrofit2", name = "retrofit-mock", version.ref = "retrofit" }
 okttp = {  group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+sqlDelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref="sqlDelight" }
+sqlDelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref="sqlDelight" }
+sqlDelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref="sqlDelight" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -44,6 +48,7 @@ androidTest = { id = "com.android.test", version.ref = "android-test" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
+sqlDelight = {id = "app.cash.sqldelight", version.ref = "sqlDelight"}
 
 [bundles]
 
