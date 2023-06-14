@@ -28,7 +28,27 @@ kotlin {
         }
     }
 
-    val iosMain by sourceSets.getting
+    val commonMain by sourceSets.getting {
+        dependencies {
+            implementation(libs.sqlDelight.primitive.adapters)
+        }
+    }
+    val commonTest by sourceSets.getting
+
+    val androidMain by sourceSets.getting {
+        dependsOn(commonMain)
+        dependencies {
+            implementation(libs.sqlDelight.android)
+        }
+    }
+    val androidUnitTest by sourceSets.getting
+
+    val iosMain by sourceSets.getting {
+        dependsOn(commonMain)
+        dependencies {
+            implementation(libs.sqlDelight.native)
+        }
+    }
     val iosTest by sourceSets.getting
     val iosSimulatorArm64Main by sourceSets.getting
     val iosSimulatorArm64Test by sourceSets.getting
@@ -56,19 +76,6 @@ kotlin {
         xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
         xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.RELEASE
     }
-
-    sourceSets["commonMain"].dependencies { }
-    sourceSets["commonTest"].dependencies {  }
-    sourceSets["androidMain"].dependencies {
-        implementation(libs.sqlDelight.android)
-
-    }
-    sourceSets["androidUnitTest"].dependencies {  }
-    sourceSets["iosMain"].dependencies {
-        implementation(libs.sqlDelight.native)
-    }
-    sourceSets["iosTest"].dependencies {  }
-
 }
 
 android {

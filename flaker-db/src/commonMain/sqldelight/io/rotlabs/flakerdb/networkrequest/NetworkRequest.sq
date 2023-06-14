@@ -1,3 +1,5 @@
+import kotlin.Boolean;
+
 CREATE TABLE network_request (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     host TEXT NOT NULL,
@@ -5,7 +7,8 @@ CREATE TABLE network_request (
     method TEXT NOT NULL,
     request_time INTEGER NOT NULL,
     response_code INTEGER NOT NULL,
-    response_time_taken INTEGER NOT NULL
+    response_time_taken INTEGER NOT NULL,
+    is_failed_by_flaker INTEGER AS Boolean NOT NULL
 );
 
 selectAll:
@@ -14,4 +17,4 @@ FROM network_request;
 
 insert:
 INSERT INTO network_request
-VALUES (?, ?, ?, ?, ?, ?, ?);
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);

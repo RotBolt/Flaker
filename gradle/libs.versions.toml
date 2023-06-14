@@ -40,6 +40,7 @@ retrofit-mock = { group = "com.squareup.retrofit2", name = "retrofit-mock", vers
 okttp = {  group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 sqlDelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref="sqlDelight" }
 sqlDelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref="sqlDelight" }
+sqlDelight-primitive-adapters = {group = "app.cash.sqldelight", name = "primitive-adapters", version.ref="sqlDelight" }
 sqlDelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref="sqlDelight" }
 
 [plugins]

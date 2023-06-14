@@ -1,48 +1,55 @@
 package io.rotlabs.flakerretrofit
 
 import android.content.Context
+import io.rotlabs.flakerdb.DriverFactory
+import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
+import okhttp3.Request
 import okhttp3.Response
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.mock.NetworkBehavior
 import java.util.concurrent.TimeUnit
 
-class FlakerInterceptor (
+class FlakerInterceptor private constructor(
     private val context: Context,
-    private val failResponse: FlakerFailResponse
+    private val failResponse: FlakerFailResponse,
+    private val flakerPrefs: FlakerPrefs,
+    private val networkRequestRepo: NetworkRequestRepo
 ): Interceptor{
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val prefs = FlakerPrefs.instance(context)
-
-        if (prefs.shouldIntercept()) {
+        if (flakerPrefs.shouldIntercept()) {
             val behavior = NetworkBehavior.create();
-            behavior.setDelay(prefs.getDelay(), TimeUnit.MILLISECONDS);
-            behavior.setFailurePercent(prefs.getFailPercent());
-            behavior.setVariancePercent(prefs.getVariancePercent());
+            behavior.setDelay(flakerPrefs.getDelay(), TimeUnit.MILLISECONDS);
+            behavior.setFailurePercent(flakerPrefs.getFailPercent());
+            behavior.setVariancePercent(flakerPrefs.getVariancePercent());
             try {
                 Thread.sleep(behavior.calculateDelay(TimeUnit.MILLISECONDS))
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
 
+            val request = chain.request()
+
             if (behavior.calculateIsFailure()) {
-                // TODO add fail transaction from flaker
-                return Response.Builder()
+                val flakerInterceptedResponse =  Response.Builder()
                     .code(failResponse.httpCode)
                     .protocol(Protocol.HTTP_1_1)
                     .message(failResponse.message)
                     .body(failResponse.responseBodyString.toResponseBody("text/plain".toMediaTypeOrNull()))
                     .request(chain.request())
                     .build()
+
+                saveNetworkTransaction(request, flakerInterceptedResponse)
+                return flakerInterceptedResponse
             }
 
-
-            // TODO add success transaction
-            return chain.proceed(chain.request())
+            val nonFlakerInterceptedResponse =  chain.proceed(chain.request())
+            saveNetworkTransaction(request, nonFlakerInterceptedResponse)
+            return nonFlakerInterceptedResponse
 
 
         } else {
@@ -51,8 +58,24 @@ class FlakerInterceptor (
 
     }
 
+    private fun saveNetworkTransaction(request: Request, response: Response) {
+        val networkRequest = NetworkRequest(
+            host = request.url.host,
+            path = request.url.pathSegments.joinToString("/"),
+            method = request.method,
+            requestTime = response.sentRequestAtMillis,
+            responseCode = response.code,
+            responseTimeTaken = response.receivedResponseAtMillis,
+            isFailedByFlaker = true
+        )
+
+        networkRequestRepo.insert(networkRequest)
+    }
+
     public class Builder(private val context: Context) {
         private var failResponse: FlakerFailResponse = FlakerFailResponse()
+        private val networkRequestRepo = NetworkRequestRepo(DriverFactory(context).createDriver())
+        private val flakerPrefs = FlakerPrefs.instance(context)
 
         fun failResponse(response: FlakerFailResponse): Builder {
             failResponse = response
@@ -61,7 +84,9 @@ class FlakerInterceptor (
 
         fun build(): FlakerInterceptor = FlakerInterceptor(
             context = context,
-            failResponse = failResponse
+            failResponse = failResponse,
+            flakerPrefs = flakerPrefs,
+            networkRequestRepo = networkRequestRepo
         )
     }
 }

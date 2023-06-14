@@ -19,7 +19,8 @@ class NetworkRequestRepo(sqlDriver: SqlDriver) {
             method = networkRequest.method,
             request_time = networkRequest.requestTime,
             response_code = networkRequest.responseCode.toLong(),
-            response_time_taken = networkRequest.responseTimeTaken
+            response_time_taken = networkRequest.responseTimeTaken,
+            is_failed_by_flaker = networkRequest.isFailedByFlaker
         )
     }
 }

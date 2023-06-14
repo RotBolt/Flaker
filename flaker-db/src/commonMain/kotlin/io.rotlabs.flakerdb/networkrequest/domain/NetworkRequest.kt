@@ -6,5 +6,6 @@ data class NetworkRequest(
     val method: String,
     val requestTime: Long,
     val responseCode: Int,
-    val responseTimeTaken: Long
+    val responseTimeTaken: Long,
+    val isFailedByFlaker: Boolean
 )
