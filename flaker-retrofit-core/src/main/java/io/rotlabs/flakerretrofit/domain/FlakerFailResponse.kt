@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerretrofit.domain
 
 data class FlakerFailResponse(
     val httpCode: Int = 500,

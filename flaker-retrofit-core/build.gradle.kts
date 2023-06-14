@@ -40,6 +40,7 @@ dependencies {
 
     implementation(libs.retrofit.mock)
     implementation(libs.okttp)
+    testImplementation(libs.mockwebserver)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

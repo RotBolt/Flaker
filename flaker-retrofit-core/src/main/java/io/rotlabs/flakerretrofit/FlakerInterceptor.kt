@@ -3,7 +3,11 @@ package io.rotlabs.flakerretrofit
 import android.content.Context
 import io.rotlabs.flakerdb.DriverFactory
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepoImpl
 import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
+import io.rotlabs.flakerretrofit.data.FlakerPrefs
+import io.rotlabs.flakerretrofit.data.FlakerPrefsImpl
+import io.rotlabs.flakerretrofit.domain.FlakerFailResponse
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
@@ -13,8 +17,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.mock.NetworkBehavior
 import java.util.concurrent.TimeUnit
 
-class FlakerInterceptor private constructor(
-    private val context: Context,
+class FlakerInterceptor internal constructor(
     private val failResponse: FlakerFailResponse,
     private val flakerPrefs: FlakerPrefs,
     private val networkRequestRepo: NetworkRequestRepo
@@ -74,19 +77,15 @@ class FlakerInterceptor private constructor(
 
     public class Builder(private val context: Context) {
         private var failResponse: FlakerFailResponse = FlakerFailResponse()
-        private val networkRequestRepo = NetworkRequestRepo(DriverFactory(context).createDriver())
-        private val flakerPrefs = FlakerPrefs.instance(context)
 
         fun failResponse(response: FlakerFailResponse): Builder {
             failResponse = response
             return this
         }
-
-        fun build(): FlakerInterceptor = FlakerInterceptor(
-            context = context,
-            failResponse = failResponse,
-            flakerPrefs = flakerPrefs,
-            networkRequestRepo = networkRequestRepo
-        )
+        fun build(): FlakerInterceptor {
+            val networkRequestRepo = NetworkRequestRepoImpl(DriverFactory(context).createDriver())
+            val flakerPrefs : FlakerPrefs = FlakerPrefsImpl.instance(context)
+            return FlakerInterceptor(failResponse, flakerPrefs, networkRequestRepo)
+        }
     }
 }
