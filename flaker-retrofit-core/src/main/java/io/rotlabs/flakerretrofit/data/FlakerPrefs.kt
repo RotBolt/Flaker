@@ -1,6 +1,6 @@
 package io.rotlabs.flakerretrofit.data
 
-internal interface FlakerPrefs {
+interface FlakerPrefs {
     fun shouldIntercept(): Boolean
     fun getDelay(): Long
     fun getFailPercent(): Int

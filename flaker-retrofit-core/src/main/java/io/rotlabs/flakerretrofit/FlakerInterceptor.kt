@@ -1,12 +1,11 @@
 package io.rotlabs.flakerretrofit
 
 import android.content.Context
-import io.rotlabs.flakerdb.DriverFactory
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepoImpl
+import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepoProvider
 import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
 import io.rotlabs.flakerretrofit.data.FlakerPrefs
-import io.rotlabs.flakerretrofit.data.FlakerPrefsImpl
+import io.rotlabs.flakerretrofit.data.FlakerPrefsProvider
 import io.rotlabs.flakerretrofit.domain.FlakerFailResponse
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -17,11 +16,11 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.mock.NetworkBehavior
 import java.util.concurrent.TimeUnit
 
-class FlakerInterceptor internal constructor(
+class FlakerInterceptor private constructor(
     private val failResponse: FlakerFailResponse,
     private val flakerPrefs: FlakerPrefs,
     private val networkRequestRepo: NetworkRequestRepo
-): Interceptor{
+): Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (flakerPrefs.shouldIntercept()) {
@@ -54,7 +53,6 @@ class FlakerInterceptor internal constructor(
             saveNetworkTransaction(request, nonFlakerInterceptedResponse)
             return nonFlakerInterceptedResponse
 
-
         } else {
            return chain.proceed(chain.request())
         }
@@ -76,15 +74,32 @@ class FlakerInterceptor internal constructor(
     }
 
     public class Builder(private val context: Context) {
+
         private var failResponse: FlakerFailResponse = FlakerFailResponse()
+        private var networkRequestRepoProvider: NetworkRequestRepoProvider? = null
+        private var flakerPrefsProvider: FlakerPrefsProvider? = null
+
+        private fun networkRequestRepoProvider(): NetworkRequestRepoProvider = networkRequestRepoProvider ?: NetworkRequestRepoProvider(context)
+
+        private fun flakerPrefsProvider(): FlakerPrefsProvider = flakerPrefsProvider ?: FlakerPrefsProvider(context)
+
+        internal constructor(
+            context: Context,
+            networkRequestRepoProvider: NetworkRequestRepoProvider,
+            flakerPrefsProvider: FlakerPrefsProvider
+        ) : this(context) {
+            this.networkRequestRepoProvider = networkRequestRepoProvider
+            this.flakerPrefsProvider = flakerPrefsProvider
+        }
 
         fun failResponse(response: FlakerFailResponse): Builder {
             failResponse = response
             return this
         }
+
         fun build(): FlakerInterceptor {
-            val networkRequestRepo = NetworkRequestRepoImpl(DriverFactory(context).createDriver())
-            val flakerPrefs : FlakerPrefs = FlakerPrefsImpl.instance(context)
+            val networkRequestRepo = networkRequestRepoProvider().provide()
+            val flakerPrefs : FlakerPrefs = flakerPrefsProvider().provide()
             return FlakerInterceptor(failResponse, flakerPrefs, networkRequestRepo)
         }
     }

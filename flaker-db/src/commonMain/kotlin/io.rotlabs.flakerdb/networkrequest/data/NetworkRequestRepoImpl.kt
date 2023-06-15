@@ -4,7 +4,8 @@ import app.cash.sqldelight.db.SqlDriver
 import io.rotlabs.flakerdb.FlakerDatabase
 import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
 
-class NetworkRequestRepoImpl(sqlDriver: SqlDriver) : NetworkRequestRepo {
+internal class NetworkRequestRepoImpl(sqlDriver: SqlDriver) : NetworkRequestRepo {
+
     private val db: FlakerDatabase = FlakerDatabase(sqlDriver)
 
     private val networkRequestQueries = db.networkRequestQueries

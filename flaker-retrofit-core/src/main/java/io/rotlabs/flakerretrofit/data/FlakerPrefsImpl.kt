@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import io.rotlabs.flakerretrofit.domain.FLAKER_SHARED_PREFS
 
-internal class FlakerPrefsImpl private constructor(private val sharedPrefs: SharedPreferences) : FlakerPrefs {
+internal class FlakerPrefsImpl(context: Context) : FlakerPrefs {
+
+    private val sharedPrefs: SharedPreferences = context.getSharedPreferences(FLAKER_SHARED_PREFS, Context.MODE_PRIVATE)
 
     override fun shouldIntercept(): Boolean {
         return sharedPrefs.getBoolean(FLAKER_PREF_SHOULD_INTERCEPT, false)
@@ -20,12 +22,5 @@ internal class FlakerPrefsImpl private constructor(private val sharedPrefs: Shar
 
     override fun getVariancePercent(): Int {
         return sharedPrefs.getInt(FLAKER_PREF_VARIANCE_PERCENT, 0)
-    }
-
-    companion object {
-        fun instance(context: Context): FlakerPrefsImpl {
-            val sharedPrefs = context.getSharedPreferences(FLAKER_SHARED_PREFS, Context.MODE_PRIVATE)
-            return FlakerPrefsImpl(sharedPrefs)
-        }
     }
 }
