@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerretrofit.domain
 
 internal const val FLAKER_FAIL_RESPONSE_STRING = "Failed by flaker"
 
