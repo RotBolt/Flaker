@@ -11,10 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
-import io.rotlabs.flakerretrofit.FlakerInterceptor
-import io.rotlabs.flakerretrofit.data.FlakerPrefs
-import io.rotlabs.flakerretrofit.data.FlakerPrefsImpl
-import io.rotlabs.flakerretrofit.domain.FlakerFailResponse
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

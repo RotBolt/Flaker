@@ -17,6 +17,7 @@ constraintlayout = "2.1.4"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
 sqlDelight = "2.0.0-alpha05"
+detekt = "1.23.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -43,6 +44,7 @@ sqlDelight-android = { group = "app.cash.sqldelight", name = "android-driver", v
 sqlDelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref="sqlDelight" }
 sqlDelight-primitive-adapters = {group = "app.cash.sqldelight", name = "primitive-adapters", version.ref="sqlDelight" }
 sqlDelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref="sqlDelight" }
+detektformatiing = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -51,6 +53,7 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 sqlDelight = {id = "app.cash.sqldelight", version.ref = "sqlDelight"}
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [bundles]
 

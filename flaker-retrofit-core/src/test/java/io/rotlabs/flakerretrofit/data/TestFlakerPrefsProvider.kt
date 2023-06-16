@@ -2,7 +2,7 @@ package io.rotlabs.flakerretrofit.data
 
 import android.content.Context
 
-class TestFlakerPrefsProvider(context: Context): FlakerPrefsProvider(context) {
+class TestFlakerPrefsProvider(context: Context) : FlakerPrefsProvider(context) {
 
     private val flakerPrefsFakeFail = object : FlakerPrefs {
         override fun shouldIntercept(): Boolean = true
@@ -41,8 +41,8 @@ class TestFlakerPrefsProvider(context: Context): FlakerPrefsProvider(context) {
     }
 
     override fun provide(): FlakerPrefs {
-        val versionToUse = version ?: throw IllegalStateException("Version not set")
-        return when(versionToUse) {
+        val versionToUse = version ?: error("No version set")
+        return when (versionToUse) {
             Version.FAKE_FAIL -> flakerPrefsFakeFail
             Version.FAKE_SUCCESS -> flakerPrefsFakeSuccess
             Version.FAKE_NO_INTERCEPT -> flakerPrefsFakeNoIntercept
