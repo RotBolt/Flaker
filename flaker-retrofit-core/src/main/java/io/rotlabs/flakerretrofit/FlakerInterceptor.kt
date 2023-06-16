@@ -20,24 +20,24 @@ class FlakerInterceptor private constructor(
     private val failResponse: FlakerFailResponse,
     private val flakerPrefs: FlakerPrefs,
     private val networkRequestRepo: NetworkRequestRepo
-): Interceptor {
+) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (flakerPrefs.shouldIntercept()) {
-            val behavior = NetworkBehavior.create();
-            behavior.setDelay(flakerPrefs.getDelay(), TimeUnit.MILLISECONDS);
-            behavior.setFailurePercent(flakerPrefs.getFailPercent());
-            behavior.setVariancePercent(flakerPrefs.getVariancePercent());
+            val behavior = NetworkBehavior.create()
+            behavior.setDelay(flakerPrefs.getDelay(), TimeUnit.MILLISECONDS)
+            behavior.setFailurePercent(flakerPrefs.getFailPercent())
+            behavior.setVariancePercent(flakerPrefs.getVariancePercent())
             try {
                 Thread.sleep(behavior.calculateDelay(TimeUnit.MILLISECONDS))
             } catch (e: InterruptedException) {
-                e.printStackTrace()
+                // TODO add debug log later
             }
 
             val request = chain.request()
 
             if (behavior.calculateIsFailure()) {
-                val flakerInterceptedResponse =  Response.Builder()
+                val flakerInterceptedResponse = Response.Builder()
                     .code(failResponse.httpCode)
                     .protocol(Protocol.HTTP_1_1)
                     .message(failResponse.message)
@@ -49,14 +49,12 @@ class FlakerInterceptor private constructor(
                 return flakerInterceptedResponse
             }
 
-            val nonFlakerInterceptedResponse =  chain.proceed(chain.request())
+            val nonFlakerInterceptedResponse = chain.proceed(chain.request())
             saveNetworkTransaction(request, nonFlakerInterceptedResponse)
             return nonFlakerInterceptedResponse
-
         } else {
-           return chain.proceed(chain.request())
+            return chain.proceed(chain.request())
         }
-
     }
 
     private fun saveNetworkTransaction(request: Request, response: Response) {
@@ -79,7 +77,9 @@ class FlakerInterceptor private constructor(
         private var networkRequestRepoProvider: NetworkRequestRepoProvider? = null
         private var flakerPrefsProvider: FlakerPrefsProvider? = null
 
-        private fun networkRequestRepoProvider(): NetworkRequestRepoProvider = networkRequestRepoProvider ?: NetworkRequestRepoProvider(context)
+        private fun networkRequestRepoProvider(): NetworkRequestRepoProvider {
+            return networkRequestRepoProvider ?: NetworkRequestRepoProvider(context)
+        }
 
         private fun flakerPrefsProvider(): FlakerPrefsProvider = flakerPrefsProvider ?: FlakerPrefsProvider(context)
 
@@ -99,7 +99,7 @@ class FlakerInterceptor private constructor(
 
         fun build(): FlakerInterceptor {
             val networkRequestRepo = networkRequestRepoProvider().provide()
-            val flakerPrefs : FlakerPrefs = flakerPrefsProvider().provide()
+            val flakerPrefs: FlakerPrefs = flakerPrefsProvider().provide()
             return FlakerInterceptor(failResponse, flakerPrefs, networkRequestRepo)
         }
     }

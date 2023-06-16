@@ -24,10 +24,14 @@ class FlakerInterceptorTest {
     private val testFlakerPrefsProvider = TestFlakerPrefsProvider(fakeContext)
 
     @Test
-    fun `GIVEN flakerPrefs shouldIntercept true and fail rate is 100 WHEN request intercepted THEN it should give fail response`() {
+    fun `GIVEN shouldIntercept true, fail rate 100 WHEN request intercepted THEN it should give fail response`() {
         testFlakerPrefsProvider.setVersion(TestFlakerPrefsProvider.Version.FAKE_FAIL)
 
-        flakerInterceptor = FlakerInterceptor.Builder(fakeContext, testNetworkRequestRepoProvider, testFlakerPrefsProvider)
+        flakerInterceptor = FlakerInterceptor.Builder(
+            fakeContext,
+            testNetworkRequestRepoProvider,
+            testFlakerPrefsProvider
+        )
             .failResponse(flakerFailResponse)
             .build()
 
@@ -44,7 +48,11 @@ class FlakerInterceptorTest {
     fun `GIVEN flakerPrefs shouldIntercept false WHEN request intercepted THEN it should give server response`() {
         testFlakerPrefsProvider.setVersion(TestFlakerPrefsProvider.Version.FAKE_NO_INTERCEPT)
 
-        flakerInterceptor = FlakerInterceptor.Builder(fakeContext, testNetworkRequestRepoProvider, testFlakerPrefsProvider)
+        flakerInterceptor = FlakerInterceptor.Builder(
+            fakeContext,
+            testNetworkRequestRepoProvider,
+            testFlakerPrefsProvider
+        )
             .failResponse(flakerFailResponse)
             .build()
 
@@ -67,10 +75,14 @@ class FlakerInterceptorTest {
     }
 
     @Test
-    fun `GIVEN flakerPrefs shouldIntercept true and fail rate is 0 WHEN request intercepted THEN it should give server response`() {
+    fun `GIVEN shouldIntercept true, fail rate is 0 WHEN request intercepted THEN it should give server response`() {
         testFlakerPrefsProvider.setVersion(TestFlakerPrefsProvider.Version.FAKE_SUCCESS)
 
-        flakerInterceptor = FlakerInterceptor.Builder(fakeContext, testNetworkRequestRepoProvider, testFlakerPrefsProvider)
+        flakerInterceptor = FlakerInterceptor.Builder(
+            fakeContext,
+            testNetworkRequestRepoProvider,
+            testFlakerPrefsProvider
+        )
             .failResponse(flakerFailResponse)
             .build()
 

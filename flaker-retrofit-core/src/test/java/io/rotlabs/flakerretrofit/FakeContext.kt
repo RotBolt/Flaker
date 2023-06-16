@@ -29,7 +29,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
 
-class FakeContext: Context() {
+class FakeContext : Context() {
     override fun getAssets(): AssetManager {
         TODO("Fake Context. No implementation")
     }
@@ -166,11 +166,20 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun openOrCreateDatabase(name: String?, mode: Int, factory: SQLiteDatabase.CursorFactory?): SQLiteDatabase {
+    override fun openOrCreateDatabase(
+        name: String?,
+        mode: Int,
+        factory: SQLiteDatabase.CursorFactory?
+    ): SQLiteDatabase {
         TODO("Fake Context. No implementation")
     }
 
-    override fun openOrCreateDatabase(name: String?, mode: Int, factory: SQLiteDatabase.CursorFactory?, errorHandler: DatabaseErrorHandler?): SQLiteDatabase {
+    override fun openOrCreateDatabase(
+        name: String?,
+        mode: Int,
+        factory: SQLiteDatabase.CursorFactory?,
+        errorHandler: DatabaseErrorHandler?
+    ): SQLiteDatabase {
         TODO("Fake Context. No implementation")
     }
 
@@ -234,11 +243,24 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun startIntentSender(intent: IntentSender?, fillInIntent: Intent?, flagsMask: Int, flagsValues: Int, extraFlags: Int) {
+    override fun startIntentSender(
+        intent: IntentSender?,
+        fillInIntent: Intent?,
+        flagsMask: Int,
+        flagsValues: Int,
+        extraFlags: Int
+    ) {
         TODO("Fake Context. No implementation")
     }
 
-    override fun startIntentSender(intent: IntentSender?, fillInIntent: Intent?, flagsMask: Int, flagsValues: Int, extraFlags: Int, options: Bundle?) {
+    override fun startIntentSender(
+        intent: IntentSender?,
+        fillInIntent: Intent?,
+        flagsMask: Int,
+        flagsValues: Int,
+        extraFlags: Int,
+        options: Bundle?
+    ) {
         TODO("Fake Context. No implementation")
     }
 
@@ -254,8 +276,15 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun sendOrderedBroadcast(intent: Intent, receiverPermission: String?, resultReceiver: BroadcastReceiver?, scheduler: Handler?, initialCode: Int,
-                                      initialData: String?, initialExtras: Bundle?) {
+    override fun sendOrderedBroadcast(
+        intent: Intent,
+        receiverPermission: String?,
+        resultReceiver: BroadcastReceiver?,
+        scheduler: Handler?,
+        initialCode: Int,
+        initialData: String?,
+        initialExtras: Bundle?
+    ) {
         TODO("Fake Context. No implementation")
     }
 
@@ -267,8 +296,16 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun sendOrderedBroadcastAsUser(intent: Intent?, user: UserHandle?, receiverPermission: String?, resultReceiver: BroadcastReceiver?,
-                                            scheduler: Handler?, initialCode: Int, initialData: String?, initialExtras: Bundle?) {
+    override fun sendOrderedBroadcastAsUser(
+        intent: Intent?,
+        user: UserHandle?,
+        receiverPermission: String?,
+        resultReceiver: BroadcastReceiver?,
+        scheduler: Handler?,
+        initialCode: Int,
+        initialData: String?,
+        initialExtras: Bundle?
+    ) {
         TODO("Fake Context. No implementation")
     }
 
@@ -276,8 +313,14 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun sendStickyOrderedBroadcast(intent: Intent?, resultReceiver: BroadcastReceiver?, scheduler: Handler?, initialCode: Int, initialData: String?,
-                                            initialExtras: Bundle?) {
+    override fun sendStickyOrderedBroadcast(
+        intent: Intent?,
+        resultReceiver: BroadcastReceiver?,
+        scheduler: Handler?,
+        initialCode: Int,
+        initialData: String?,
+        initialExtras: Bundle?
+    ) {
         TODO("Fake Context. No implementation")
     }
 
@@ -289,8 +332,15 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun sendStickyOrderedBroadcastAsUser(intent: Intent?, user: UserHandle?, resultReceiver: BroadcastReceiver?, scheduler: Handler?, initialCode: Int,
-                                                  initialData: String?, initialExtras: Bundle?) {
+    override fun sendStickyOrderedBroadcastAsUser(
+        intent: Intent?,
+        user: UserHandle?,
+        resultReceiver: BroadcastReceiver?,
+        scheduler: Handler?,
+        initialCode: Int,
+        initialData: String?,
+        initialExtras: Bundle?
+    ) {
         TODO("Fake Context. No implementation")
     }
 
@@ -306,11 +356,22 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun registerReceiver(receiver: BroadcastReceiver?, filter: IntentFilter?, broadcastPermission: String?, scheduler: Handler?): Intent? {
+    override fun registerReceiver(
+        receiver: BroadcastReceiver?,
+        filter: IntentFilter?,
+        broadcastPermission: String?,
+        scheduler: Handler?
+    ): Intent? {
         TODO("Fake Context. No implementation")
     }
 
-    override fun registerReceiver(receiver: BroadcastReceiver?, filter: IntentFilter?, broadcastPermission: String?, scheduler: Handler?, flags: Int): Intent? {
+    override fun registerReceiver(
+        receiver: BroadcastReceiver?,
+        filter: IntentFilter?,
+        broadcastPermission: String?,
+        scheduler: Handler?,
+        flags: Int
+    ): Intent? {
         TODO("Fake Context. No implementation")
     }
 
@@ -394,7 +455,14 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun checkUriPermission(uri: Uri?, readPermission: String?, writePermission: String?, pid: Int, uid: Int, modeFlags: Int): Int {
+    override fun checkUriPermission(
+        uri: Uri?,
+        readPermission: String?,
+        writePermission: String?,
+        pid: Int,
+        uid: Int,
+        modeFlags: Int
+    ): Int {
         TODO("Fake Context. No implementation")
     }
 
@@ -410,7 +478,15 @@ class FakeContext: Context() {
         TODO("Fake Context. No implementation")
     }
 
-    override fun enforceUriPermission(uri: Uri?, readPermission: String?, writePermission: String?, pid: Int, uid: Int, modeFlags: Int, message: String?) {
+    override fun enforceUriPermission(
+        uri: Uri?,
+        readPermission: String?,
+        writePermission: String?,
+        pid: Int,
+        uid: Int,
+        modeFlags: Int,
+        message: String?
+    ) {
         TODO("Fake Context. No implementation")
     }
 
