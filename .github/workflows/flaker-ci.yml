@@ -1,5 +1,5 @@
-name: build-and-test-project
-run-name: Project build and test
+name: flaker-ci
+run-name: flaker CI
 on: [push]
 jobs:
   projectbuild:
