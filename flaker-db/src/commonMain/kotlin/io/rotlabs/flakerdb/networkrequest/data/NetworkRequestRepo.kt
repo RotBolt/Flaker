@@ -1,9 +1,8 @@
 package io.rotlabs.flakerdb.networkrequest.data
 
-import io.rotlabs.flakerdb.networkrequest.Network_request
-import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
+import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 
 interface NetworkRequestRepo {
-    fun selectAll(): List<Network_request>
+    fun selectAll(): List<NetworkRequest>
     fun insert(networkRequest: NetworkRequest)
 }

@@ -1,13 +1,12 @@
 package io.rotlabs.flakerdb.networkrequest.data
 
 import android.content.Context
-import io.rotlabs.flakerdb.networkrequest.Network_request
-import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
+import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 
 class NoOpNetworkRequestRepoProvider(context: Context): NetworkRequestRepoProvider(context) {
 
     private val noOpNetworkRequestRepo = object : NetworkRequestRepo {
-        override fun selectAll(): List<Network_request> {
+        override fun selectAll(): List<NetworkRequest> {
             return emptyList()
         }
 

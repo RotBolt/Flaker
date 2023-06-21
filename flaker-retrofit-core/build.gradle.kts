@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
+    implementation(project(":flaker-domain"))
     implementation(project(":flaker-db"))
 
     implementation(libs.retrofit.mock)

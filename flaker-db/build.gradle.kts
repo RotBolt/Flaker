@@ -31,6 +31,7 @@ kotlin {
     val commonMain by sourceSets.getting {
         dependencies {
             implementation(libs.sqlDelight.primitive.adapters)
+            implementation(project(":flaker-domain"))
         }
     }
     val commonTest by sourceSets.getting
