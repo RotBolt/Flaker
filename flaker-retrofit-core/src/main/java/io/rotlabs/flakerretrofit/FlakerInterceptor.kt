@@ -1,9 +1,9 @@
 package io.rotlabs.flakerretrofit
 
 import android.content.Context
+import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepoProvider
-import io.rotlabs.flakerdb.networkrequest.domain.NetworkRequest
 import io.rotlabs.flakerretrofit.data.FlakerPrefs
 import io.rotlabs.flakerretrofit.data.FlakerPrefsProvider
 import io.rotlabs.flakerretrofit.domain.FlakerFailResponse
@@ -63,7 +63,7 @@ class FlakerInterceptor private constructor(
             path = request.url.pathSegments.joinToString("/"),
             method = request.method,
             requestTime = response.sentRequestAtMillis,
-            responseCode = response.code,
+            responseCode = response.code.toLong(),
             responseTimeTaken = response.receivedResponseAtMillis,
             isFailedByFlaker = true
         )
