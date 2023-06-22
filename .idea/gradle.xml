@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/flaker-domain" />
             <option value="$PROJECT_DIR$/flaker-ktor-core" />
             <option value="$PROJECT_DIR$/flaker-retrofit-core" />
+            <option value="$PROJECT_DIR$/flakersampleapp" />
           </set>
         </option>
       </GradleProjectSettings>
