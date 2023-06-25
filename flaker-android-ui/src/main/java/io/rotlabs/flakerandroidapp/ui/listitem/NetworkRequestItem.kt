@@ -87,9 +87,8 @@ fun NetworkRequestItem(
                         .padding(vertical = 8.dp)
                         .align(Alignment.Start)
                 ) {
-                    val localTime = Instant.fromEpochMilliseconds(networkRequest.requestTime).toLocalDateTime(
-                        TimeZone.currentSystemDefault()
-                    )
+                    val localTime = Instant.fromEpochMilliseconds(networkRequest.requestTime)
+                        .toLocalDateTime(TimeZone.currentSystemDefault())
 
                     Text(
                         text = localTime.time.toString().substringBefore("."),
@@ -142,10 +141,10 @@ fun NetworkRequestItemPreview() {
                     host = "localhost:8080",
                     path = "v1/sample/path",
                     method = "GET",
-                    requestTime = System.currentTimeMillis(),
+                    requestTime = 1687673435000,
                     responseTimeTaken = 145L,
                     responseCode = if (it == 0) 200 else if (it == 1) 300 else 404,
-                    isFailedByFlaker = true
+                    isFailedByFlaker = it >= 2
                 )
                 NetworkRequestItem(networkRequest = networkRequest, modifier = Modifier.padding(16.dp))
             }
