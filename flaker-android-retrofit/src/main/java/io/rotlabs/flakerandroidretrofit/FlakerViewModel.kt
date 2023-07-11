@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerretrofit.data.FlakerRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,17 +16,24 @@ class FlakerViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _viewStateFlow = MutableStateFlow<ViewState>(ViewState())
+    private val _viewStateFlow = MutableStateFlow(ViewState())
     val viewStateFlow = _viewStateFlow.asStateFlow()
 
     data class ViewState(
         val isFlakerOn: Boolean = false,
-        val networkRequests: List<NetworkRequest> = emptyList()
+        val networkRequests: List<NetworkRequestUi> = emptyList()
     )
 
     suspend fun loadAllRequests() {
         val list = flakerRepo.allRequests()
-        _viewStateFlow.emit(_viewStateFlow.value.copy(networkRequests = list))
+        val uiList: List<NetworkRequestUi> = list
+            .map { NetworkRequestUi.NetworkRequestItem(it) }
+            .groupBy { it.networkRequest.requestTime }
+            .entries
+            .flatMap { (dateLong, items) ->
+                listOf(NetworkRequestUi.DateItem(dateLong.toString())) + items
+            }
+        _viewStateFlow.emit(_viewStateFlow.value.copy(networkRequests = uiList))
     }
 
     companion object {
