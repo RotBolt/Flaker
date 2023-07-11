@@ -4,21 +4,30 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItemPreview
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
 import io.rotlabs.flakerandroidapp.R as CompanionAppResource
 
@@ -31,24 +40,27 @@ class FlakerActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val rootModifier = Modifier.padding(16.dp)
+            val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
             val state by viewModel.viewStateFlow.collectAsState()
 
             FlakerAndroidTheme {
                 Scaffold(
-                    topBar = { FlakerBar(state = state, onToggleChange = {}) }
+                    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                    topBar = { FlakerBar(state = state, scrollBehavior = scrollBehavior, onToggleChange = {}) }
                 ) {
-                    NetworkRequestList(modifier = rootModifier.padding(it), state = state)
+                    NetworkRequestList(modifier = Modifier.padding(it), state = state)
                 }
             }
         }
     }
 
+    @Suppress("UnusedParameter", "MagicNumber")
     @Composable
     private fun NetworkRequestList(modifier: Modifier = Modifier, state: FlakerViewModel.ViewState) {
         LazyColumn(modifier = modifier) {
-            items(state.networkRequests, key = null) {
+            items(10) {
+                NetworkRequestItemPreview()
             }
         }
     }
@@ -57,19 +69,27 @@ class FlakerActivity : ComponentActivity() {
     private fun FlakerBar(
         modifier: Modifier = Modifier,
         state: FlakerViewModel.ViewState,
-        onToggleChange: (Boolean) -> Unit
+        onToggleChange: (Boolean) -> Unit,
+        scrollBehavior: TopAppBarScrollBehavior
     ) {
-        TopAppBar(
+        LargeTopAppBar(
             modifier = modifier,
+            scrollBehavior = scrollBehavior,
             title = {
                 Text(text = stringResource(id = CompanionAppResource.string.companion_app_name))
             },
             actions = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search network requests")
+                }
+
                 Switch(
                     checked = state.isFlakerOn,
                     onCheckedChange = onToggleChange,
                     modifier = Modifier.wrapContentWidth()
                 )
+
+                Spacer(modifier = Modifier.size(16.dp))
             }
         )
     }

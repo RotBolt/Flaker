@@ -134,7 +134,7 @@ fun getStatusCodeColor(statusCode: Long): Color {
 @Suppress("UnusedPrivateMember")
 @Composable
 @Preview
-private fun NetworkRequestItemPreview() {
+fun NetworkRequestItemPreview() {
     FlakerAndroidTheme {
         Column {
             repeat(4) {
