@@ -131,6 +131,7 @@ fun getStatusCodeColor(statusCode: Long): Color {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Composable
 @Preview
 fun NetworkRequestItemPreview() {

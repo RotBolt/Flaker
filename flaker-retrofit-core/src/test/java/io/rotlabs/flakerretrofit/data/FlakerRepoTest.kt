@@ -49,12 +49,25 @@ class FlakerRepoTest {
         }
     }
 
+    private val testFlakerPrefsProvider: FlakerPrefsProvider = TestFlakerPrefsProvider(fakeContext).apply {
+        setVersion(TestFlakerPrefsProvider.Version.FAKE_SUCCESS)
+    }
+
     @Test
     fun `GIVEN networkRequestRepo has data WHEN flakerRepos allRequests() called THEN it should return same data`() {
-        val flakerRepo = FlakerRepo(fakeContext, testNetworkRequestRepoProvider)
+        val flakerRepo = FlakerRepo(fakeContext, testNetworkRequestRepoProvider, testFlakerPrefsProvider)
 
         val result = flakerRepo.allRequests()
 
         assert(result == fakeFlakerDataList)
+    }
+
+    @Test
+    fun `GIVEN flakerPrefsProvider shouldIntercept WHEN flakerRepos isFlakerOn called THEN it should return true`() {
+        val flakerRepo = FlakerRepo(fakeContext, testNetworkRequestRepoProvider, testFlakerPrefsProvider)
+
+        val result = flakerRepo.isFlakerOn()
+
+        assert(result)
     }
 }
