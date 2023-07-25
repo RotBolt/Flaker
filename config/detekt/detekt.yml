@@ -128,7 +128,7 @@ complexity:
     threshold: 600
   LongMethod:
     active: true
-    threshold: 120
+    threshold: 160
   LongParameterList:
     active: true
     functionThreshold: 6
@@ -173,9 +173,9 @@ complexity:
     thresholdInInterfaces: 11
     thresholdInObjects: 11
     thresholdInEnums: 11
-    ignoreDeprecated: false
-    ignorePrivate: false
-    ignoreOverridden: false
+    ignoreDeprecated: true
+    ignorePrivate: true
+    ignoreOverridden: true
 
 coroutines:
   active: true

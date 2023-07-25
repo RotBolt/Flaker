@@ -4,17 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -23,11 +29,12 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItemPreview
+import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItem
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
 import io.rotlabs.flakerandroidapp.R as CompanionAppResource
 
@@ -47,20 +54,49 @@ class FlakerActivity : ComponentActivity() {
             FlakerAndroidTheme {
                 Scaffold(
                     modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                    topBar = { FlakerBar(state = state, scrollBehavior = scrollBehavior, onToggleChange = {}) }
-                ) {
-                    NetworkRequestList(modifier = Modifier.padding(it), state = state)
+                    topBar = {
+                        FlakerBar(
+                            state = state,
+                            scrollBehavior = scrollBehavior,
+                            onToggleChange = viewModel::toggleFlaker
+                        )
+                    }
+                ) { scaffoldPadding ->
+                    NetworkRequestList(modifier = Modifier.padding(scaffoldPadding), state = state)
                 }
             }
         }
     }
 
-    @Suppress("UnusedParameter", "MagicNumber")
     @Composable
     private fun NetworkRequestList(modifier: Modifier = Modifier, state: FlakerViewModel.ViewState) {
-        LazyColumn(modifier = modifier) {
-            items(10) {
-                NetworkRequestItemPreview()
+        if (state.showNoRequests) {
+            Column(verticalArrangement = Arrangement.Center, modifier = modifier.fillMaxSize()) {
+                Text(
+                    text = stringResource(R.string.no_requests_yet),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
+        } else {
+            LazyColumn(modifier = modifier) {
+                items(state.networkRequests) { item ->
+                    when (item) {
+                        is NetworkRequestUi.NetworkRequestItem -> {
+                            NetworkRequestItem(
+                                networkRequest = item.networkRequest,
+                                modifier = Modifier.padding(horizontal = 16.dp)
+                            )
+                        }
+                        is NetworkRequestUi.DateItem -> {
+                            Spacer(modifier = Modifier.size(8.dp))
+                            Text(text = item.formattedString, modifier = Modifier.padding(horizontal = 16.dp))
+                            Spacer(modifier = Modifier.size(8.dp))
+                        }
+                    }
+                }
             }
         }
     }
@@ -76,20 +112,31 @@ class FlakerActivity : ComponentActivity() {
             modifier = modifier,
             scrollBehavior = scrollBehavior,
             title = {
-                Text(text = stringResource(id = CompanionAppResource.string.companion_app_name))
+                Text(
+                    text = stringResource(id = CompanionAppResource.string.companion_app_name),
+                    color = MaterialTheme.colorScheme.primary
+                )
             },
             actions = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search network requests")
-                }
-
                 Switch(
                     checked = state.isFlakerOn,
                     onCheckedChange = onToggleChange,
                     modifier = Modifier.wrapContentWidth()
                 )
 
-                Spacer(modifier = Modifier.size(16.dp))
+                Spacer(modifier = Modifier.size(8.dp))
+
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search network requests")
+                }
+
+                Spacer(modifier = Modifier.size(4.dp))
+
+                IconButton(onClick = { /*TODO Add Prefs Dialog UI*/ }) {
+                    Icon(imageVector = Icons.Outlined.Settings, contentDescription = "Search network requests")
+                }
+
+                Spacer(modifier = Modifier.size(8.dp))
             }
         )
     }

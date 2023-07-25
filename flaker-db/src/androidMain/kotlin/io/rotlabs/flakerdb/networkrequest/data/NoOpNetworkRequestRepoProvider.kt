@@ -2,6 +2,8 @@ package io.rotlabs.flakerdb.networkrequest.data
 
 import android.content.Context
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 class NoOpNetworkRequestRepoProvider(context: Context): NetworkRequestRepoProvider(context) {
 
@@ -12,6 +14,10 @@ class NoOpNetworkRequestRepoProvider(context: Context): NetworkRequestRepoProvid
 
         override fun insert(networkRequest: NetworkRequest) {
             // do nothing
+        }
+
+        override fun observeAll(): Flow<List<NetworkRequest>> {
+            return emptyFlow()
         }
     }
     override fun provide(): NetworkRequestRepo {
