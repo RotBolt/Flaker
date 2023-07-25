@@ -31,6 +31,8 @@ kotlin {
     val commonMain by sourceSets.getting {
         dependencies {
             implementation(libs.sqlDelight.primitive.adapters)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.sqlDelight.coroutines.extensions)
             implementation(project(":flaker-domain"))
         }
     }

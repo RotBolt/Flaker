@@ -1,13 +1,24 @@
 package io.rotlabs.flakerretrofit.data
 
 import android.content.Context
+import app.cash.turbine.test
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepoProvider
 import io.rotlabs.flakerretrofit.FakeContext
+import io.rotlabs.flakerretrofit.MainDispatcherRule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
+import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class FlakerRepoTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private val fakeContext: Context = FakeContext()
 
@@ -42,6 +53,10 @@ class FlakerRepoTest {
             }
 
             override fun insert(networkRequest: NetworkRequest) = Unit
+
+            override fun observeAll(): Flow<List<NetworkRequest>> {
+                return flowOf(fakeFlakerDataList)
+            }
         }
 
         override fun provide(): NetworkRequestRepo {
@@ -49,12 +64,78 @@ class FlakerRepoTest {
         }
     }
 
+    private val testFlakerPrefsProvider: FlakerPrefsProvider = TestFlakerPrefsProvider(fakeContext).apply {
+        setVersion(TestFlakerPrefsProvider.Version.FAKE_SUCCESS)
+    }
+
     @Test
     fun `GIVEN networkRequestRepo has data WHEN flakerRepos allRequests() called THEN it should return same data`() {
-        val flakerRepo = FlakerRepo(fakeContext, testNetworkRequestRepoProvider)
+        runBlocking {
+            val flakerRepo =
+                FlakerRepo(
+                    fakeContext,
+                    testNetworkRequestRepoProvider,
+                    testFlakerPrefsProvider,
+                    mainDispatcherRule.testDispatcher
+                )
 
-        val result = flakerRepo.allRequests()
+            val result = flakerRepo.allRequests()
 
-        assert(result == fakeFlakerDataList)
+            assert(result == fakeFlakerDataList)
+        }
+    }
+
+    @Test
+    fun `GIVEN flakerPrefsProvider shouldIntercept WHEN flakerRepos isFlakerOn called THEN it should return true`() {
+        runBlocking {
+            val flakerRepo =
+                FlakerRepo(
+                    fakeContext,
+                    testNetworkRequestRepoProvider,
+                    testFlakerPrefsProvider,
+                    mainDispatcherRule.testDispatcher
+                )
+
+            val result = flakerRepo.isFlakerOn()
+
+            assert(result)
+        }
+    }
+
+    @Test
+    fun `GIVEN networkRequestRepo has data WHEN observeAllRequests() called THEN it should return same data`() {
+        runBlocking {
+            val flakerRepo =
+                FlakerRepo(
+                    fakeContext,
+                    testNetworkRequestRepoProvider,
+                    testFlakerPrefsProvider,
+                    mainDispatcherRule.testDispatcher
+                )
+
+            flakerRepo.observeAllRequests().test {
+                assert(awaitItem() == fakeFlakerDataList)
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+    }
+
+    @Test
+    fun `GIVEN shouldIntercept values WHEN flakerRepos observeFlakerOn called THEN it should observe values`() {
+        runBlocking {
+            val flakerRepo =
+                FlakerRepo(
+                    fakeContext,
+                    testNetworkRequestRepoProvider,
+                    testFlakerPrefsProvider,
+                    mainDispatcherRule.testDispatcher
+                )
+
+            flakerRepo.observeFlakerOn().test {
+                assert(awaitItem().not())
+                assert(awaitItem())
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
     }
 }
