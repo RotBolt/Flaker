@@ -60,4 +60,10 @@ class FlakerRepo(private val context: Context) {
     fun saveVariancePercent(variancePercent: Int) = flakerPrefs.saveVariancePercent(variancePercent)
 
     fun saveShouldIntercept(shouldIntercept: Boolean) = flakerPrefs.saveShouldIntercept(shouldIntercept)
+
+    fun getDelayValue() = flakerPrefs.getDelay()
+
+    fun getFailPercent() = flakerPrefs.getFailPercent()
+
+    fun getVariancePercent() = flakerPrefs.getVariancePercent()
 }

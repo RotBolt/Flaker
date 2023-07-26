@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -58,11 +57,20 @@ class FlakerActivity : ComponentActivity() {
                         FlakerBar(
                             state = state,
                             scrollBehavior = scrollBehavior,
-                            onToggleChange = viewModel::toggleFlaker
+                            onToggleChange = viewModel::toggleFlaker,
+                            onPrefsClick = viewModel::openPrefs
                         )
                     }
                 ) { scaffoldPadding ->
                     NetworkRequestList(modifier = Modifier.padding(scaffoldPadding), state = state)
+                }
+
+                if (state.toShowPrefs) {
+                    FlakerPrefsDialog(
+                        onDismissRequest = viewModel::closePrefs,
+                        onConfirmAction = viewModel::updatePrefs,
+                        currentValues = viewModel.getCurrentPrefs(),
+                    )
                 }
             }
         }
@@ -71,14 +79,20 @@ class FlakerActivity : ComponentActivity() {
     @Composable
     private fun NetworkRequestList(modifier: Modifier = Modifier, state: FlakerViewModel.ViewState) {
         if (state.showNoRequests) {
-            Column(verticalArrangement = Arrangement.Center, modifier = modifier.fillMaxSize()) {
-                Text(
-                    text = stringResource(R.string.no_requests_yet),
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                        .align(Alignment.CenterHorizontally)
-                )
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier.fillMaxSize()
+            ) {
+                item {
+                    Text(
+                        text = stringResource(R.string.no_requests_yet),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+
+                    )
+                }
             }
         } else {
             LazyColumn(modifier = modifier) {
@@ -90,6 +104,7 @@ class FlakerActivity : ComponentActivity() {
                                 modifier = Modifier.padding(horizontal = 16.dp)
                             )
                         }
+
                         is NetworkRequestUi.DateItem -> {
                             Spacer(modifier = Modifier.size(8.dp))
                             Text(text = item.formattedString, modifier = Modifier.padding(horizontal = 16.dp))
@@ -106,6 +121,7 @@ class FlakerActivity : ComponentActivity() {
         modifier: Modifier = Modifier,
         state: FlakerViewModel.ViewState,
         onToggleChange: (Boolean) -> Unit,
+        onPrefsClick: () -> Unit,
         scrollBehavior: TopAppBarScrollBehavior
     ) {
         LargeTopAppBar(
@@ -132,7 +148,7 @@ class FlakerActivity : ComponentActivity() {
 
                 Spacer(modifier = Modifier.size(4.dp))
 
-                IconButton(onClick = { /*TODO Add Prefs Dialog UI*/ }) {
+                IconButton(onClick = onPrefsClick) {
                     Icon(imageVector = Icons.Outlined.Settings, contentDescription = "Search network requests")
                 }
 

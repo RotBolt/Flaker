@@ -28,7 +28,8 @@ class FlakerViewModel(
 
     data class ViewState(
         val isFlakerOn: Boolean = false,
-        val networkRequests: List<NetworkRequestUi> = emptyList()
+        val networkRequests: List<NetworkRequestUi> = emptyList(),
+        val toShowPrefs: Boolean = false,
     ) {
         val showNoRequests: Boolean
             get() = networkRequests.isEmpty()
@@ -66,6 +67,29 @@ class FlakerViewModel(
 
     fun toggleFlaker(value: Boolean) {
         flakerRepo.saveShouldIntercept(value)
+    }
+
+    fun openPrefs() {
+        viewModelScope.launch { _viewStateFlow.emit(_viewStateFlow.value.copy(toShowPrefs = true)) }
+    }
+
+    fun getCurrentPrefs(): FlakerPrefsUiDto {
+        return FlakerPrefsUiDto(
+            delay = flakerRepo.getDelayValue(),
+            failPercent = flakerRepo.getFailPercent(),
+            variancePercent = flakerRepo.getVariancePercent()
+        )
+    }
+
+    fun closePrefs() {
+        viewModelScope.launch { _viewStateFlow.emit(_viewStateFlow.value.copy(toShowPrefs = false)) }
+    }
+
+    fun updatePrefs(flakerPrefsUiDto: FlakerPrefsUiDto) {
+        flakerRepo.saveDelayValue(flakerPrefsUiDto.delay)
+        flakerRepo.saveFailPercent(flakerPrefsUiDto.failPercent)
+        flakerRepo.saveVariancePercent(flakerPrefsUiDto.variancePercent)
+        closePrefs()
     }
 
     companion object {
