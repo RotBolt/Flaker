@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_requests_yet">No requests yet</string>
+    <string name="delay_label">Delay</string>
+    <string name="fail_percentage_label">Fail Percentage</string>
+    <string name="variance_percentage_label">Variance Percentage</string>
 </resources>
