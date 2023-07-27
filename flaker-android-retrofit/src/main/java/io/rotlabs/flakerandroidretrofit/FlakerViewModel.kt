@@ -17,6 +17,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class FlakerViewModel(
     private val flakerRepo: FlakerRepo,
@@ -55,10 +58,14 @@ class FlakerViewModel(
                 .collectLatest {
                     val uiList: List<NetworkRequestUi> = it
                         .map { NetworkRequestUi.NetworkRequestItem(it) }
-                        .groupBy { it.networkRequest.requestTime }
+                        .sortedByDescending { it.networkRequest.requestTime }
+                        .groupBy {
+                            val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
+                            dateFormatter.format(Date(it.networkRequest.requestTime))
+                        }
                         .entries
-                        .flatMap { (dateLong, items) ->
-                            listOf(NetworkRequestUi.DateItem(dateLong.toString())) + items
+                        .flatMap { (formattedDate, items) ->
+                            listOf(NetworkRequestUi.DateItem(formattedDate)) + items
                         }
                     _viewStateFlow.emit(_viewStateFlow.value.copy(networkRequests = uiList))
                 }

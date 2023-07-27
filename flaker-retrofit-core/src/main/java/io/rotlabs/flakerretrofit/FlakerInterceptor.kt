@@ -28,8 +28,9 @@ class FlakerInterceptor private constructor(
             behavior.setDelay(flakerPrefs.getDelay(), TimeUnit.MILLISECONDS)
             behavior.setFailurePercent(flakerPrefs.getFailPercent())
             behavior.setVariancePercent(flakerPrefs.getVariancePercent())
+            val calculatedDelay = behavior.calculateDelay(TimeUnit.MILLISECONDS)
             try {
-                Thread.sleep(behavior.calculateDelay(TimeUnit.MILLISECONDS))
+                Thread.sleep(calculatedDelay)
             } catch (e: InterruptedException) {
                 // TODO add debug log later
             }
@@ -43,21 +44,23 @@ class FlakerInterceptor private constructor(
                     .message(failResponse.message)
                     .body(failResponse.responseBodyString.toResponseBody("text/plain".toMediaTypeOrNull()))
                     .request(chain.request())
+                    .sentRequestAtMillis(System.currentTimeMillis() - calculatedDelay)
+                    .receivedResponseAtMillis(System.currentTimeMillis())
                     .build()
 
-                saveNetworkTransaction(request, flakerInterceptedResponse)
+                saveNetworkTransaction(request, flakerInterceptedResponse, true)
                 return flakerInterceptedResponse
             }
 
             val nonFlakerInterceptedResponse = chain.proceed(chain.request())
-            saveNetworkTransaction(request, nonFlakerInterceptedResponse)
+            saveNetworkTransaction(request, nonFlakerInterceptedResponse, false)
             return nonFlakerInterceptedResponse
         } else {
             return chain.proceed(chain.request())
         }
     }
 
-    private fun saveNetworkTransaction(request: Request, response: Response) {
+    private fun saveNetworkTransaction(request: Request, response: Response, isFailedByFlaker: Boolean) {
         val networkRequest = NetworkRequest(
             host = request.url.host,
             path = request.url.pathSegments.joinToString("/"),
@@ -65,13 +68,13 @@ class FlakerInterceptor private constructor(
             requestTime = response.sentRequestAtMillis,
             responseCode = response.code.toLong(),
             responseTimeTaken = response.receivedResponseAtMillis,
-            isFailedByFlaker = true
+            isFailedByFlaker = isFailedByFlaker
         )
 
         networkRequestRepo.insert(networkRequest)
     }
 
-    public class Builder(private val context: Context) {
+    class Builder(private val context: Context) {
 
         private var failResponse: FlakerFailResponse = FlakerFailResponse()
         private var networkRequestRepoProvider: NetworkRequestRepoProvider? = null
