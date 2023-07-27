@@ -1,9 +1,12 @@
 package io.rotlabs.flakerdb.networkrequest.data
 
 import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.db.SqlDriver
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerdb.FlakerDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -39,18 +42,25 @@ internal class NetworkRequestRepoImpl(sqlDriver: SqlDriver) : NetworkRequestRepo
     }
 
     override fun observeAll(): Flow<List<NetworkRequest>> {
-        return networkRequestQueries.selectAll().asFlow().map { query ->
-            query.executeAsList().map {
+        return networkRequestQueries.selectAll(
+            mapper = { _,
+                       host: String,
+                       path: String,
+                       method: String,
+                       request_time: Long,
+                       response_code: Long,
+                       response_time_taken: Long,
+                       is_failed_by_flaker: Boolean ->
                 NetworkRequest(
-                    it.host,
-                    it.path,
-                    it.method,
-                    requestTime = it.request_time,
-                    responseCode = it.response_code,
-                    responseTimeTaken = it.response_time_taken,
-                    isFailedByFlaker = it.is_failed_by_flaker
+                    host,
+                    path,
+                    method,
+                    request_time,
+                    response_code,
+                    response_time_taken,
+                    is_failed_by_flaker
                 )
             }
-        }
+        ).asFlow().mapToList(Dispatchers.IO)
     }
 }

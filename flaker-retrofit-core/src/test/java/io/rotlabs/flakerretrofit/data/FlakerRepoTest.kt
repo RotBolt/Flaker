@@ -55,7 +55,7 @@ class FlakerRepoTest {
             override fun insert(networkRequest: NetworkRequest) = Unit
 
             override fun observeAll(): Flow<List<NetworkRequest>> {
-                return flowOf(fakeFlakerDataList)
+                return flowOf(fakeFlakerDataList, fakeFlakerDataList.subList(0, fakeFlakerDataList.size - 1))
             }
         }
 
@@ -115,6 +115,7 @@ class FlakerRepoTest {
 
             flakerRepo.observeAllRequests().test {
                 assert(awaitItem() == fakeFlakerDataList)
+                assert(awaitItem() == fakeFlakerDataList.subList(0, fakeFlakerDataList.size - 1))
                 cancelAndIgnoreRemainingEvents()
             }
         }

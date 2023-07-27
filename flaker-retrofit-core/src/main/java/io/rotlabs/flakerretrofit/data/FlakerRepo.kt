@@ -47,7 +47,7 @@ class FlakerRepo(private val context: Context) {
 
     suspend fun allRequests() = withContext(dispatcher) { networkRequestRepo.selectAll() }
 
-    fun observeAllRequests() = networkRequestRepo.observeAll().flowOn(dispatcher)
+    fun observeAllRequests() = networkRequestRepo.observeAll()
 
     fun isFlakerOn() = flakerPrefs.shouldIntercept()
 

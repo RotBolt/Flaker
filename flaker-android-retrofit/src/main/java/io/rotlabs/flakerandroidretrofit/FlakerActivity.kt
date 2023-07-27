@@ -34,6 +34,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItem
+import io.rotlabs.flakerandroidapp.ui.listitem.SectionDateItem
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
 import io.rotlabs.flakerandroidapp.R as CompanionAppResource
 
@@ -103,11 +104,15 @@ class FlakerActivity : ComponentActivity() {
                                 networkRequest = item.networkRequest,
                                 modifier = Modifier.padding(horizontal = 16.dp)
                             )
+                            Spacer(modifier = Modifier.size(8.dp))
                         }
 
                         is NetworkRequestUi.DateItem -> {
                             Spacer(modifier = Modifier.size(8.dp))
-                            Text(text = item.formattedString, modifier = Modifier.padding(horizontal = 16.dp))
+                            SectionDateItem(
+                                formattedDate = item.formattedString,
+                                modifier = Modifier.padding(horizontal = 16.dp)
+                            )
                             Spacer(modifier = Modifier.size(8.dp))
                         }
                     }
