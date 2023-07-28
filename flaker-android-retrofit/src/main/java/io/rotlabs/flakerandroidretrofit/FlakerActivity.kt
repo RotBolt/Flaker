@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItem
 import io.rotlabs.flakerandroidapp.ui.listitem.SectionDateItem
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
-import io.rotlabs.flakerandroidapp.R as CompanionAppResource
+import io.rotlabs.flakerandroidui.R as AndroidUiR
 
 @OptIn(ExperimentalMaterial3Api::class)
 class FlakerActivity : ComponentActivity() {
@@ -134,7 +134,7 @@ class FlakerActivity : ComponentActivity() {
             scrollBehavior = scrollBehavior,
             title = {
                 Text(
-                    text = stringResource(id = CompanionAppResource.string.companion_app_name),
+                    text = stringResource(id = AndroidUiR.string.companion_app_name),
                     color = MaterialTheme.colorScheme.primary
                 )
             },

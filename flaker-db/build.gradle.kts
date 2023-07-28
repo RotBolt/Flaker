@@ -12,6 +12,7 @@ version = "0.0.1"
 
 kotlin {
 
+    jvmToolchain(17)
     android()
     val frameworkName = "FlakerDbModule"
     val xcFramework = XCFramework(frameworkName)
@@ -60,6 +61,14 @@ kotlin {
     iosSimulatorArm64Main.dependsOn(iosMain)
     iosSimulatorArm64Test.dependsOn(iosTest)
 
+    val podAttribute = Attribute.of("pod", String::class.java)
+
+    configurations.filter { it.name.contains("pod", ignoreCase = true) }.forEach {
+        it.attributes {
+            attribute(podAttribute, "pod")
+        }
+    }
+
     cocoapods {
         // Required properties
         summary = "Multiplatform Kotlin flaker library"
@@ -82,6 +91,7 @@ kotlin {
 }
 
 android {
+    namespace = "io.rotlabs.flakerdb"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

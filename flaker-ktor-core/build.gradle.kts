@@ -11,6 +11,7 @@ version = "0.0.1"
 
 kotlin {
 
+    jvmToolchain(17)
     android()
     val frameworkName = "FlakerKtorCoreModule"
     val xcFramework = XCFramework(frameworkName)
@@ -63,9 +64,18 @@ kotlin {
     sourceSets["iosMain"].dependencies {  }
     sourceSets["iosTest"].dependencies {  }
 
+
+    val podAttribute = Attribute.of("pod", String::class.java)
+    configurations.filter { it.name.contains("pod", ignoreCase = true) }.forEach {
+        it.attributes {
+            attribute(podAttribute, "pod")
+        }
+    }
+
 }
 
 android {
+    namespace = "io.rotlabs.flakerktorcore"
     compileSdk = 33
     defaultConfig {
         minSdk = 24
