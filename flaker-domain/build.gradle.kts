@@ -12,6 +12,7 @@ version = "0.0.1"
 
 kotlin {
 
+    jvmToolchain(17)
     android()
     val frameworkName = "FlakerDbModule"
     val xcFramework = XCFramework(frameworkName)
@@ -25,6 +26,13 @@ kotlin {
             baseName = frameworkName
             embedBitcode("disable")
             xcFramework.add(this)
+        }
+    }
+
+    val podAttribute = Attribute.of("pod", String::class.java)
+    configurations.filter { it.name.contains("pod", ignoreCase = true) }.forEach {
+        it.attributes {
+            attribute(podAttribute, "pod")
         }
     }
 
@@ -51,6 +59,7 @@ kotlin {
 }
 
 android {
+    namespace = "io.rotlabs.flakerdomain"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

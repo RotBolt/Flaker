@@ -25,11 +25,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":flaker-android-ui"))
     api(project(":flaker-retrofit-core"))
     implementation(project(":flaker-domain"))
+    implementation(project(":flaker-data"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

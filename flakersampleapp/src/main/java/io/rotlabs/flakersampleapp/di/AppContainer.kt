@@ -1,11 +1,10 @@
 package io.rotlabs.flakersampleapp.di
 
-import android.content.Context
 import io.rotlabs.flakersampleapp.home.di.HomeContainer
 
-class AppContainer(appContext: Context) {
+class AppContainer {
 
-    private val retrofitProvider: RetrofitProvider = RetrofitProvider(appContext)
+    private val retrofitProvider: RetrofitProvider = RetrofitProvider()
 
     private var homeContainer: HomeContainer? = null
 

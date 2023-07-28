@@ -8,7 +8,7 @@
         android:supportsRtl="true"
         tools:targetApi="33">
         <activity
-            android:name="io.rotlabs.flakerandroidretrofit.FlakerActivity"
+            android:name="io.rotlabs.flakerandroidretrofit.ui.FlakerActivity"
             android:exported="true"
             android:icon="@mipmap/ic_flaker"
             android:label="@string/companion_app_name"

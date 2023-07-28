@@ -5,6 +5,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.sqlDelight)
 }
 
 version = "0.0.1"
@@ -13,7 +14,7 @@ kotlin {
 
     jvmToolchain(17)
     android()
-    val frameworkName = "FlakerKtorCoreModule"
+    val frameworkName = "FlakerDataModule"
     val xcFramework = XCFramework(frameworkName)
 
     ios() // Necessary for iosMain
@@ -28,7 +29,31 @@ kotlin {
         }
     }
 
-    val iosMain by sourceSets.getting
+    val commonMain by sourceSets.getting {
+        dependencies {
+            implementation(libs.sqlDelight.primitive.adapters)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.sqlDelight.coroutines.extensions)
+            implementation(libs.datastore.preferences.core)
+            implementation(project(":flaker-domain"))
+        }
+    }
+    val commonTest by sourceSets.getting
+
+    val androidMain by sourceSets.getting {
+        dependsOn(commonMain)
+        dependencies {
+            implementation(libs.sqlDelight.android)
+        }
+    }
+    val androidUnitTest by sourceSets.getting
+
+    val iosMain by sourceSets.getting {
+        dependsOn(commonMain)
+        dependencies {
+            implementation(libs.sqlDelight.native)
+        }
+    }
     val iosTest by sourceSets.getting
     val iosSimulatorArm64Main by sourceSets.getting
     val iosSimulatorArm64Test by sourceSets.getting
@@ -37,6 +62,14 @@ kotlin {
     iosSimulatorArm64Main.dependsOn(iosMain)
     iosSimulatorArm64Test.dependsOn(iosTest)
 
+    val podAttribute = Attribute.of("pod", String::class.java)
+
+    configurations.filter { it.name.contains("pod", ignoreCase = true) }.forEach {
+        it.attributes {
+            attribute(podAttribute, "pod")
+        }
+    }
+
     cocoapods {
         // Required properties
         summary = "Multiplatform Kotlin flaker library"
@@ -44,7 +77,7 @@ kotlin {
 
         framework {
             // Required properties
-            baseName = "FlakerKtorCoreModule"
+            baseName = "FlakerDataModule"
 
             // Optional properties
             isStatic = true
@@ -56,30 +89,22 @@ kotlin {
         xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
         xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.RELEASE
     }
-
-    sourceSets["commonMain"].dependencies {  }
-    sourceSets["commonTest"].dependencies {  }
-    sourceSets["androidMain"].dependencies {  }
-    sourceSets["androidUnitTest"].dependencies {  }
-    sourceSets["iosMain"].dependencies {  }
-    sourceSets["iosTest"].dependencies {  }
-
-
-    val podAttribute = Attribute.of("pod", String::class.java)
-    configurations.filter { it.name.contains("pod", ignoreCase = true) }.forEach {
-        it.attributes {
-            attribute(podAttribute, "pod")
-        }
-    }
-
 }
 
 android {
-    namespace = "io.rotlabs.flakerktorcore"
+    namespace = "io.rotlabs.flakerdata"
     compileSdk = 33
     defaultConfig {
         minSdk = 24
         targetSdk = 33
     }
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}
+
+sqldelight {
+    databases {
+        create("FlakerDatabase") {
+            packageName.set("io.rotlabs.flakerdb")
+        }
+    }
 }
