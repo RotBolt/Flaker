@@ -1,24 +1,24 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'flaker_db'
+    spec.name                     = 'flaker_data'
     spec.version                  = '0.0.1'
     spec.homepage                 = 'https://github.com/RotBolt/Flaker'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = 'Multiplatform Kotlin flaker library'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/FlakerDbModule.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/FlakerDataModule.framework'
     spec.libraries                = 'c++'
                 
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':flaker-db',
-        'PRODUCT_MODULE_NAME' => 'FlakerDbModule',
+        'KOTLIN_PROJECT_PATH' => ':flaker-data',
+        'PRODUCT_MODULE_NAME' => 'FlakerDataModule',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build flaker_db',
+            :name => 'Build flaker_data',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

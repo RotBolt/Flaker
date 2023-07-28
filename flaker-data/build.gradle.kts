@@ -14,7 +14,7 @@ kotlin {
 
     jvmToolchain(17)
     android()
-    val frameworkName = "FlakerDbModule"
+    val frameworkName = "FlakerDataModule"
     val xcFramework = XCFramework(frameworkName)
 
     ios() // Necessary for iosMain
@@ -76,7 +76,7 @@ kotlin {
 
         framework {
             // Required properties
-            baseName = "FlakerDbModule"
+            baseName = "FlakerDataModule"
 
             // Optional properties
             isStatic = true
@@ -91,7 +91,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.rotlabs.flakerdb"
+    namespace = "io.rotlabs.flakerdata"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

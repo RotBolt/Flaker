@@ -37,7 +37,7 @@ dependencies {
     implementation(libs.material)
 
     implementation(project(":flaker-domain"))
-    implementation(project(":flaker-db"))
+    implementation(project(":flaker-data"))
 
     implementation(libs.retrofit.mock)
     implementation(libs.okttp)
