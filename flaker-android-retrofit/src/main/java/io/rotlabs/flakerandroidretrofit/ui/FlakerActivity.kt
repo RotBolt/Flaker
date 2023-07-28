@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit
+package io.rotlabs.flakerandroidretrofit.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -36,12 +36,14 @@ import androidx.compose.ui.unit.dp
 import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItem
 import io.rotlabs.flakerandroidapp.ui.listitem.SectionDateItem
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
+import io.rotlabs.flakerandroidretrofit.R
+import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidContainer
 import io.rotlabs.flakerandroidui.R as AndroidUiR
 
 @OptIn(ExperimentalMaterial3Api::class)
 class FlakerActivity : ComponentActivity() {
 
-    private val viewModel: FlakerViewModel by viewModels { FlakerViewModel.Factory }
+    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidContainer.flakerViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,11 +69,13 @@ class FlakerActivity : ComponentActivity() {
                 }
 
                 if (state.toShowPrefs) {
-                    FlakerPrefsDialog(
-                        onDismissRequest = viewModel::closePrefs,
-                        onConfirmAction = viewModel::updatePrefs,
-                        currentValues = viewModel.getCurrentPrefs(),
-                    )
+                    state.currentPrefs?.let { prefs ->
+                        FlakerPrefsDialog(
+                            onDismissRequest = viewModel::closePrefs,
+                            onConfirmAction = viewModel::updatePrefs,
+                            currentValues = prefs,
+                        )
+                    }
                 }
             }
         }

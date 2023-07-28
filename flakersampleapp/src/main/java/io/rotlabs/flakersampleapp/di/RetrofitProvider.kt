@@ -1,15 +1,14 @@
 package io.rotlabs.flakersampleapp.di
 
-import android.content.Context
 import io.rotlabs.flakerretrofit.FlakerInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class RetrofitProvider(appContext: Context) {
+class RetrofitProvider {
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(FlakerInterceptor.Builder(appContext).build())
+        .addInterceptor(FlakerInterceptor.Builder().build())
         .build()
 
     private val baseUrl = "https://reqres.in"

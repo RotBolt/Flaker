@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit
+package io.rotlabs.flakerandroidretrofit.ui
 
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 

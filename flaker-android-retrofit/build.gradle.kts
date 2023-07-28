@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":flaker-android-ui"))
     api(project(":flaker-retrofit-core"))
     implementation(project(":flaker-domain"))
+    implementation(project(":flaker-data"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

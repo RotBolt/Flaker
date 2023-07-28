@@ -1,28 +1,29 @@
-package io.rotlabs.flakerandroidretrofit
+package io.rotlabs.flakerandroidretrofit.ui
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import io.rotlabs.flakerretrofit.data.FlakerRepo
+import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakerprefs.PrefDataStore
+import io.rotlabs.flakerprefs.dto.FlakerPrefs
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@Suppress("UnusedPrivateProperty")
 class FlakerViewModel(
-    private val flakerRepo: FlakerRepo,
+    private val networkRequestRepo: NetworkRequestRepo,
+    private val prefDataStore: PrefDataStore,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -32,10 +33,13 @@ class FlakerViewModel(
     data class ViewState(
         val isFlakerOn: Boolean = false,
         val networkRequests: List<NetworkRequestUi> = emptyList(),
-        val toShowPrefs: Boolean = false,
+        val currentPrefs: FlakerPrefsUiDto? = null,
     ) {
         val showNoRequests: Boolean
             get() = networkRequests.isEmpty()
+
+        val toShowPrefs: Boolean
+            get() = currentPrefs != null
     }
 
     init {
@@ -44,9 +48,10 @@ class FlakerViewModel(
     }
 
     private fun observeIsFlakerOn() {
-        flakerRepo.observeFlakerOn().onEach {
-            _viewStateFlow.emit(_viewStateFlow.value.copy(isFlakerOn = it))
-        }.launchIn(viewModelScope)
+        prefDataStore.getPrefs()
+            .map { it.shouldIntercept }
+            .onEach { _viewStateFlow.emit(_viewStateFlow.value.copy(isFlakerOn = it)) }
+            .launchIn(viewModelScope)
     }
 
     private fun observeAllRequests() {
@@ -54,9 +59,9 @@ class FlakerViewModel(
             Log.e("FlakerViewModel", "Error loading all requests", throwable)
         }
         viewModelScope.launch(coroutineExceptionHandler) {
-            flakerRepo.observeAllRequests()
-                .collectLatest {
-                    val uiList: List<NetworkRequestUi> = it
+            networkRequestRepo.observeAll()
+                .collectLatest { list ->
+                    val uiList: List<NetworkRequestUi> = list
                         .map { NetworkRequestUi.NetworkRequestItem(it) }
                         .sortedByDescending { it.networkRequest.requestTime }
                         .groupBy {
@@ -73,39 +78,38 @@ class FlakerViewModel(
     }
 
     fun toggleFlaker(value: Boolean) {
-        flakerRepo.saveShouldIntercept(value)
+        viewModelScope.launch {
+            prefDataStore.savePrefs(prefDataStore.getPrefs().first().copy(shouldIntercept = value))
+        }
     }
 
     fun openPrefs() {
-        viewModelScope.launch { _viewStateFlow.emit(_viewStateFlow.value.copy(toShowPrefs = true)) }
-    }
-
-    fun getCurrentPrefs(): FlakerPrefsUiDto {
-        return FlakerPrefsUiDto(
-            delay = flakerRepo.getDelayValue(),
-            failPercent = flakerRepo.getFailPercent(),
-            variancePercent = flakerRepo.getVariancePercent()
-        )
+        viewModelScope.launch {
+            val flakerPrefs = prefDataStore.getPrefs().first()
+            val flakerPrefsDto = FlakerPrefsUiDto(
+                delay = flakerPrefs.delay,
+                failPercent = flakerPrefs.failPercent,
+                variancePercent = flakerPrefs.variancePercent
+            )
+            _viewStateFlow.emit(_viewStateFlow.value.copy(currentPrefs = flakerPrefsDto))
+        }
     }
 
     fun closePrefs() {
-        viewModelScope.launch { _viewStateFlow.emit(_viewStateFlow.value.copy(toShowPrefs = false)) }
+        viewModelScope.launch { _viewStateFlow.emit(_viewStateFlow.value.copy(currentPrefs = null)) }
     }
 
     fun updatePrefs(flakerPrefsUiDto: FlakerPrefsUiDto) {
-        flakerRepo.saveDelayValue(flakerPrefsUiDto.delay)
-        flakerRepo.saveFailPercent(flakerPrefsUiDto.failPercent)
-        flakerRepo.saveVariancePercent(flakerPrefsUiDto.variancePercent)
-        closePrefs()
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val savedStateHandle = createSavedStateHandle()
-                val flakerRepo = FlakerRepo(checkNotNull(this[APPLICATION_KEY]))
-                FlakerViewModel(flakerRepo, savedStateHandle)
-            }
+        viewModelScope.launch {
+            prefDataStore.savePrefs(
+                FlakerPrefs(
+                    shouldIntercept = true,
+                    delay = flakerPrefsUiDto.delay,
+                    failPercent = flakerPrefsUiDto.failPercent,
+                    variancePercent = flakerPrefsUiDto.variancePercent
+                )
+            )
         }
+        closePrefs()
     }
 }

@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit
+package io.rotlabs.flakerandroidretrofit.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
@@ -28,13 +28,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.rotlabs.flakerandroidretrofit.R
 import kotlin.math.round
 
 private val PrefUiDtoSaver = Saver<FlakerPrefsUiDto, String>(
     save = { "${it.delay}, ${it.failPercent}, ${it.variancePercent}" },
     restore = { valuesString ->
         valuesString.split(",").let {
-            FlakerPrefsUiDto(it[0].trim().toLong(), it[1].trim().toInt(), it[2].trim().toInt())
+            FlakerPrefsUiDto(it[0].trim().toInt(), it[1].trim().toInt(), it[2].trim().toInt())
         }
     }
 )
@@ -91,7 +92,7 @@ fun FlakerPrefsDialog(
                     currentValue = delayCurrentValue,
                     onValueChange = { value ->
                         if (value >= 1f) {
-                            newValues = newValues.copy(delay = (round(value).toLong() * HUNDRED_PERCENT))
+                            newValues = newValues.copy(delay = (round(value).toInt() * HUNDRED_PERCENT))
                         }
                     },
                     discreteSteps = 9,

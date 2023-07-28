@@ -1,7 +1,7 @@
-package io.rotlabs.flakerandroidretrofit
+package io.rotlabs.flakerandroidretrofit.ui
 
 data class FlakerPrefsUiDto(
-    val delay: Long,
+    val delay: Int,
     val failPercent: Int,
     val variancePercent: Int,
 )

@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.sqlDelight.primitive.adapters)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.sqlDelight.coroutines.extensions)
+            implementation(libs.datastore.preferences.core)
             implementation(project(":flaker-domain"))
         }
     }

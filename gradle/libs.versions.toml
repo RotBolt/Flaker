@@ -22,6 +22,7 @@ detekt = "1.23.0"
 kotlinx-datetime = "0.4.0"
 kotlinx-coroutines = "1.7.3"
 turbine = "1.0.0"
+datastore = "1.1.0-alpha04"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -57,6 +58,7 @@ sqlDelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.
 sqlDelight-coroutines-extensions = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref="sqlDelight" }
 detektformatiing = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
