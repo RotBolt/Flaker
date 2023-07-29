@@ -37,13 +37,13 @@ import io.rotlabs.flakerandroidapp.ui.listitem.NetworkRequestItem
 import io.rotlabs.flakerandroidapp.ui.listitem.SectionDateItem
 import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
 import io.rotlabs.flakerandroidretrofit.R
-import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidContainer
+import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidRetrofitContainer
 import io.rotlabs.flakerandroidui.R as AndroidUiR
 
 @OptIn(ExperimentalMaterial3Api::class)
 class FlakerActivity : ComponentActivity() {
 
-    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidContainer.flakerViewModelFactory }
+    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidRetrofitContainer.flakerViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

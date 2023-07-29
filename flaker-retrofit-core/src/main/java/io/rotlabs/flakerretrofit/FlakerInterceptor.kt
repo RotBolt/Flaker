@@ -3,6 +3,7 @@ package io.rotlabs.flakerretrofit
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
+import io.rotlabs.flakerretrofit.di.FlakerRetrofitCoreContainer
 import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -86,8 +87,8 @@ class FlakerInterceptor private constructor(
         }
 
         fun build(): FlakerInterceptor {
-            val networkRequestRepo = FlakerRetrofitDependencyContainer.networkRequestRepo()
-            val prefDataStore = FlakerRetrofitDependencyContainer.prefDataStore()
+            val networkRequestRepo = FlakerRetrofitCoreContainer.networkRequestRepo()
+            val prefDataStore = FlakerRetrofitCoreContainer.prefDataStore()
             return FlakerInterceptor(failResponse, prefDataStore, networkRequestRepo)
         }
     }

@@ -1,7 +1,7 @@
 package io.rotlabs.flakersampleapp
 
 import android.app.Application
-import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidContainer
+import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidRetrofitContainer
 import io.rotlabs.flakersampleapp.di.AppContainer
 
 class MainApplication : Application() {
@@ -10,7 +10,7 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        FlakerAndroidContainer.init(this)
+        FlakerAndroidRetrofitContainer.init(this)
         appContainer = AppContainer()
     }
 }

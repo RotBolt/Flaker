@@ -1,10 +1,10 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerretrofit.di
 
-import io.rotlabs.FlakerDataDependencyContainer
+import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 
-object FlakerRetrofitDependencyContainer {
+object FlakerRetrofitCoreContainer {
 
     private var networkRequestRepo: NetworkRequestRepo? = null
 
@@ -14,7 +14,7 @@ object FlakerRetrofitDependencyContainer {
 
     fun prefDataStore() = prefDataStore!!
 
-    fun init(dataDependencyContainer: FlakerDataDependencyContainer) {
+    fun init(dataDependencyContainer: FlakerDataContainer) {
         networkRequestRepo = dataDependencyContainer.networkRequestRepo
         prefDataStore = dataDependencyContainer.prefsDataStore
     }

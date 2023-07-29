@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import io.rotlabs.FlakerDataDependencyContainer
+import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerandroidretrofit.ui.FlakerViewModel
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
-import io.rotlabs.flakerretrofit.FlakerRetrofitDependencyContainer
+import io.rotlabs.flakerretrofit.di.FlakerRetrofitCoreContainer
 
-object FlakerAndroidContainer {
+object FlakerAndroidRetrofitContainer {
 
     private var networkRequestRepo: NetworkRequestRepo? = null
 
@@ -22,9 +22,9 @@ object FlakerAndroidContainer {
     private fun prefDataStore() = prefDataStore!!
 
     fun init(appContext: Context) {
-        FlakerRetrofitDependencyContainer.init(FlakerDataDependencyContainer(appContext))
-        networkRequestRepo = FlakerRetrofitDependencyContainer.networkRequestRepo()
-        prefDataStore = FlakerRetrofitDependencyContainer.prefDataStore()
+        FlakerRetrofitCoreContainer.init(FlakerDataContainer(appContext))
+        networkRequestRepo = FlakerRetrofitCoreContainer.networkRequestRepo()
+        prefDataStore = FlakerRetrofitCoreContainer.prefDataStore()
     }
 
     val flakerViewModelFactory: ViewModelProvider.Factory = viewModelFactory {

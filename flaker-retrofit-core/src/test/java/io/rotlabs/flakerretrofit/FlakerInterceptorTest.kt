@@ -1,6 +1,7 @@
 package io.rotlabs.flakerretrofit
 
 import io.rotlabs.flakerprefs.dto.FlakerPrefs
+import io.rotlabs.flakerretrofit.di.FlakerRetrofitCoreContainer
 import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -24,11 +25,11 @@ class FlakerInterceptorTest {
 
     private val flakerFailResponse = FlakerFailResponse()
 
-    private val testDataDependencyContainer = TestDataDependencyContainer()
+    private val testDataDependencyContainer = TestDataContainer()
 
     @Before
     fun setup() {
-        FlakerRetrofitDependencyContainer.init(testDataDependencyContainer)
+        FlakerRetrofitCoreContainer.init(testDataDependencyContainer)
     }
 
     @Test

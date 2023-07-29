@@ -1,6 +1,6 @@
 package io.rotlabs.flakerretrofit
 
-import io.rotlabs.FlakerDataDependencyContainer
+import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 
-class TestDataDependencyContainer : FlakerDataDependencyContainer(FakeContext()) {
+class TestDataContainer : FlakerDataContainer(FakeContext()) {
 
     private val fakeNetworkRequestRepo = object : NetworkRequestRepo {
         override fun selectAll(): List<NetworkRequest> {

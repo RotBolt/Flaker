@@ -1,4 +1,4 @@
-package io.rotlabs
+package io.rotlabs.di
 
 import android.content.Context
 import io.rotlabs.flakerdb.DbDriverFactory
@@ -8,7 +8,7 @@ import io.rotlabs.flakerprefs.DataStoreFactory
 import io.rotlabs.flakerprefs.PrefDataStore
 import io.rotlabs.flakerprefs.PrefDataStoreImpl
 
-open class FlakerDataDependencyContainer(context: Context) {
+open class FlakerDataContainer(context: Context) {
 
     open val networkRequestRepo : NetworkRequestRepo by lazy {
         NetworkRequestRepoImpl(DbDriverFactory(context).createDriver())
