@@ -14,7 +14,7 @@ kotlin {
 
     jvmToolchain(17)
     android()
-    val frameworkName = "FlakerDbModule"
+    val frameworkName = "FlakerDomainModule"
     val xcFramework = XCFramework(frameworkName)
 
     ios() // Necessary for iosMain
