@@ -15,7 +15,7 @@ class PrefDataStoreImpl(private val prefs: DataStore<Preferences>) : PrefDataSto
         return prefs.data.map {
             FlakerPrefs(
                 shouldIntercept = it[FLAKER_SHOULD_INTERCEPT] ?: false,
-                delay = it[FLAKER_DELAY_VALUE] ?: 0,
+                delay = it[FLAKER_DELAY_VALUE] ?: 500,
                 failPercent = it[FLAKER_FAIL_PERCENT] ?: 0,
                 variancePercent = it[FLAKER_VARIANCE_PERCENT] ?: 0
             )
