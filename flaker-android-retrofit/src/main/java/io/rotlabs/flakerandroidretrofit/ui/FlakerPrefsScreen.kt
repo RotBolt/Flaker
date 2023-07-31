@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -15,7 +16,6 @@ import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -69,14 +69,13 @@ fun FlakerPrefsDialog(
                     }
                 },
                 actions = {
-                    TextButton(
-                        onClick = { onConfirmAction(newValues) }
+                    Button(
+                        onClick = { onConfirmAction(newValues) },
                     ) {
-                        Text(
-                            text = "Save",
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        )
+                        Text(text = "Save")
                     }
+
+                    Spacer(modifier = Modifier.size(16.dp))
                 },
                 scrollBehavior = scrollBehavior
             )
@@ -91,11 +90,11 @@ fun FlakerPrefsDialog(
                     title = delayText,
                     currentValue = delayCurrentValue,
                     onValueChange = { value ->
-                        if (value >= 1f) {
+                        if (value >= 0.5f) {
                             newValues = newValues.copy(delay = (round(value).toInt() * HUNDRED_PERCENT))
                         }
                     },
-                    discreteSteps = 9,
+                    discreteSteps = 19,
                     modifier = Modifier.padding(24.dp)
                 )
 

@@ -47,30 +47,30 @@ class FlakerInterceptor private constructor(
                     .message(failResponse.message)
                     .body(failResponse.responseBodyString.toResponseBody("text/plain".toMediaTypeOrNull()))
                     .request(chain.request())
-                    .sentRequestAtMillis(System.currentTimeMillis() - calculatedDelay)
+                    .sentRequestAtMillis(System.currentTimeMillis())
                     .receivedResponseAtMillis(System.currentTimeMillis())
                     .build()
 
-                saveNetworkTransaction(request, flakerInterceptedResponse, true)
+                saveNetworkTransaction(request, flakerInterceptedResponse, calculatedDelay, true)
                 return@runBlocking flakerInterceptedResponse
             }
 
             val nonFlakerInterceptedResponse = chain.proceed(chain.request())
-            saveNetworkTransaction(request, nonFlakerInterceptedResponse, false)
+            saveNetworkTransaction(request, nonFlakerInterceptedResponse, calculatedDelay, false)
             return@runBlocking nonFlakerInterceptedResponse
         } else {
             return@runBlocking chain.proceed(chain.request())
         }
     }
 
-    private fun saveNetworkTransaction(request: Request, response: Response, isFailedByFlaker: Boolean) {
+    private fun saveNetworkTransaction(request: Request, response: Response, delay: Long, isFailedByFlaker: Boolean) {
         val networkRequest = NetworkRequest(
             host = request.url.host,
             path = request.url.pathSegments.joinToString("/"),
             method = request.method,
             requestTime = response.sentRequestAtMillis,
             responseCode = response.code.toLong(),
-            responseTimeTaken = response.receivedResponseAtMillis,
+            responseTimeTaken = (response.receivedResponseAtMillis - response.sentRequestAtMillis) + delay,
             isFailedByFlaker = isFailedByFlaker
         )
 
