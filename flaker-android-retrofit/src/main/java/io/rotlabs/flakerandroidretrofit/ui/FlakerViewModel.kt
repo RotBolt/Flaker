@@ -33,13 +33,13 @@ class FlakerViewModel(
     data class ViewState(
         val isFlakerOn: Boolean = false,
         val networkRequests: List<NetworkRequestUi> = emptyList(),
-        val currentPrefs: FlakerPrefsUiDto? = null,
+        val currentPrefs: FlakerPrefsUiDto = FlakerPrefsUiDto.IMMATERIAL,
     ) {
         val showNoRequests: Boolean
             get() = networkRequests.isEmpty()
 
         val toShowPrefs: Boolean
-            get() = currentPrefs != null
+            get() = currentPrefs != FlakerPrefsUiDto.IMMATERIAL
     }
 
     init {
@@ -96,7 +96,11 @@ class FlakerViewModel(
     }
 
     fun closePrefs() {
-        viewModelScope.launch { _viewStateFlow.emit(_viewStateFlow.value.copy(currentPrefs = null)) }
+        viewModelScope.launch {
+            _viewStateFlow.emit(
+                _viewStateFlow.value.copy(currentPrefs = FlakerPrefsUiDto.IMMATERIAL)
+            )
+        }
     }
 
     fun updatePrefs(flakerPrefsUiDto: FlakerPrefsUiDto) {
