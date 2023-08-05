@@ -4,6 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -68,14 +73,16 @@ class FlakerActivity : ComponentActivity() {
                     NetworkRequestList(modifier = Modifier.padding(scaffoldPadding), state = state)
                 }
 
-                if (state.toShowPrefs) {
-                    state.currentPrefs?.let { prefs ->
-                        FlakerPrefsDialog(
-                            onDismissRequest = viewModel::closePrefs,
-                            onConfirmAction = viewModel::updatePrefs,
-                            currentValues = prefs,
-                        )
-                    }
+                AnimatedVisibility(
+                    visible = state.toShowPrefs,
+                    enter = fadeIn() + expandVertically { 0 },
+                    exit = fadeOut() + shrinkVertically { 0 }
+                ) {
+                    FlakerPrefsDialog(
+                        onDismissRequest = viewModel::closePrefs,
+                        onConfirmAction = viewModel::updatePrefs,
+                        currentValues = state.currentPrefs,
+                    )
                 }
             }
         }
