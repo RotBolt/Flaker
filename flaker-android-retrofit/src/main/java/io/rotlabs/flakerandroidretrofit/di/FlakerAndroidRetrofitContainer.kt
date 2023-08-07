@@ -27,7 +27,7 @@ object FlakerAndroidRetrofitContainer {
         prefDataStore = FlakerRetrofitCoreContainer.prefDataStore()
     }
 
-    val flakerViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+    fun flakerViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
         initializer {
             val savedStateHandle = createSavedStateHandle()
             FlakerViewModel(networkRequestRepo(), prefDataStore(), savedStateHandle)
