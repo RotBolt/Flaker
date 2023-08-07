@@ -32,7 +32,7 @@ class FlakerViewModel(
 
     data class ViewState(
         val isFlakerOn: Boolean = false,
-        val networkRequests: List<NetworkRequestUi> = emptyList(),
+        val networkRequests: Map<NetworkRequestUi.DateItem, List<NetworkRequestUi.NetworkRequestItem>> = emptyMap(),
         val currentPrefs: FlakerPrefsUiDto = FlakerPrefsUiDto.IMMATERIAL,
     ) {
         val showNoRequests: Boolean
@@ -61,18 +61,15 @@ class FlakerViewModel(
         viewModelScope.launch(coroutineExceptionHandler) {
             networkRequestRepo.observeAll()
                 .collectLatest { list ->
-                    val uiList: List<NetworkRequestUi> = list
+                    val uiMapList = list
                         .map { NetworkRequestUi.NetworkRequestItem(it) }
                         .sortedByDescending { it.networkRequest.requestTime }
                         .groupBy {
                             val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
-                            dateFormatter.format(Date(it.networkRequest.requestTime))
+                            val formattedString = dateFormatter.format(Date(it.networkRequest.requestTime))
+                            NetworkRequestUi.DateItem(formattedString)
                         }
-                        .entries
-                        .flatMap { (formattedDate, items) ->
-                            listOf(NetworkRequestUi.DateItem(formattedDate)) + items
-                        }
-                    _viewStateFlow.emit(_viewStateFlow.value.copy(networkRequests = uiList))
+                    _viewStateFlow.emit(_viewStateFlow.value.copy(networkRequests = uiMapList))
                 }
         }
     }
