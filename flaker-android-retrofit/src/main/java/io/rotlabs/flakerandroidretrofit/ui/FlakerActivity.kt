@@ -48,7 +48,7 @@ import io.rotlabs.flakerandroidui.R as AndroidUiR
 @OptIn(ExperimentalMaterial3Api::class)
 class FlakerActivity : ComponentActivity() {
 
-    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidRetrofitContainer.flakerViewModelFactory }
+    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidRetrofitContainer.flakerViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
