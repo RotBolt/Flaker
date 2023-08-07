@@ -9,6 +9,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,7 +47,7 @@ import io.rotlabs.flakerandroidretrofit.R
 import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidRetrofitContainer
 import io.rotlabs.flakerandroidui.R as AndroidUiR
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 class FlakerActivity : ComponentActivity() {
 
     private val viewModel: FlakerViewModel by viewModels { FlakerAndroidRetrofitContainer.flakerViewModelFactory() }
@@ -108,24 +110,23 @@ class FlakerActivity : ComponentActivity() {
             }
         } else {
             LazyColumn(modifier = modifier) {
-                items(state.networkRequests) { item ->
-                    when (item) {
-                        is NetworkRequestUi.NetworkRequestItem -> {
-                            NetworkRequestItem(
-                                networkRequest = item.networkRequest,
-                                modifier = Modifier.padding(horizontal = 16.dp)
-                            )
-                            Spacer(modifier = Modifier.size(8.dp))
-                        }
+                state.networkRequests.forEach { (date, networkRequestList) ->
 
-                        is NetworkRequestUi.DateItem -> {
-                            Spacer(modifier = Modifier.size(8.dp))
-                            SectionDateItem(
-                                formattedDate = item.formattedString,
-                                modifier = Modifier.padding(horizontal = 16.dp)
-                            )
-                            Spacer(modifier = Modifier.size(8.dp))
-                        }
+                    stickyHeader {
+                        SectionDateItem(
+                            formattedDate = date.formattedString,
+                            modifier = Modifier
+                                .background(MaterialTheme.colorScheme.surface)
+                                .padding(16.dp)
+                        )
+                    }
+
+                    items(networkRequestList) { item ->
+                        NetworkRequestItem(
+                            networkRequest = item.networkRequest,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.size(8.dp))
                     }
                 }
             }
