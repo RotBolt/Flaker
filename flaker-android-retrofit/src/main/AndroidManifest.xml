@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="io.rotlabs.flakerandroidretrofit.OPEN" />
+            </intent-filter>
+
         </activity>
 
     </application>
