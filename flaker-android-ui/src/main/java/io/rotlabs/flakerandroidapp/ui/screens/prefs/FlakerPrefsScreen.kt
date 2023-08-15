@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit.ui
+package io.rotlabs.flakerandroidapp.ui.screens.prefs
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import io.rotlabs.flakerandroidretrofit.R
+import io.rotlabs.flakerandroidui.R
 import kotlin.math.round
 
 private val PrefUiDtoSaver = Saver<FlakerPrefsUiDto, String>(
@@ -48,13 +48,13 @@ fun FlakerPrefsDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
     onConfirmAction: (FlakerPrefsUiDto) -> Unit,
-    currentValues: FlakerPrefsUiDto
+    currentValuesProvider: () -> FlakerPrefsUiDto
 ) {
     BackHandler {
         onDismissRequest()
     }
 
-    var newValues by rememberSaveable(stateSaver = PrefUiDtoSaver) { mutableStateOf(value = currentValues) }
+    var newValues by rememberSaveable(stateSaver = PrefUiDtoSaver) { mutableStateOf(value = currentValuesProvider()) }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 

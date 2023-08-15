@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp.ui.listitem
+package io.rotlabs.flakerandroidapp.ui.elements.listitem
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme

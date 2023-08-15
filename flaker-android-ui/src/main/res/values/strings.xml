@@ -1,3 +1,7 @@
 <resources>
     <string name="companion_app_name">flaker</string>
+    <string name="no_requests_yet">No requests yet</string>
+    <string name="delay_label">Delay</string>
+    <string name="fail_percentage_label">Fail Percentage</string>
+    <string name="variance_percentage_label">Variance Percentage</string>
 </resources>
