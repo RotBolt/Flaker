@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.rotlabs.flakerandroidapp.ui.components.lists.NetworkRequestUi
+import io.rotlabs.flakerandroidapp.ui.screens.prefs.FlakerPrefsUiDto
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 import io.rotlabs.flakerprefs.dto.FlakerPrefs
@@ -35,9 +37,6 @@ class FlakerViewModel(
         val networkRequests: Map<NetworkRequestUi.DateItem, List<NetworkRequestUi.NetworkRequestItem>> = emptyMap(),
         val currentPrefs: FlakerPrefsUiDto = FlakerPrefsUiDto.IMMATERIAL,
     ) {
-        val showNoRequests: Boolean
-            get() = networkRequests.isEmpty()
-
         val toShowPrefs: Boolean
             get() = currentPrefs != FlakerPrefsUiDto.IMMATERIAL
     }

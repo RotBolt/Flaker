@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit.ui
+package io.rotlabs.flakerandroidapp.ui.screens.prefs
 
 data class FlakerPrefsUiDto(
     val delay: Int,
