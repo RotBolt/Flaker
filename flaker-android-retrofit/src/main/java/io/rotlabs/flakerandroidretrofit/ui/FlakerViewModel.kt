@@ -8,6 +8,7 @@ import io.rotlabs.flakerandroidapp.ui.components.lists.NetworkRequestUi
 import io.rotlabs.flakerandroidapp.ui.screens.prefs.FlakerPrefsUiDto
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
+import io.rotlabs.flakerprefs.RetentionPolicy
 import io.rotlabs.flakerprefs.dto.FlakerPrefs
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -85,7 +86,8 @@ class FlakerViewModel(
             val flakerPrefsDto = FlakerPrefsUiDto(
                 delay = flakerPrefs.delay,
                 failPercent = flakerPrefs.failPercent,
-                variancePercent = flakerPrefs.variancePercent
+                variancePercent = flakerPrefs.variancePercent,
+                retentionPolicyDays = flakerPrefs.retentionPolicy.value
             )
             _viewStateFlow.emit(_viewStateFlow.value.copy(currentPrefs = flakerPrefsDto))
         }
@@ -106,7 +108,13 @@ class FlakerViewModel(
                     shouldIntercept = true,
                     delay = flakerPrefsUiDto.delay,
                     failPercent = flakerPrefsUiDto.failPercent,
-                    variancePercent = flakerPrefsUiDto.variancePercent
+                    variancePercent = flakerPrefsUiDto.variancePercent,
+                    retentionPolicy = when (flakerPrefsUiDto.retentionPolicyDays) {
+                        RetentionPolicy.ONE_DAY.value -> RetentionPolicy.ONE_DAY
+                        RetentionPolicy.SEVEN_DAYS.value -> RetentionPolicy.SEVEN_DAYS
+                        RetentionPolicy.FIFTEEN_DAYS.value -> RetentionPolicy.FIFTEEN_DAYS
+                        else -> RetentionPolicy.THIRTY_DAYS
+                    }
                 )
             )
         }

@@ -4,4 +4,13 @@
     <string name="delay_label">Delay</string>
     <string name="fail_percentage_label">Fail Percentage</string>
     <string name="variance_percentage_label">Variance Percentage</string>
+    <string name="retention_policy_label">Retention Policy</string>
+    <string name="day_label">day</string>
+    <string name="days_label">days</string>
+    <string-array name="retention_policy_days">
+        <item>1 day</item>
+        <item>7 days</item>
+        <item>15 days</item>
+        <item>30 days</item>
+    </string-array>
 </resources>
