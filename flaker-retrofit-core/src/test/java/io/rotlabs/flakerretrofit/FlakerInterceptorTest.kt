@@ -1,5 +1,6 @@
 package io.rotlabs.flakerretrofit
 
+import io.rotlabs.flakerprefs.RetentionPolicy
 import io.rotlabs.flakerprefs.dto.FlakerPrefs
 import io.rotlabs.flakerretrofit.di.FlakerRetrofitCoreContainer
 import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
@@ -40,7 +41,8 @@ class FlakerInterceptorTest {
                     shouldIntercept = true,
                     delay = 0,
                     failPercent = 100,
-                    variancePercent = 0
+                    variancePercent = 0,
+                    retentionPolicy = RetentionPolicy.THIRTY_DAYS
                 )
             )
 
@@ -66,7 +68,8 @@ class FlakerInterceptorTest {
                     shouldIntercept = false,
                     delay = 0,
                     failPercent = 0,
-                    variancePercent = 0
+                    variancePercent = 0,
+                    retentionPolicy = RetentionPolicy.THIRTY_DAYS
                 )
             )
 
@@ -101,7 +104,8 @@ class FlakerInterceptorTest {
                     shouldIntercept = true,
                     delay = 0,
                     failPercent = 0,
-                    variancePercent = 0
+                    variancePercent = 0,
+                    retentionPolicy = RetentionPolicy.THIRTY_DAYS
                 )
             )
 

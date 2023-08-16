@@ -4,6 +4,7 @@ import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
+import io.rotlabs.flakerprefs.RetentionPolicy
 import io.rotlabs.flakerprefs.dto.FlakerPrefs
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +33,8 @@ class TestDataContainer : FlakerDataContainer(FakeContext()) {
                 shouldIntercept = false,
                 delay = 0,
                 failPercent = 0,
-                variancePercent = 0
+                variancePercent = 0,
+                retentionPolicy = RetentionPolicy.THIRTY_DAYS
             )
         )
 
