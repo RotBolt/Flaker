@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.sqlDelight.coroutines.extensions)
             implementation(libs.datastore.preferences.core)
+            implementation(libs.kotlinx.datetime)
             implementation(project(":flaker-domain"))
         }
     }

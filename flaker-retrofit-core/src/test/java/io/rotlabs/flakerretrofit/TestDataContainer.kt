@@ -15,15 +15,17 @@ import kotlinx.coroutines.flow.flow
 class TestDataContainer : FlakerDataContainer(FakeContext()) {
 
     private val fakeNetworkRequestRepo = object : NetworkRequestRepo {
-        override fun selectAll(): List<NetworkRequest> {
+        override suspend fun selectAll(): List<NetworkRequest> {
             return emptyList()
         }
 
-        override fun insert(networkRequest: NetworkRequest) = Unit
+        override suspend fun insert(networkRequest: NetworkRequest) = Unit
 
         override fun observeAll(): Flow<List<NetworkRequest>> {
             return emptyFlow()
         }
+
+        override suspend fun deleteExpiredData(retentionPolicy: RetentionPolicy) = Unit
     }
 
     private val fakePrefDataStore = object : PrefDataStore {

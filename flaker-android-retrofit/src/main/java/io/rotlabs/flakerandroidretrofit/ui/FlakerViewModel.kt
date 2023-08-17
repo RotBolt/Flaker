@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.rotlabs.flakerandroidapp.ui.components.lists.NetworkRequestUi
-import io.rotlabs.flakerandroidapp.ui.screens.prefs.FlakerPrefsUiDto
+import io.rotlabs.flakerandroidui.components.lists.NetworkRequestUi
+import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsUiDto
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 import io.rotlabs.flakerprefs.RetentionPolicy
@@ -45,6 +45,7 @@ class FlakerViewModel(
     init {
         observeIsFlakerOn()
         observeAllRequests()
+        deleteExpiredData()
     }
 
     private fun observeIsFlakerOn() {
@@ -117,7 +118,17 @@ class FlakerViewModel(
                     }
                 )
             )
+            closePrefs()
         }
-        closePrefs()
+    }
+
+    private fun deleteExpiredData() {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            // TODO add firebase log
+        }
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val retentionPolicy = prefDataStore.getPrefs().first().retentionPolicy
+            networkRequestRepo.deleteExpiredData(retentionPolicy)
+        }
     }
 }

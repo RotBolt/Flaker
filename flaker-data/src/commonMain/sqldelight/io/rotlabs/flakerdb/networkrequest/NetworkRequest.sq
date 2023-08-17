@@ -8,7 +8,8 @@ CREATE TABLE network_request (
     request_time INTEGER NOT NULL,
     response_code INTEGER NOT NULL,
     response_time_taken INTEGER NOT NULL,
-    is_failed_by_flaker INTEGER AS Boolean NOT NULL
+    is_failed_by_flaker INTEGER AS Boolean NOT NULL,
+    created_at INTEGER NOT NULL
 );
 
 selectAll:
@@ -17,4 +18,9 @@ FROM network_request;
 
 insert:
 INSERT INTO network_request
-VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteOldData:
+DELETE
+FROM network_request
+WHERE created_at < ?;

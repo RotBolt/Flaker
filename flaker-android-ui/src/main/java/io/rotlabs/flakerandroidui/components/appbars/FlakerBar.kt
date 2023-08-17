@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp.ui.components.appbars
+package io.rotlabs.flakerandroidui.components.appbars
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

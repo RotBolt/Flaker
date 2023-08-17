@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp.ui.theme
+package io.rotlabs.flakerandroidui.theme
 
 import android.app.Activity
 import android.os.Build
