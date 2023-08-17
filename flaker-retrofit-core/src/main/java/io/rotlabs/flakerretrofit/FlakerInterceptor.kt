@@ -63,7 +63,12 @@ class FlakerInterceptor private constructor(
         }
     }
 
-    private fun saveNetworkTransaction(request: Request, response: Response, delay: Long, isFailedByFlaker: Boolean) {
+    private suspend fun saveNetworkTransaction(
+        request: Request,
+        response: Response,
+        delay: Long,
+        isFailedByFlaker: Boolean
+    ) {
         val networkRequest = NetworkRequest(
             host = request.url.host,
             path = request.url.pathSegments.joinToString("/"),
@@ -71,7 +76,8 @@ class FlakerInterceptor private constructor(
             requestTime = response.sentRequestAtMillis,
             responseCode = response.code.toLong(),
             responseTimeTaken = (response.receivedResponseAtMillis - response.sentRequestAtMillis) + delay,
-            isFailedByFlaker = isFailedByFlaker
+            isFailedByFlaker = isFailedByFlaker,
+            createdAt = System.currentTimeMillis()
         )
 
         networkRequestRepo.insert(networkRequest)

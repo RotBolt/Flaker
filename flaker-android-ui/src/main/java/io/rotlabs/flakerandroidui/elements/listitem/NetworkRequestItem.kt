@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp.ui.elements.listitem
+package io.rotlabs.flakerandroidui.elements.listitem
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,10 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
-import io.rotlabs.flakerandroidapp.ui.theme.FlakerAndroidTheme
-import io.rotlabs.flakerandroidapp.ui.theme.statusCodeError
-import io.rotlabs.flakerandroidapp.ui.theme.statusCodeOther
-import io.rotlabs.flakerandroidapp.ui.theme.statusCodeSuccess
+import io.rotlabs.flakerandroidui.theme.FlakerAndroidTheme
+import io.rotlabs.flakerandroidui.theme.statusCodeError
+import io.rotlabs.flakerandroidui.theme.statusCodeOther
+import io.rotlabs.flakerandroidui.theme.statusCodeSuccess
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -145,7 +145,8 @@ fun NetworkRequestItemPreview() {
                     requestTime = 1687673435000,
                     responseTimeTaken = 145L,
                     responseCode = if (it == 0) 200 else if (it == 1) 300 else 404,
-                    isFailedByFlaker = it >= 2
+                    isFailedByFlaker = it >= 2,
+                    createdAt = 1692270425000
                 )
                 NetworkRequestItem(networkRequest = networkRequest, modifier = Modifier.padding(16.dp))
             }

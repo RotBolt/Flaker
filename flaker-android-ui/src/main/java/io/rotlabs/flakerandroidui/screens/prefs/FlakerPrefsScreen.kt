@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp.ui.screens.prefs
+package io.rotlabs.flakerandroidui.screens.prefs
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable

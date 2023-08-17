@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidapp.ui.components.lists
+package io.rotlabs.flakerandroidui.components.lists
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -16,9 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import io.rotlabs.flakerandroidapp.ui.elements.listitem.NetworkRequestItem
-import io.rotlabs.flakerandroidapp.ui.elements.listitem.SectionDateItem
 import io.rotlabs.flakerandroidui.R
+import io.rotlabs.flakerandroidui.elements.listitem.NetworkRequestItem
+import io.rotlabs.flakerandroidui.elements.listitem.SectionDateItem
 
 typealias NetworkRequestListContent = Map<NetworkRequestUi.DateItem, List<NetworkRequestUi.NetworkRequestItem>>
 
