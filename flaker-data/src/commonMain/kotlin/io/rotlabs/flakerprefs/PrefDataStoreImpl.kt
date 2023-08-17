@@ -22,7 +22,7 @@ class PrefDataStoreImpl(private val prefs: DataStore<Preferences>) : PrefDataSto
                 retentionPolicy = when (it[FLAKER_RETENTION_POLICY]) {
                     RetentionPolicy.ONE_DAY.value -> RetentionPolicy.ONE_DAY
                     RetentionPolicy.SEVEN_DAYS.value -> RetentionPolicy.SEVEN_DAYS
-                    RetentionPolicy.THIRTY_DAYS.value -> RetentionPolicy.FIFTEEN_DAYS
+                    RetentionPolicy.FIFTEEN_DAYS.value -> RetentionPolicy.FIFTEEN_DAYS
                     else -> RetentionPolicy.THIRTY_DAYS
                 }
             )
