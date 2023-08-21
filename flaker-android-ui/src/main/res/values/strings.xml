@@ -7,6 +7,7 @@
     <string name="retention_policy_label">Retention Policy</string>
     <string name="day_label">day</string>
     <string name="days_label">days</string>
+    <string name="search_screen_default_label">Search results will appear here.</string>
     <string-array name="retention_policy_days">
         <item>1 day</item>
         <item>7 days</item>

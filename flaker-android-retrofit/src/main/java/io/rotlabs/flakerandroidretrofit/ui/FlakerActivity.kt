@@ -9,7 +9,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -22,9 +23,10 @@ import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidRetrofitContainer
 import io.rotlabs.flakerandroidui.components.appbars.FlakerBar
 import io.rotlabs.flakerandroidui.components.lists.NetworkRequestList
 import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsDialog
+import io.rotlabs.flakerandroidui.screens.search.SearchScreen
 import io.rotlabs.flakerandroidui.theme.FlakerAndroidTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 class FlakerActivity : ComponentActivity() {
 
     private val viewModel: FlakerViewModel by viewModels { FlakerAndroidRetrofitContainer.flakerViewModelFactory() }
@@ -46,7 +48,7 @@ class FlakerActivity : ComponentActivity() {
                             scrollBehavior = scrollBehavior,
                             onToggleChange = viewModel::toggleFlaker,
                             onPrefsClick = viewModel::openPrefs,
-                            onSearchClick = {}
+                            onSearchClick = viewModel::openSearch
                         )
                     }
                 ) { scaffoldPadding ->
@@ -64,6 +66,18 @@ class FlakerActivity : ComponentActivity() {
                         onDismissRequest = viewModel::closePrefs,
                         onConfirmAction = viewModel::updatePrefs,
                         currentValuesProvider = { state.currentPrefs },
+                    )
+                }
+
+                AnimatedVisibility(
+                    visible = state.toShowSearch,
+                    enter = fadeIn() + slideInHorizontally { it },
+                    exit = fadeOut() + slideOutHorizontally { it }
+                ) {
+                    SearchScreen(
+                        searchUiDto = state.searchData,
+                        onBack = viewModel::closeSearch,
+                        onSearch = viewModel::searchNetworkRequests
                     )
                 }
             }
