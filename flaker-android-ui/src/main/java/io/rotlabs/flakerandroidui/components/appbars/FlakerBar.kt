@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import io.rotlabs.flakerandroidui.R
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Suppress("UnusedParameter")
 @Composable
 fun FlakerBar(
     modifier: Modifier = Modifier,
@@ -49,7 +48,7 @@ fun FlakerBar(
 
             Spacer(modifier = Modifier.size(8.dp))
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onSearchClick) {
                 Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search network requests")
             }
 

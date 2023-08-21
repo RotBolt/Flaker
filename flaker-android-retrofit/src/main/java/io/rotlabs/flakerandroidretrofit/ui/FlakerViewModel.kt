@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.rotlabs.flakerandroidui.components.lists.NetworkRequestUi
 import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsUiDto
+import io.rotlabs.flakerandroidui.screens.search.SearchUiDto
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 import io.rotlabs.flakerprefs.RetentionPolicy
@@ -36,7 +37,9 @@ class FlakerViewModel(
     data class ViewState(
         val isFlakerOn: Boolean = false,
         val networkRequests: Map<NetworkRequestUi.DateItem, List<NetworkRequestUi.NetworkRequestItem>> = emptyMap(),
+        val searchData: SearchUiDto = SearchUiDto.IMMATERIAL,
         val currentPrefs: FlakerPrefsUiDto = FlakerPrefsUiDto.IMMATERIAL,
+        val toShowSearch: Boolean = false
     ) {
         val toShowPrefs: Boolean
             get() = currentPrefs != FlakerPrefsUiDto.IMMATERIAL
@@ -129,6 +132,48 @@ class FlakerViewModel(
         viewModelScope.launch(coroutineExceptionHandler) {
             val retentionPolicy = prefDataStore.getPrefs().first().retentionPolicy
             networkRequestRepo.deleteExpiredData(retentionPolicy)
+        }
+    }
+
+    fun openSearch() {
+        viewModelScope.launch {
+            _viewStateFlow.emit(_viewStateFlow.value.copy(toShowSearch = true))
+        }
+    }
+
+    fun searchNetworkRequests(term: String) {
+        viewModelScope.launch {
+            if (term.isEmpty()) {
+                _viewStateFlow.emit(_viewStateFlow.value.copy(searchData = SearchUiDto.IMMATERIAL))
+                return@launch
+            }
+
+            val filteredContent = _viewStateFlow.value
+                .networkRequests
+                .flatMap { item -> item.value }
+                .filter { item ->
+                    item.networkRequest.host.contains(term, ignoreCase = true) ||
+                        item.networkRequest.path.contains(term, ignoreCase = true)
+                }
+                .sortedByDescending { it.networkRequest.requestTime }
+                .groupBy {
+                    val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
+                    val formattedString = dateFormatter.format(Date(it.networkRequest.requestTime))
+                    NetworkRequestUi.DateItem(formattedString)
+                }
+            val searchUiDto = _viewStateFlow.value.searchData.copy(filteredContent)
+            _viewStateFlow.emit(_viewStateFlow.value.copy(searchData = searchUiDto))
+        }
+    }
+
+    fun closeSearch() {
+        viewModelScope.launch {
+            _viewStateFlow.emit(
+                _viewStateFlow.value.copy(
+                    toShowSearch = false,
+                    searchData = SearchUiDto.IMMATERIAL
+                )
+            )
         }
     }
 }

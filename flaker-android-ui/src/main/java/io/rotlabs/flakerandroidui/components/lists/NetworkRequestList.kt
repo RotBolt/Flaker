@@ -38,7 +38,6 @@ fun NetworkRequestList(modifier: Modifier = Modifier, contentProvider: () -> Net
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(horizontal = 16.dp)
-
                 )
             }
         }
