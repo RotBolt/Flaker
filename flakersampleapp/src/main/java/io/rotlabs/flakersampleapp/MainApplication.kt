@@ -10,7 +10,7 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        FlakerAndroidRetrofitContainer.init(this)
+        FlakerAndroidRetrofitContainer.install(this)
         appContainer = AppContainer()
     }
 }

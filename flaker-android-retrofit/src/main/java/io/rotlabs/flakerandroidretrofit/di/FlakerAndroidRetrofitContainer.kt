@@ -21,8 +21,8 @@ object FlakerAndroidRetrofitContainer {
 
     private fun prefDataStore() = prefDataStore!!
 
-    fun init(appContext: Context) {
-        FlakerRetrofitCoreContainer.init(FlakerDataContainer(appContext))
+    fun install(appContext: Context) {
+        FlakerRetrofitCoreContainer.install(FlakerDataContainer(appContext))
         networkRequestRepo = FlakerRetrofitCoreContainer.networkRequestRepo()
         prefDataStore = FlakerRetrofitCoreContainer.prefDataStore()
     }

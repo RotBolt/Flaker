@@ -30,7 +30,7 @@ class FlakerInterceptorTest {
 
     @Before
     fun setup() {
-        FlakerRetrofitCoreContainer.init(testDataDependencyContainer)
+        FlakerRetrofitCoreContainer.install(testDataDependencyContainer)
     }
 
     @Test

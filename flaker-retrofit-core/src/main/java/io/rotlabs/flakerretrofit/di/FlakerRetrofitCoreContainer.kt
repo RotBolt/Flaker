@@ -14,7 +14,7 @@ object FlakerRetrofitCoreContainer {
 
     fun prefDataStore() = prefDataStore!!
 
-    fun init(dataDependencyContainer: FlakerDataContainer) {
+    fun install(dataDependencyContainer: FlakerDataContainer) {
         networkRequestRepo = dataDependencyContainer.networkRequestRepo
         prefDataStore = dataDependencyContainer.prefsDataStore
     }
