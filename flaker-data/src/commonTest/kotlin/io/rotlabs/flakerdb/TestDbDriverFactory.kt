@@ -1,4 +1,4 @@
-package io.rotlabs
+package io.rotlabs.flakerdb
 
 import app.cash.sqldelight.db.SqlDriver
 

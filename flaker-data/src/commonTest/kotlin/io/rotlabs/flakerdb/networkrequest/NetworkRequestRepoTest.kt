@@ -3,7 +3,7 @@ package io.rotlabs.flakerdb.networkrequest
 import app.cash.turbine.test
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakedomain.prefs.RetentionPolicy
-import io.rotlabs.testDbDriverFactory
+import io.rotlabs.flakerdb.testDbDriverFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
