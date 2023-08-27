@@ -39,7 +39,13 @@ kotlin {
             implementation(project(":flaker-domain"))
         }
     }
-    val commonTest by sourceSets.getting
+    val commonTest by sourceSets.getting {
+        dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
+        }
+    }
 
     val androidMain by sourceSets.getting {
         dependsOn(commonMain)
@@ -47,7 +53,12 @@ kotlin {
             implementation(libs.sqlDelight.android)
         }
     }
-    val androidUnitTest by sourceSets.getting
+    val androidUnitTest by sourceSets.getting {
+        dependencies {
+            implementation(libs.junit)
+            implementation(libs.sqlDelight.jvm)
+        }
+    }
 
     val iosMain by sourceSets.getting {
         dependsOn(commonMain)

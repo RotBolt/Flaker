@@ -7,7 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerandroidretrofit.ui.FlakerViewModel
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
 

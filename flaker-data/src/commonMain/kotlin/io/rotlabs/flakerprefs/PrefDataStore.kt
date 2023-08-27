@@ -1,6 +1,6 @@
 package io.rotlabs.flakerprefs
 
-import io.rotlabs.flakerprefs.dto.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.FlakerPrefs
 import kotlinx.coroutines.flow.Flow
 
 interface PrefDataStore {

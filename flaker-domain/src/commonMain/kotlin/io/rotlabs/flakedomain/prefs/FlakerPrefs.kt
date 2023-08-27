@@ -1,6 +1,4 @@
-package io.rotlabs.flakerprefs.dto
-
-import io.rotlabs.flakerprefs.RetentionPolicy
+package io.rotlabs.flakedomain.prefs
 
 data class FlakerPrefs(
     val shouldIntercept: Boolean,

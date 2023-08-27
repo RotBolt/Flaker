@@ -1,4 +1,4 @@
-package io.rotlabs.flakerprefs
+package io.rotlabs.flakedomain.prefs
 
 enum class RetentionPolicy(val value: String) {
     ONE_DAY("1 day"),

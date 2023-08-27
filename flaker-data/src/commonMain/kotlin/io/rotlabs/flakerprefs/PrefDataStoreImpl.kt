@@ -6,7 +6,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import io.rotlabs.flakerprefs.dto.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.RetentionPolicy
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

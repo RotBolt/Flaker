@@ -1,15 +1,14 @@
-package io.rotlabs.flakerdb.networkrequest.data
+package io.rotlabs.flakerdb.networkrequest
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.db.SqlDriver
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
+import io.rotlabs.flakedomain.prefs.RetentionPolicy
+import io.rotlabs.flakedomain.prefs.toMilliSeconds
 import io.rotlabs.flakerdb.FlakerDatabase
-import io.rotlabs.flakerprefs.RetentionPolicy
-import io.rotlabs.flakerprefs.toMilliSeconds
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 
@@ -83,6 +82,12 @@ internal class NetworkRequestRepoImpl(
             val currentMillis = Clock.System.now().toEpochMilliseconds()
             val expiryTimeMillis = currentMillis - retentionPolicy.toMilliSeconds()
             networkRequestQueries.deleteOldData(expiryTimeMillis)
+        }
+    }
+
+    override suspend fun deleteAll() {
+        withContext(dispatcher) {
+            networkRequestQueries.deleteAll()
         }
     }
 }
