@@ -42,7 +42,7 @@ android {
 dependencies {
 
     implementation(project(":flaker-android-ui"))
-    api(project(":flaker-retrofit-core"))
+    api(project(":flaker-okhttp-core"))
     implementation(project(":flaker-domain"))
     implementation(project(":flaker-data"))
 

@@ -42,7 +42,7 @@ android {
 dependencies {
 
     implementation(project(":flaker-android-ui"))
-    implementation(project(":flaker-retrofit-core"))
+    implementation(project(":flaker-okhttp-core"))
     implementation(project(":flaker-ktor-core"))
 
     implementation(libs.core.ktx)

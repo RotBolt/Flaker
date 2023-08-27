@@ -9,9 +9,9 @@ import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerandroidretrofit.ui.FlakerViewModel
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
-import io.rotlabs.flakerretrofit.di.FlakerRetrofitCoreContainer
+import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
 
-object FlakerAndroidRetrofitContainer {
+object FlakerAndroidOkhttpContainer {
 
     private var networkRequestRepo: NetworkRequestRepo? = null
 
@@ -22,9 +22,9 @@ object FlakerAndroidRetrofitContainer {
     private fun prefDataStore() = prefDataStore!!
 
     fun install(appContext: Context) {
-        FlakerRetrofitCoreContainer.install(FlakerDataContainer(appContext))
-        networkRequestRepo = FlakerRetrofitCoreContainer.networkRequestRepo()
-        prefDataStore = FlakerRetrofitCoreContainer.prefDataStore()
+        FlakerOkHttpCoreContainer.install(FlakerDataContainer(appContext))
+        networkRequestRepo = FlakerOkHttpCoreContainer.networkRequestRepo()
+        prefDataStore = FlakerOkHttpCoreContainer.prefDataStore()
     }
 
     fun flakerViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {

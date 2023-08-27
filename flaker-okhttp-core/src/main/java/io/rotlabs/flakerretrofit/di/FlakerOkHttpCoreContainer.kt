@@ -4,7 +4,7 @@ import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 
-object FlakerRetrofitCoreContainer {
+object FlakerOkHttpCoreContainer {
 
     private var networkRequestRepo: NetworkRequestRepo? = null
 

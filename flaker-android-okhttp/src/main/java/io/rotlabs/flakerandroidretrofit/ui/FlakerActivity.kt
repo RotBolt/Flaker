@@ -19,7 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidRetrofitContainer
+import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidOkhttpContainer
 import io.rotlabs.flakerandroidui.components.appbars.FlakerBar
 import io.rotlabs.flakerandroidui.components.lists.NetworkRequestList
 import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsDialog
@@ -29,7 +29,7 @@ import io.rotlabs.flakerandroidui.theme.FlakerAndroidTheme
 @OptIn(ExperimentalMaterial3Api::class)
 class FlakerActivity : ComponentActivity() {
 
-    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidRetrofitContainer.flakerViewModelFactory() }
+    private val viewModel: FlakerViewModel by viewModels { FlakerAndroidOkhttpContainer.flakerViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,7 +2,7 @@ package io.rotlabs.flakerretrofit
 
 import io.rotlabs.flakerprefs.RetentionPolicy
 import io.rotlabs.flakerprefs.dto.FlakerPrefs
-import io.rotlabs.flakerretrofit.di.FlakerRetrofitCoreContainer
+import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
 import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -30,7 +30,7 @@ class FlakerInterceptorTest {
 
     @Before
     fun setup() {
-        FlakerRetrofitCoreContainer.install(testDataDependencyContainer)
+        FlakerOkHttpCoreContainer.install(testDataDependencyContainer)
     }
 
     @Test
