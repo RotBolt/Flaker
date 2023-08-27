@@ -24,3 +24,6 @@ deleteOldData:
 DELETE
 FROM network_request
 WHERE created_at < ?;
+
+deleteAll:
+DELETE FROM network_request;

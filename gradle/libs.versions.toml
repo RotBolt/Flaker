@@ -42,23 +42,28 @@ material3 = { group = "androidx.compose.material3", name = "material3" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-mock = { group = "com.squareup.retrofit2", name = "retrofit-mock", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-converter-moshi" }
 okttp = {  group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 mockwebserver = { group="com.squareup.okhttp3", name = "mockwebserver", version.ref="okhttp" }
+
 sqlDelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref="sqlDelight" }
 sqlDelight-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref="sqlDelight" }
+sqlDelight-jvm = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref="sqlDelight" }
 sqlDelight-primitive-adapters = {group = "app.cash.sqldelight", name = "primitive-adapters", version.ref="sqlDelight" }
+sqlDelight-coroutines-extensions = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref="sqlDelight" }
+
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
-sqlDelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref="sqlDelight" }
-sqlDelight-coroutines-extensions = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref="sqlDelight" }
-detektformatiing = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+
 datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
+
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

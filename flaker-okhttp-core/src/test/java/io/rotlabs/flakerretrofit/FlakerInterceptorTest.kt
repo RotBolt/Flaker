@@ -1,7 +1,7 @@
 package io.rotlabs.flakerretrofit
 
-import io.rotlabs.flakerprefs.RetentionPolicy
-import io.rotlabs.flakerprefs.dto.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.RetentionPolicy
 import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
 import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi

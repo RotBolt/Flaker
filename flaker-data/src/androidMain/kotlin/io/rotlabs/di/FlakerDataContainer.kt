@@ -2,8 +2,8 @@ package io.rotlabs.di
 
 import android.content.Context
 import io.rotlabs.flakerdb.DbDriverFactory
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepoImpl
+import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
+import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepoImpl
 import io.rotlabs.flakerprefs.DataStoreFactory
 import io.rotlabs.flakerprefs.PrefDataStore
 import io.rotlabs.flakerprefs.PrefDataStoreImpl

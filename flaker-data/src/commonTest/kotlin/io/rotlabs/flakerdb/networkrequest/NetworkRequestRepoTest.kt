@@ -1,0 +1,152 @@
+package io.rotlabs.flakerdb.networkrequest
+
+import app.cash.turbine.test
+import io.rotlabs.flakedomain.networkrequest.NetworkRequest
+import io.rotlabs.flakedomain.prefs.RetentionPolicy
+import io.rotlabs.flakerdb.testDbDriverFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class NetworkRequestRepoTest {
+
+    private lateinit var networkRequestRepo: NetworkRequestRepo
+
+    private val testDispatcher = UnconfinedTestDispatcher()
+
+    private suspend fun NetworkRequestRepo.seed() {
+        insert(
+            NetworkRequest(
+                host = "https://jsonplaceholder.typicode.com",
+                path = "/todos/1",
+                method = "GET",
+                requestTime = 1693127126000,
+                responseCode = 200,
+                responseTimeTaken = 100,
+                isFailedByFlaker = false,
+                createdAt = 1693127139000
+            )
+        )
+    }
+
+    @BeforeTest
+    fun setup() = runBlocking {
+        networkRequestRepo = NetworkRequestRepoImpl(
+            sqlDriver = testDbDriverFactory(),
+            dispatcher = testDispatcher
+        )
+
+        networkRequestRepo.deleteAll()
+        networkRequestRepo.seed()
+    }
+
+    @Test
+    fun `test selectAll`() = runBlocking {
+        val networkRequests = networkRequestRepo.selectAll()
+        assertTrue(networkRequests.isNotEmpty())
+        assertEquals(1, networkRequests.size)
+    }
+
+    @Test
+    fun `test observeAll`() = runBlocking {
+        val networkRequests = networkRequestRepo.observeAll()
+        networkRequests.test {
+            assertEquals(1, awaitItem().size)
+            networkRequestRepo.insert(
+                NetworkRequest(
+                    host = "https://jsonplaceholder.typicode.com",
+                    path = "/todos/1",
+                    method = "GET",
+                    requestTime = 1693127126000,
+                    responseCode = 500,
+                    responseTimeTaken = 100,
+                    isFailedByFlaker = true,
+                    createdAt = 1693127139000
+                )
+            )
+            val items = awaitItem()
+            assertEquals(2, items.size)
+            assertEquals(500, items[1].responseCode)
+            assertEquals(true, items[1].isFailedByFlaker)
+        }
+    }
+
+    @Test
+    fun `test deleteAll`() = runBlocking {
+        assertEquals(1, networkRequestRepo.selectAll().size)
+        networkRequestRepo.deleteAll()
+        assertEquals(0, networkRequestRepo.selectAll().size)
+    }
+
+    @Test
+    fun `test deleteExpiredData`() = runBlocking {
+        // insert 2 days before time
+        val networkRequest0 = NetworkRequest(
+            host = "https://jsonplaceholder.typicode.com",
+            path = "/todos/1",
+            method = "GET",
+            requestTime = 1692955276000,
+            responseCode = 200,
+            responseTimeTaken = 100,
+            isFailedByFlaker = false,
+            createdAt = 1692955276000
+        )
+        networkRequestRepo.insert(networkRequest0)
+        assertEquals(2, networkRequestRepo.selectAll().size)
+        networkRequestRepo.deleteExpiredData(RetentionPolicy.ONE_DAY)
+        assertEquals(1, networkRequestRepo.selectAll().size)
+
+        // insert 7 days before time
+        val networkRequest1 = NetworkRequest(
+            host = "https://jsonplaceholder.typicode.com",
+            path = "/todos/1",
+            method = "GET",
+            requestTime = 1692523289000,
+            responseCode = 200,
+            responseTimeTaken = 100,
+            isFailedByFlaker = false,
+            createdAt = 1692523289000
+        )
+        networkRequestRepo.insert(networkRequest1)
+        assertEquals(2, networkRequestRepo.selectAll().size)
+        networkRequestRepo.deleteExpiredData(RetentionPolicy.SEVEN_DAYS)
+        assertEquals(1, networkRequestRepo.selectAll().size)
+
+        // insert 15 days before time
+        val networkRequest2 = NetworkRequest(
+            host = "https://jsonplaceholder.typicode.com",
+            path = "/todos/1",
+            method = "GET",
+            requestTime = 1690968089000,
+            responseCode = 200,
+            responseTimeTaken = 100,
+            isFailedByFlaker = false,
+            createdAt = 1690968089000
+        )
+        networkRequestRepo.insert(networkRequest2)
+        assertEquals(2, networkRequestRepo.selectAll().size)
+        networkRequestRepo.deleteExpiredData(RetentionPolicy.FIFTEEN_DAYS)
+        assertEquals(1, networkRequestRepo.selectAll().size)
+
+        // insert 30 days before time
+        val networkRequest3 = NetworkRequest(
+            host = "https://jsonplaceholder.typicode.com",
+            path = "/todos/1",
+            method = "GET",
+            requestTime = 1688256089000,
+            responseCode = 200,
+            responseTimeTaken = 100,
+            isFailedByFlaker = false,
+            createdAt = 1688256089000
+        )
+        networkRequestRepo.insert(networkRequest3)
+        assertEquals(2, networkRequestRepo.selectAll().size)
+        networkRequestRepo.deleteExpiredData(RetentionPolicy.THIRTY_DAYS)
+        assertEquals(1, networkRequestRepo.selectAll().size)
+    }
+}

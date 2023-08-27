@@ -2,10 +2,10 @@ package io.rotlabs.flakerretrofit
 
 import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakedomain.prefs.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.RetentionPolicy
+import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
-import io.rotlabs.flakerprefs.RetentionPolicy
-import io.rotlabs.flakerprefs.dto.FlakerPrefs
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emitAll
@@ -26,6 +26,8 @@ class TestDataContainer : FlakerDataContainer(FakeContext()) {
         }
 
         override suspend fun deleteExpiredData(retentionPolicy: RetentionPolicy) = Unit
+
+        override suspend fun deleteAll() = Unit
     }
 
     private val fakePrefDataStore = object : PrefDataStore {

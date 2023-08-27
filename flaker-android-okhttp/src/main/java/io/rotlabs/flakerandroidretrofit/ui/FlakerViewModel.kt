@@ -4,13 +4,13 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.rotlabs.flakedomain.prefs.FlakerPrefs
+import io.rotlabs.flakedomain.prefs.RetentionPolicy
 import io.rotlabs.flakerandroidui.components.lists.NetworkRequestUi
 import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsUiDto
 import io.rotlabs.flakerandroidui.screens.search.SearchUiDto
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
-import io.rotlabs.flakerprefs.RetentionPolicy
-import io.rotlabs.flakerprefs.dto.FlakerPrefs
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

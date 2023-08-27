@@ -1,7 +1,7 @@
 package io.rotlabs.flakerretrofit.di
 
 import io.rotlabs.di.FlakerDataContainer
-import io.rotlabs.flakerdb.networkrequest.data.NetworkRequestRepo
+import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
 import io.rotlabs.flakerprefs.PrefDataStore
 
 object FlakerOkHttpCoreContainer {
