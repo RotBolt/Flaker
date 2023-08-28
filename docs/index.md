@@ -12,4 +12,4 @@ Whether you're a mobile app developer refining user experiences or a tester vali
 
 ## flaker android demo
 
-![flaker-android-demo](assets/flaker-android.gif)
+<img src="assets/flaker-android.gif" width="800" alt="flaker-android"/>
