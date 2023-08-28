@@ -7,6 +7,7 @@ import io.rotlabs.flakerdb.testDbDriverFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.datetime.Clock
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -20,16 +21,17 @@ class NetworkRequestRepoTest {
     private val testDispatcher = UnconfinedTestDispatcher()
 
     private suspend fun NetworkRequestRepo.seed() {
+        val now = Clock.System.now().toEpochMilliseconds()
         insert(
             NetworkRequest(
                 host = "https://jsonplaceholder.typicode.com",
                 path = "/todos/1",
                 method = "GET",
-                requestTime = 1693127126000,
+                requestTime = now,
                 responseCode = 200,
                 responseTimeTaken = 100,
                 isFailedByFlaker = false,
-                createdAt = 1693127139000
+                createdAt = now
             )
         )
     }
@@ -85,16 +87,18 @@ class NetworkRequestRepoTest {
 
     @Test
     fun `test deleteExpiredData`() = runBlocking {
+        val millisInOneDay = 86400000L
+        val now = Clock.System.now().toEpochMilliseconds()
         // insert 2 days before time
         val networkRequest0 = NetworkRequest(
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = 1692955276000,
+            requestTime = now - (millisInOneDay * 2),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = 1692955276000
+            createdAt = now - (millisInOneDay * 2)
         )
         networkRequestRepo.insert(networkRequest0)
         assertEquals(2, networkRequestRepo.selectAll().size)
@@ -106,11 +110,11 @@ class NetworkRequestRepoTest {
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = 1692523289000,
+            requestTime = now - (millisInOneDay * 7),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = 1692523289000
+            createdAt = now - (millisInOneDay * 7)
         )
         networkRequestRepo.insert(networkRequest1)
         assertEquals(2, networkRequestRepo.selectAll().size)
@@ -122,11 +126,11 @@ class NetworkRequestRepoTest {
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = 1690968089000,
+            requestTime = now - (millisInOneDay * 15),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = 1690968089000
+            createdAt = now - (millisInOneDay * 15)
         )
         networkRequestRepo.insert(networkRequest2)
         assertEquals(2, networkRequestRepo.selectAll().size)
@@ -138,11 +142,11 @@ class NetworkRequestRepoTest {
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = 1688256089000,
+            requestTime = now - (millisInOneDay * 30),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = 1688256089000
+            createdAt = now - (millisInOneDay * 30)
         )
         networkRequestRepo.insert(networkRequest3)
         assertEquals(2, networkRequestRepo.selectAll().size)
