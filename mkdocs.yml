@@ -6,7 +6,7 @@ site_description: " A flaky network simulator for your mobile app development."
 site_author: Rotbolt
 remote_branch: gh-pages
 nav:
-  - Home: index.md
+  - Overview: index.md
   - Getting Started: getting-started.md
   - Development: development.md
 theme: material
