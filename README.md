@@ -44,7 +44,7 @@ That's it. Now you can use the companion app to simulate the network conditions.
 ## Development
 
 ### Library Code Map
-![library-code-map.png](assets/library-code-map.png)
+![library-code-map.png](docs/assets/library-code-map.png)
 
 
 ### :hammer: Build
