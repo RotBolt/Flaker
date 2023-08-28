@@ -12,4 +12,7 @@ Whether you're a mobile app developer refining user experiences or a tester vali
 
 ## flaker android demo
 
-<img src="assets/flaker-android.gif" alt="flaker-android"/>
+<video width="800"  controls>
+  <source src="assets/flaker-android.mp4" type="video/mp4">
+</video>
+
