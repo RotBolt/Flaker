@@ -7,6 +7,7 @@ plugins {
 android {
     namespace = "io.rotlabs.flakerretrofitcore"
     compileSdk = 33
+    version = "0.1.0"
 
     defaultConfig {
         minSdk = 24
