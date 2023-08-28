@@ -9,3 +9,7 @@ Imagine effortlessly recreating real-world network scenarios directly for your m
 - **Focused Impact**: Flaker only affects your app's network conditions, leaving your device's overall network functionality undisturbed.
 
 Whether you're a mobile app developer refining user experiences or a tester validating app resilience, Flaker offers an intuitive solution within your development workflow. Elevate your testing strategies and boost your app's performance with Flaker.
+
+## flaker android demo
+
+<iframe src="https://github.com/RotBolt/Flaker/assets/24780524/3d00e644-0f47-4755-8402-74001fa96a2c"></iframe>
