@@ -9,7 +9,15 @@ nav:
   - Overview: index.md
   - Getting Started: getting-started.md
   - Development: development.md
-theme: material
+theme:
+  name: 'material'
+  logo: 'assets/logo.png'
+  icon:
+    repo: fontawesome/brands/github
+  favicon: 'assets/logo.png'
+  palette:
+    primary: 'deep-orange'
+    accent: 'deep-purple'
 markdown_extensions:
   - attr_list
   - md_in_html
