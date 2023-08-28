@@ -42,8 +42,8 @@ android {
 dependencies {
 
     implementation(project(":flaker-android-ui"))
-    implementation(project(":flaker-okhttp-core"))
-    implementation(project(":flaker-ktor-core"))
+    api(project(":flaker-okhttp-core"))
+    api(project(":flaker-ktor-core"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

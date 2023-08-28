@@ -28,15 +28,6 @@ kotlin {
         }
     }
 
-    val iosMain by sourceSets.getting
-    val iosTest by sourceSets.getting
-    val iosSimulatorArm64Main by sourceSets.getting
-    val iosSimulatorArm64Test by sourceSets.getting
-
-    // Set up dependencies between the source sets
-    iosSimulatorArm64Main.dependsOn(iosMain)
-    iosSimulatorArm64Test.dependsOn(iosTest)
-
     cocoapods {
         // Required properties
         summary = "Multiplatform Kotlin flaker library"
@@ -57,12 +48,35 @@ kotlin {
         xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.RELEASE
     }
 
-    sourceSets["commonMain"].dependencies {  }
-    sourceSets["commonTest"].dependencies {  }
-    sourceSets["androidMain"].dependencies {  }
-    sourceSets["androidUnitTest"].dependencies {  }
-    sourceSets["iosMain"].dependencies {  }
-    sourceSets["iosTest"].dependencies {  }
+    val commonMain by sourceSets.getting {
+        dependencies {
+            implementation(project(":flaker-domain"))
+            implementation(project(":flaker-data"))
+        }
+    }
+
+    val commonTest by sourceSets.getting
+
+    val androidMain by sourceSets.getting {
+        dependencies {
+            implementation(project(":flaker-data"))
+        }
+    }
+    val androidUnitTest by sourceSets.getting
+
+    val iosMain by sourceSets.getting {
+        dependencies {
+            implementation(project(":flaker-data"))
+        }
+    }
+    val iosTest by sourceSets.getting
+
+    val iosSimulatorArm64Main by sourceSets.getting
+    val iosSimulatorArm64Test by sourceSets.getting
+
+    // Set up dependencies between the source sets
+    iosSimulatorArm64Main.dependsOn(iosMain)
+    iosSimulatorArm64Test.dependsOn(iosTest)
 
 
     val podAttribute = Attribute.of("pod", String::class.java)

@@ -42,7 +42,9 @@ android {
 dependencies {
 
     implementation(project(":flaker-android-ui"))
-    implementation(project(":flaker-ktor-core"))
+    api(project(":flaker-ktor-core"))
+    implementation(project(":flaker-domain"))
+    implementation(project(":flaker-data"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
