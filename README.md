@@ -13,7 +13,8 @@ Whether you're a mobile app developer refining user experiences or a tester vali
 
 ## Demo
 
-![flaker-demo.mov](assets/flaker-demo.mov)
+https://github.com/RotBolt/Flaker/assets/24780524/3d00e644-0f47-4755-8402-74001fa96a2c
+
 
 ## Getting Started
 
