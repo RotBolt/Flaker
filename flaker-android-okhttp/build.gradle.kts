@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "io.rotlabs.flakerandroidretrofit"
+    namespace = "io.rotlabs.flakerandroidokhttp"
     compileSdk = 33
     version = "0.1.0"
 
@@ -20,8 +20,11 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+        }
+        release {
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }

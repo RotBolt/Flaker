@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit.ui
+package io.rotlabs.flakerandroidokhttp.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

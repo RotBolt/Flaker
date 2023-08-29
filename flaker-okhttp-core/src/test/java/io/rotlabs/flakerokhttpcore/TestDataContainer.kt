@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerokhttpcore
 
 import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest

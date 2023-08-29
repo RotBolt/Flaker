@@ -1,6 +1,6 @@
 package io.rotlabs.flakersampleapp.di
 
-import io.rotlabs.flakerretrofit.FlakerInterceptor
+import io.rotlabs.flakerokhttpcore.FlakerInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit.di
+package io.rotlabs.flakerokhttpcore.di
 
 import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerandroidmonitor.FlakerMonitor

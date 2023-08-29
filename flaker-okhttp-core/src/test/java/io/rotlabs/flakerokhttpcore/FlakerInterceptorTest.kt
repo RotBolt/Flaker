@@ -1,9 +1,9 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerokhttpcore
 
 import io.rotlabs.flakedomain.prefs.FlakerPrefs
 import io.rotlabs.flakedomain.prefs.RetentionPolicy
-import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
-import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
+import io.rotlabs.flakerokhttpcore.di.FlakerOkHttpCoreContainer
+import io.rotlabs.flakerokhttpcore.dto.FlakerFailResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient

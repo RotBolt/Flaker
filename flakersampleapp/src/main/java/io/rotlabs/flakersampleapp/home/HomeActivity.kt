@@ -27,8 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.rotlabs.flakerandroidretrofit.FLAKER_ACTION_OPEN
-import io.rotlabs.flakerandroidretrofit.ui.FlakerActivity
+import io.rotlabs.flakerandroidokhttp.FLAKER_ACTION_OPEN
+import io.rotlabs.flakerandroidokhttp.ui.FlakerActivity
 import io.rotlabs.flakersampleapp.MainApplication
 import io.rotlabs.flakersampleapp.home.di.HomeContainer
 import io.rotlabs.flakersampleapp.theme.FlakerTheme
