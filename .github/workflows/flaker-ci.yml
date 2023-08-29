@@ -14,6 +14,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Inject Secrets
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        run: |
+          touch secrets.properties
+          echo "SENTRY_DSN = $SENTRY_DSN" >> secrets.properties
+
       - name: Run detekt
         run: bash ./gradlew detekt
 

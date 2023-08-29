@@ -28,9 +28,11 @@ class FlakerInterceptorTest {
 
     private val testDataDependencyContainer = TestDataContainer()
 
+    private val testMonitorContainer = TestMonitorContainer()
+
     @Before
     fun setup() {
-        FlakerOkHttpCoreContainer.install(testDataDependencyContainer)
+        FlakerOkHttpCoreContainer.install(testDataDependencyContainer, testMonitorContainer)
     }
 
     @Test

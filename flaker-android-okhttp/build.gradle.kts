@@ -46,6 +46,7 @@ dependencies {
     api(project(":flaker-okhttp-core"))
     implementation(project(":flaker-domain"))
     implementation(project(":flaker-data"))
+    implementation(project(":flaker-android-monitor"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

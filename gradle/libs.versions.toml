@@ -23,6 +23,7 @@ kotlinx-datetime = "0.4.0"
 kotlinx-coroutines = "1.7.3"
 turbine = "1.0.0"
 datastore = "1.1.0-alpha04"
+sentry = "6.28.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -64,6 +65,7 @@ datastore-preferences-core = { group = "androidx.datastore", name = "datastore-p
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+sentry-android = { group = "io.sentry", name = "sentry-android", version.ref = "sentry" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
