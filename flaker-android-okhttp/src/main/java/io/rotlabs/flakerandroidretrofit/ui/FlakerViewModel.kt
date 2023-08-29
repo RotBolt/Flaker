@@ -1,11 +1,11 @@
 package io.rotlabs.flakerandroidretrofit.ui
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.rotlabs.flakedomain.prefs.FlakerPrefs
 import io.rotlabs.flakedomain.prefs.RetentionPolicy
+import io.rotlabs.flakerandroidmonitor.FlakerMonitor
 import io.rotlabs.flakerandroidui.components.lists.NetworkRequestUi
 import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsUiDto
 import io.rotlabs.flakerandroidui.screens.search.SearchUiDto
@@ -28,6 +28,7 @@ import java.util.Locale
 class FlakerViewModel(
     private val networkRequestRepo: NetworkRequestRepo,
     private val prefDataStore: PrefDataStore,
+    private val flakerMonitor: FlakerMonitor,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -60,7 +61,10 @@ class FlakerViewModel(
 
     private fun observeAllRequests() {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e("FlakerViewModel", "Error loading all requests", throwable)
+            flakerMonitor.captureException(
+                throwable,
+                mapOf(TAG to "Error while observing network requests: ${throwable.message}")
+            )
         }
         viewModelScope.launch(coroutineExceptionHandler) {
             networkRequestRepo.observeAll()
@@ -127,7 +131,10 @@ class FlakerViewModel(
 
     private fun deleteExpiredData() {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            // TODO add firebase log
+            flakerMonitor.captureException(
+                throwable,
+                mapOf(TAG to "Error while deleting expired data: ${throwable.message}")
+            )
         }
         viewModelScope.launch(coroutineExceptionHandler) {
             val retentionPolicy = prefDataStore.getPrefs().first().retentionPolicy
@@ -175,5 +182,9 @@ class FlakerViewModel(
                 )
             )
         }
+    }
+
+    companion object {
+        private const val TAG = "FlakerViewModel"
     }
 }

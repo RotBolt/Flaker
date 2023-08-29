@@ -1,19 +1,30 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
 }
 
+val secretsPropertiesFile = rootProject.file("secrets.properties")
+val secretProperties = Properties()
+secretProperties.load(FileInputStream(secretsPropertiesFile))
+
 android {
-    namespace = "io.rotlabs.flakerretrofitcore"
-    compileSdk = 33
-    version = "0.1.0"
+    namespace = "io.rotlabs.flakerandroidmonitor"
+    compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "SENTRY_DSN", "\"${secretProperties["SENTRY_DSN"]}\"")
     }
 
     buildTypes {
@@ -33,23 +44,10 @@ android {
 
 dependencies {
 
-    implementation(project(":flaker-domain"))
-    implementation(project(":flaker-data"))
-    implementation(project(":flaker-android-monitor"))
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)
-
-    implementation(libs.retrofit.mock)
-    implementation(libs.okttp)
-    testImplementation(libs.mockwebserver)
-
+    implementation(libs.sentry.android)
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-
 }
