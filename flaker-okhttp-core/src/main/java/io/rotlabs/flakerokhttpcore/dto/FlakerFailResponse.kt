@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit.dto
+package io.rotlabs.flakerokhttpcore.dto
 
 data class FlakerFailResponse(
     val httpCode: Int = 500,

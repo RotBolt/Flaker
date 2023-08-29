@@ -1,7 +1,7 @@
 package io.rotlabs.flakersampleapp
 
 import android.app.Application
-import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidOkhttpContainer
+import io.rotlabs.flakerandroidokhttp.di.FlakerAndroidOkhttpContainer
 import io.rotlabs.flakersampleapp.di.AppContainer
 
 class MainApplication : Application() {

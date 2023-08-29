@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerokhttpcore
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

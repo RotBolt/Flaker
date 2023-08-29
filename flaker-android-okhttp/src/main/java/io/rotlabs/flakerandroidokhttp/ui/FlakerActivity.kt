@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit.ui
+package io.rotlabs.flakerandroidokhttp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,7 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import io.rotlabs.flakerandroidretrofit.di.FlakerAndroidOkhttpContainer
+import io.rotlabs.flakerandroidokhttp.di.FlakerAndroidOkhttpContainer
 import io.rotlabs.flakerandroidui.components.appbars.FlakerBar
 import io.rotlabs.flakerandroidui.components.lists.NetworkRequestList
 import io.rotlabs.flakerandroidui.screens.prefs.FlakerPrefsDialog

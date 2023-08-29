@@ -1,11 +1,11 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerokhttpcore
 
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakerandroidmonitor.FlakerMonitor
 import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
+import io.rotlabs.flakerokhttpcore.di.FlakerOkHttpCoreContainer
+import io.rotlabs.flakerokhttpcore.dto.FlakerFailResponse
 import io.rotlabs.flakerprefs.PrefDataStore
-import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
-import io.rotlabs.flakerretrofit.dto.FlakerFailResponse
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

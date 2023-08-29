@@ -1,4 +1,4 @@
-package io.rotlabs.flakerandroidretrofit.di
+package io.rotlabs.flakerandroidokhttp.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
@@ -8,10 +8,10 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import io.rotlabs.di.FlakerDataContainer
 import io.rotlabs.flakerandroidmonitor.FlakerMonitor
 import io.rotlabs.flakerandroidmonitor.di.FlakerAndroidMonitorContainer
-import io.rotlabs.flakerandroidretrofit.ui.FlakerViewModel
+import io.rotlabs.flakerandroidokhttp.ui.FlakerViewModel
 import io.rotlabs.flakerdb.networkrequest.NetworkRequestRepo
+import io.rotlabs.flakerokhttpcore.di.FlakerOkHttpCoreContainer
 import io.rotlabs.flakerprefs.PrefDataStore
-import io.rotlabs.flakerretrofit.di.FlakerOkHttpCoreContainer
 
 object FlakerAndroidOkhttpContainer {
 

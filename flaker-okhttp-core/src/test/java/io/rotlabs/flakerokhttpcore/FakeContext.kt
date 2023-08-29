@@ -1,4 +1,4 @@
-package io.rotlabs.flakerretrofit
+package io.rotlabs.flakerokhttpcore
 
 import android.content.BroadcastReceiver
 import android.content.ComponentName
