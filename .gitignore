@@ -9,4 +9,5 @@
 .cxx
 local.properties
 secrets.properties
+flakerKeyStore.jks
 site

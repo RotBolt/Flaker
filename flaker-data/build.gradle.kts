@@ -110,8 +110,19 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 33
+        consumerProguardFiles("consumer-rules.pro")
     }
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
+        release {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
 }
 
 sqldelight {

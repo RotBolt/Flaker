@@ -83,7 +83,13 @@ class FlakerViewModel(
     }
 
     fun toggleFlaker(value: Boolean) {
-        viewModelScope.launch {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            flakerMonitor.captureException(
+                throwable,
+                mapOf(TAG to "Error while toggling flaker: ${throwable.message}")
+            )
+        }
+        viewModelScope.launch(coroutineExceptionHandler) {
             prefDataStore.savePrefs(prefDataStore.getPrefs().first().copy(shouldIntercept = value))
         }
     }
@@ -110,7 +116,13 @@ class FlakerViewModel(
     }
 
     fun updatePrefs(flakerPrefsUiDto: FlakerPrefsUiDto) {
-        viewModelScope.launch {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            flakerMonitor.captureException(
+                throwable,
+                mapOf(TAG to "Error while saving prefs: ${throwable.message}")
+            )
+        }
+        viewModelScope.launch(coroutineExceptionHandler) {
             prefDataStore.savePrefs(
                 FlakerPrefs(
                     shouldIntercept = true,

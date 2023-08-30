@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -21,10 +24,26 @@ android {
         }
     }
 
+    signingConfigs {
+        register("release") {
+            val secretsPropertiesFile = rootProject.file("secrets.properties")
+            val secretProperties = Properties()
+            secretProperties.load(FileInputStream(secretsPropertiesFile))
+            storeFile = rootProject.file("flakerKeyStore.jks")
+            storePassword = secretProperties["SIGNING_STORE_PASSWORD"].toString()
+            keyAlias = secretProperties["SIGNING_KEY_ALIAS"].toString()
+            keyPassword = secretProperties["SIGNING_KEY_PASSWORD"].toString()
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+        }
+        release {
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
