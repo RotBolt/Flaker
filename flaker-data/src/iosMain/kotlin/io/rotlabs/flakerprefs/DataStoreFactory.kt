@@ -9,7 +9,6 @@ import platform.Foundation.NSUserDomainMask
 
 actual class DataStoreFactory {
     actual fun create(): DataStore<Preferences> {
-        NSDocumentDirectory
         return createDataStore {
             val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
                 directory = NSDocumentDirectory,

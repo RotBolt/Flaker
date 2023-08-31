@@ -15,7 +15,7 @@ class PrefsDataStoreTest {
 
     @BeforeTest
     fun setup() {
-        val dataStore = createDataStore { DATASTORE_FILE_NAME }
+        val dataStore = testDataStore()
         prefDataStore = PrefDataStoreImpl(dataStore)
     }
 

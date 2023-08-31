@@ -1,6 +1,6 @@
 [versions]
-agp = "8.1.0"
-android-test = "8.1.0"
+agp = "7.4.2"
+android-test = "7.3.1"
 kotlin = "1.8.10"
 core-ktx = "1.10.1"
 junit = "4.13.2"
@@ -24,6 +24,8 @@ kotlinx-coroutines = "1.7.3"
 turbine = "1.0.0"
 datastore = "1.1.0-alpha04"
 sentry = "6.28.0"
+gradle-publish = "0.25.3"
+
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -75,6 +77,7 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 sqlDelight = {id = "app.cash.sqldelight", version.ref = "sqlDelight"}
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+gradle-mavenpublish = { id = "com.vanniktech.maven.publish", version.ref = "gradle-publish" }
 
 [bundles]
 

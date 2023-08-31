@@ -5,15 +5,17 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.gradle.mavenpublish)
 }
-
 
 version = "0.1.0"
 
 kotlin {
 
-    jvmToolchain(17)
-    android()
+    jvmToolchain(11)
+    android {
+        publishAllLibraryVariants()
+    }
     val frameworkName = "FlakerDomainModule"
     val xcFramework = XCFramework(frameworkName)
 
@@ -64,6 +66,21 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 33
+        consumerProguardFiles("consumer-rules.pro")
     }
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
+        release {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }

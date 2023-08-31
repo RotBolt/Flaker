@@ -10,6 +10,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://maven.google.com")
+        mavenLocal()
     }
 }
 

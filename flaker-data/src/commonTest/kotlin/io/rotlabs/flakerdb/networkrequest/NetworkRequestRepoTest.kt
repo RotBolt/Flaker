@@ -110,11 +110,11 @@ class NetworkRequestRepoTest {
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = now - (millisInOneDay * 7),
+            requestTime = now - (millisInOneDay * 8),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = now - (millisInOneDay * 7)
+            createdAt = now - (millisInOneDay * 8)
         )
         networkRequestRepo.insert(networkRequest1)
         assertEquals(2, networkRequestRepo.selectAll().size)
@@ -126,11 +126,11 @@ class NetworkRequestRepoTest {
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = now - (millisInOneDay * 15),
+            requestTime = now - (millisInOneDay * 16),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = now - (millisInOneDay * 15)
+            createdAt = now - (millisInOneDay * 16)
         )
         networkRequestRepo.insert(networkRequest2)
         assertEquals(2, networkRequestRepo.selectAll().size)
@@ -142,11 +142,11 @@ class NetworkRequestRepoTest {
             host = "https://jsonplaceholder.typicode.com",
             path = "/todos/1",
             method = "GET",
-            requestTime = now - (millisInOneDay * 30),
+            requestTime = now - (millisInOneDay * 31),
             responseCode = 200,
             responseTimeTaken = 100,
             isFailedByFlaker = false,
-            createdAt = now - (millisInOneDay * 30)
+            createdAt = now - (millisInOneDay * 31)
         )
         networkRequestRepo.insert(networkRequest3)
         assertEquals(2, networkRequestRepo.selectAll().size)
