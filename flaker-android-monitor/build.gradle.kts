@@ -5,11 +5,14 @@ import java.io.FileInputStream
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.gradle.mavenpublish)
 }
 
 val secretsPropertiesFile = rootProject.file("secrets.properties")
 val secretProperties = Properties()
 secretProperties.load(FileInputStream(secretsPropertiesFile))
+
+version = "0.1.0"
 
 android {
     namespace = "io.rotlabs.flakerandroidmonitor"
@@ -37,11 +40,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
 }
 
