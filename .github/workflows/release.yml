@@ -52,13 +52,16 @@ jobs:
           echo $ENCODED_STRING > keystore-b64.txt
           base64 -d keystore-b64.txt > $SIGNING_KEY_STORE_PATH
 
-      - name: Build Sample Release apk
-        run: ./gradlew assembleRelease
+      - name: Build Sample apk (Debug and Release)
+        run: ./gradlew assemble
 
-      - name: Upload Sample App Release Build to Artifacts
+      - name: Upload Sample App Debug and Release Builds to Artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: flakersampleapp/build/outputs/apk/release/flakersampleapp-release.apk
+          name: Sample App Builds
+          path: |
+            sampleapp/build/outputs/apk/debug/flakersampleapp-debug.apk
+            sampleapp/build/outputs/apk/release/flakersampleapp-release.apk
 
       - name: Publish Library Packages
         run: ./gradlew publishAllPublicationsToGithubPackagesRepository
