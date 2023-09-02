@@ -58,9 +58,7 @@ jobs:
       - name: Upload Sample App Release Build to Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: release-artifacts
-          paths: |
-            flakersampleapp/build/outputs/apk/release/
+          path: flakersampleapp/build/outputs/apk/release/flakersampleapp-release.apk
 
       - name: Publish Library Packages
         run: ./gradlew publishAllPublicationsToGithubPackagesRepository
