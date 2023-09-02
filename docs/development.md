@@ -1,10 +1,12 @@
 ## Development
 
 ### Library Code Map
-![library-code-map.png](assets/library-code-map.png)
+### Library Code Map
+![library-code-map.png](assets/library-code-map.png#only-light)
+![library-code-map.png](assets/library-code-map-dark.png#only-dark)
 
 
-### 🛠️ Build
+### Build
 Simply clone this repository in Android Studio Giraffe or above and build the project.
 
 ### Module Details

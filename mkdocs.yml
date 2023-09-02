@@ -11,13 +11,25 @@ nav:
   - Development: development.md
 theme:
   name: 'material'
-  logo: 'assets/logo.png'
-  icon:
-    repo: fontawesome/brands/github
-  favicon: 'assets/logo.png'
+  favicon: assets/images/icon-square.png
+  logo: assets/logo.png
   palette:
-    primary: 'deep-orange'
-    accent: 'deep-purple'
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: blue
+      toggle:
+        icon: octicons/sun-24
+        name: "Switch to Dark Mode"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: blue
+      toggle:
+        icon: octicons/moon-24
+        name: "Switch to Light Mode"
+  features:
+    - navigation.tabs
 markdown_extensions:
   - attr_list
   - md_in_html
