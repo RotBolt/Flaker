@@ -3,7 +3,6 @@ package io.rotlabs.flakerdb.networkrequest
 import app.cash.turbine.test
 import io.rotlabs.flakedomain.networkrequest.NetworkRequest
 import io.rotlabs.flakedomain.prefs.RetentionPolicy
-import io.rotlabs.flakerdb.testDbDriverFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -17,8 +16,6 @@ import kotlin.test.assertTrue
 class NetworkRequestRepoTest {
 
     private lateinit var networkRequestRepo: NetworkRequestRepo
-
-    private val testDispatcher = UnconfinedTestDispatcher()
 
     private suspend fun NetworkRequestRepo.seed() {
         val now = Clock.System.now().toEpochMilliseconds()
@@ -38,11 +35,7 @@ class NetworkRequestRepoTest {
 
     @BeforeTest
     fun setup() = runBlocking {
-        networkRequestRepo = NetworkRequestRepoImpl(
-            sqlDriver = testDbDriverFactory(),
-            dispatcher = testDispatcher
-        )
-
+        networkRequestRepo = InMemoryNetworkRequestRepo(UnconfinedTestDispatcher())
         networkRequestRepo.deleteAll()
         networkRequestRepo.seed()
     }

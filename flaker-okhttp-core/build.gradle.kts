@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -55,6 +58,22 @@ dependencies {
     testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
 
+publishing {
+    repositories {
 
+        val secretsPropertiesFile = rootProject.file("secrets.properties")
+        val secretProperties = Properties()
+        secretProperties.load(FileInputStream(secretsPropertiesFile))
+
+        maven {
+            name = "githubPackages"
+            url = uri("https://maven.pkg.github.com/rotbolt/flaker")
+            credentials {
+                username = secretProperties["GPR_USERNAME"]?.toString()
+                password = secretProperties["GPR_TOKEN"]?.toString()
+            }
+        }
+    }
 }

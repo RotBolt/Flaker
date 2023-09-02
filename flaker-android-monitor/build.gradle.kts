@@ -49,11 +49,28 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.sentry.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+publishing {
+    repositories {
+
+        val secretsPropertiesFile = rootProject.file("secrets.properties")
+        val secretProperties = Properties()
+        secretProperties.load(FileInputStream(secretsPropertiesFile))
+
+        maven {
+            name = "githubPackages"
+            url = uri("https://maven.pkg.github.com/rotbolt/flaker")
+            credentials {
+                username = secretProperties["GPR_USERNAME"]?.toString()
+                password = secretProperties["GPR_TOKEN"]?.toString()
+            }
+        }
+    }
 }
