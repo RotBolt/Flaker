@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
@@ -136,6 +138,24 @@ sqldelight {
     databases {
         create("FlakerDatabase") {
             packageName.set("io.rotlabs.flakerdb")
+        }
+    }
+}
+
+publishing {
+    repositories {
+
+        val secretsPropertiesFile = rootProject.file("secrets.properties")
+        val secretProperties = Properties()
+        secretProperties.load(FileInputStream(secretsPropertiesFile))
+
+        maven {
+            name = "githubPackages"
+            url = uri("https://maven.pkg.github.com/rotbolt/flaker")
+            credentials {
+                username = secretProperties["GPR_USERNAME"]?.toString()
+                password = secretProperties["GPR_TOKEN"]?.toString()
+            }
         }
     }
 }
