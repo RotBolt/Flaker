@@ -15,13 +15,17 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Flaker"
-include(":flaker-android-ui")
-include(":flaker-okhttp-core")
-include(":flaker-ktor-core")
-include(":flaker-android-okhttp")
-include(":flaker-android-ktor")
-include(":flaker-android")
-include(":flaker-data")
-include(":flaker-domain")
-include(":flakersampleapp")
-include(":flaker-android-monitor")
+include(":library:flaker-android-ui")
+include(":library:flaker-okhttp-core")
+include(":library:flaker-ktor-core")
+include(":library:flaker-android-okhttp")
+include(":library:flaker-android-ktor")
+include(":library:flaker-android")
+include(":library:flaker-data")
+include(":library:flaker-domain")
+include(":library:flaker-android-monitor")
+
+include("library-noop:flaker-okhttp-core-noop")
+
+include("sampleapp")
+include(":library-noop:flaker-android-okhttp-noop")
