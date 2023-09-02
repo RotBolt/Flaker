@@ -55,12 +55,12 @@ kotlin {
         dependsOn(commonMain)
         dependencies {
             implementation(libs.sqlDelight.android)
+            implementation(libs.sqlDelight.jvm)
         }
     }
     val androidUnitTest by sourceSets.getting {
         dependencies {
             implementation(libs.junit)
-            implementation(libs.sqlDelight.jvm)
         }
     }
 
