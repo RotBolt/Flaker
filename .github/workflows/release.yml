@@ -34,6 +34,11 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_IN_MEMORY_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_KEY_PUB_PASSWORD }}
         run: |
           touch secrets.properties
           echo "SENTRY_DSN = $SENTRY_DSN" >> secrets.properties
@@ -52,6 +57,18 @@ jobs:
           echo $ENCODED_STRING > keystore-b64.txt
           base64 -d keystore-b64.txt > $SIGNING_KEY_STORE_PATH
 
+      - name: Publish Library packages to Maven Central
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_IN_MEMORY_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_KEY_PUB_PASSWORD }}
+        run: ./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache
+
+
+      - name: Publish Library packages to Github Packages Repository
+        run: ./gradlew publishAllPublicationsToGithubPackagesRepository
+
       - name: Build Sample apk (Debug and Release)
         run: ./gradlew assemble
 
@@ -62,8 +79,6 @@ jobs:
           path: |
             sampleapp/build/outputs/apk/debug/sampleapp-debug.apk
             sampleapp/build/outputs/apk/release/sampleapp-release.apk
-
-      - name: Publish Library Packages
-        run: ./gradlew publishAllPublicationsToGithubPackagesRepository
+          if-no-files-found: error
 
           

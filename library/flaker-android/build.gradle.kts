@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.konan.properties.Properties
 import java.io.FileInputStream
 
@@ -74,19 +75,25 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
 }
 
-publishing {
-    repositories {
+mavenPublishing {
+    publishing {
+        repositories {
 
-        val secretsPropertiesFile = rootProject.file("secrets.properties")
-        val secretProperties = Properties()
-        secretProperties.load(FileInputStream(secretsPropertiesFile))
+            val secretsPropertiesFile = rootProject.file("secrets.properties")
+            val secretProperties = Properties()
+            secretProperties.load(FileInputStream(secretsPropertiesFile))
 
-        maven {
-            name = "githubPackages"
-            url = uri("https://maven.pkg.github.com/rotbolt/flaker")
-            credentials {
-                username = secretProperties["GPR_USERNAME"]?.toString()
-                password = secretProperties["GPR_TOKEN"]?.toString()
+            mavenCentral {
+                signAllPublications()
+            }
+
+            maven {
+                name = "githubPackages"
+                url = uri("https://maven.pkg.github.com/rotbolt/flaker")
+                credentials {
+                    username = secretProperties["GPR_USERNAME"]?.toString()
+                    password = secretProperties["GPR_TOKEN"]?.toString()
+                }
             }
         }
     }

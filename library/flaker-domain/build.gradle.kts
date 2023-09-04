@@ -87,19 +87,25 @@ android {
     }
 }
 
-publishing {
-    repositories {
+mavenPublishing {
+    publishing {
+        repositories {
 
-        val secretsPropertiesFile = rootProject.file("secrets.properties")
-        val secretProperties = Properties()
-        secretProperties.load(FileInputStream(secretsPropertiesFile))
+            val secretsPropertiesFile = rootProject.file("secrets.properties")
+            val secretProperties = Properties()
+            secretProperties.load(FileInputStream(secretsPropertiesFile))
 
-        maven {
-            name = "githubPackages"
-            url = uri("https://maven.pkg.github.com/rotbolt/flaker")
-            credentials {
-                username = secretProperties["GPR_USERNAME"]?.toString()
-                password = secretProperties["GPR_TOKEN"]?.toString()
+            mavenCentral {
+                signAllPublications()
+            }
+
+            maven {
+                name = "githubPackages"
+                url = uri("https://maven.pkg.github.com/rotbolt/flaker")
+                credentials {
+                    username = secretProperties["GPR_USERNAME"]?.toString()
+                    password = secretProperties["GPR_TOKEN"]?.toString()
+                }
             }
         }
     }
