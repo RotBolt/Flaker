@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "io.rotlabs.flakersampleapp"
+    namespace = "io.github.rotbolt.flakersampleapp"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "io.rotlabs.flakersampleapp"
+        applicationId = "io.github.rotbolt.flakersampleapp"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

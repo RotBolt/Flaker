@@ -110,7 +110,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.rotlabs.flakerdata"
+    namespace = "io.github.rotbolt.flakerdata"
     compileSdk = 33
     defaultConfig {
         minSdk = 24
@@ -137,7 +137,7 @@ android {
 sqldelight {
     databases {
         create("FlakerDatabase") {
-            packageName.set("io.rotlabs.flakerdb")
+            packageName.set("io.github.rotbolt.flakerdata.flakerdb")
         }
     }
 }

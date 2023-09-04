@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="io.rotlabs.flakerandroidokhttp">
+    package="io.github.rotbolt.flakerandroidokhttp">
 
     <application
         android:allowBackup="true"
         android:supportsRtl="true"
         tools:targetApi="33">
         <activity
-            android:name=".ui.FlakerActivity"
+            android:name="io.github.rotbolt.flakerandroidokhttp.ui.FlakerActivity"
             android:exported="true"
             android:icon="@mipmap/ic_flaker"
             android:label="@string/companion_app_name"
             android:launchMode="singleInstance"
             android:roundIcon="@mipmap/ic_flaker"
-            android:taskAffinity="io.rotlabs.flakerandroidretrofit.flaker">
+            android:taskAffinity="io.github.rotbolt.flakerandroidretrofit.flaker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="io.rotlabs.flakerandroidretrofit.OPEN" />
             </intent-filter>
 
         </activity>

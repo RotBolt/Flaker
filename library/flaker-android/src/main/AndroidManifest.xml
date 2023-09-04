@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="io.rotlabs.flakerandroid.MainActivity"
+            android:name="io.github.rotbolt.flakerandroid.MainActivity"
             android:exported="false" />
     </application>
 
