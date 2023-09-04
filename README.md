@@ -23,8 +23,8 @@ https://github.com/RotBolt/Flaker/assets/24780524/3d00e644-0f47-4755-8402-74001f
 Add the following dependency to your project.
 
 ```kotlin
-    debugImplementation("io.rotlabs:flaker-android-okhttp:${latest_version}")
-    releaseImplementation("io.rotlabs:flaker-android-okhttp-no-op:${latest_version}")
+    debugImplementation("io.github.rotbolt:flaker-android-okhttp:${latest_version}")
+    releaseImplementation("io.github.rotbolt:flaker-android-okhttp-no-op:${latest_version}")
 ```
 
 **_NOTE:_** It is not yet published to maven central. But you can download all the modules from [github packages](https://github.com/RotBolt?tab=packages&repo_name=Flaker) and add them to your project for now.

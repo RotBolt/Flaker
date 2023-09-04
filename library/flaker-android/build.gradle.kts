@@ -11,7 +11,7 @@ plugins {
 version = "0.1.0"
 
 android {
-    namespace = "io.rotlabs.flakerandroid"
+    namespace = "io.github.rotbolt.flakerandroid"
     compileSdk = 33
 
     defaultConfig {

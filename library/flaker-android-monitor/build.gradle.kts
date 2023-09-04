@@ -15,7 +15,7 @@ secretProperties.load(FileInputStream(secretsPropertiesFile))
 version = "0.1.0"
 
 android {
-    namespace = "io.rotlabs.flakerandroidmonitor"
+    namespace = "io.github.rotbolt.flakerandroidmonitor"
     compileSdk = 34
 
     buildFeatures {

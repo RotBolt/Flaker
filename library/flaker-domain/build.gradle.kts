@@ -63,7 +63,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.rotlabs.flakerdomain"
+    namespace = "io.github.rotbolt.flakerdomain"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

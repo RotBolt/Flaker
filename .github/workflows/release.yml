@@ -60,8 +60,8 @@ jobs:
         with:
           name: Sample App Builds
           path: |
-            sampleapp/build/outputs/apk/debug/flakersampleapp-debug.apk
-            sampleapp/build/outputs/apk/release/flakersampleapp-release.apk
+            sampleapp/build/outputs/apk/debug/sampleapp-debug.apk
+            sampleapp/build/outputs/apk/release/sampleapp-release.apk
 
       - name: Publish Library Packages
         run: ./gradlew publishAllPublicationsToGithubPackagesRepository
