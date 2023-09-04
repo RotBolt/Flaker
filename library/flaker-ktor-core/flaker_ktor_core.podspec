@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'flaker_ktor_core'
-    spec.version                  = '0.1.0'
+    spec.version                  = '0.1.1'
     spec.homepage                 = 'https://github.com/RotBolt/Flaker'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''

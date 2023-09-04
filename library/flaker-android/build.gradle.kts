@@ -1,7 +1,3 @@
-import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.konan.properties.Properties
-import java.io.FileInputStream
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -9,7 +5,7 @@ plugins {
     alias(libs.plugins.gradle.mavenpublish)
 }
 
-version = "0.1.0"
+version = "0.1.1"
 
 android {
     namespace = "io.github.rotbolt.flakerandroid"
@@ -73,28 +69,4 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-}
-
-mavenPublishing {
-    publishing {
-        repositories {
-
-            val secretsPropertiesFile = rootProject.file("secrets.properties")
-            val secretProperties = Properties()
-            secretProperties.load(FileInputStream(secretsPropertiesFile))
-
-            mavenCentral {
-                signAllPublications()
-            }
-
-            maven {
-                name = "githubPackages"
-                url = uri("https://maven.pkg.github.com/rotbolt/flaker")
-                credentials {
-                    username = secretProperties["GPR_USERNAME"]?.toString()
-                    password = secretProperties["GPR_TOKEN"]?.toString()
-                }
-            }
-        }
-    }
 }

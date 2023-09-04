@@ -34,11 +34,6 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_IN_MEMORY_KEY }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_KEY_ID }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_KEY_PUB_PASSWORD }}
         run: |
           touch secrets.properties
           echo "SENTRY_DSN = $SENTRY_DSN" >> secrets.properties
@@ -64,10 +59,6 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_IN_MEMORY_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_KEY_PUB_PASSWORD }}
         run: ./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache
-
-
-      - name: Publish Library packages to Github Packages Repository
-        run: ./gradlew publishAllPublicationsToGithubPackagesRepository
 
       - name: Build Sample apk (Debug and Release)
         run: ./gradlew assemble
