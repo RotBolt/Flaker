@@ -11,19 +11,19 @@ nav:
   - Development: development.md
 theme:
   name: 'material'
-  favicon: assets/images/icon-square.png
+  favicon: assets/logo.png
   logo: assets/logo.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: teal
+      primary: red
       accent: blue
       toggle:
         icon: octicons/sun-24
         name: "Switch to Dark Mode"
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: teal
+      primary: red
       accent: blue
       toggle:
         icon: octicons/moon-24

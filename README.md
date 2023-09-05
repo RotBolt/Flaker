@@ -1,93 +1,61 @@
 # :construction: Flaker :construction:
-![flaker build](https://github.com/rotbolt/flaker/actions/workflows/flaker-ci.yml/badge.svg)
+![flaker build](https://github.com/rotbolt/flaker/actions/workflows/flaker-ci.yml/badge.svg) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.rotbolt/flaker-android-okhttp/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.rotbolt/flaker-android-okhttp)
 
+Developing a mobile app that performs flawlessly in the real world requires thorough testing under a variety of network conditions. Introducing Flaker – your assistant tool for recreating real-world network scenarios directly in your mobile app development environment. 📱💡
 
-A flaky network simulator for your mobile app.
+## What is Flaker?
+Flaker is a network simulator designed to make your mobile app development process smoother and more efficient. With Flaker, you can effortlessly emulate a wide range of network conditions, enabling you to fine-tune your app's performance and ensure it delivers an exceptional user experience under any circumstance. 🌐🛠️
 
-Imagine effortlessly recreating real-world network scenarios directly for your mobile app development. With Flaker,-  you gain the ability to mimic a variety of network conditions tailored for mobile app development. 
-- **Experience Slow Networks**: Wondering how your app performs on a slow network? Flaker lets you replicate these scenarios, helping you fine-tune your app's responsiveness. 
-- **Emulate Flaky Networks**: Use fail percentage and variance controls to mirror the unpredictable nature of network connections. Get a firsthand feel for the scenarios your mobile app might encounter. 
-- **Focused Impact**: Flaker only affects your app's network conditions, leaving your device's overall network functionality undisturbed.
+## Key Features:
+### Experience Slow Networks 🐢
+Ever wondered how your app would perform on a slow and sluggish network? With Flaker, you can replicate these scenarios with ease. Test your app's responsiveness and optimize its behavior under adverse network conditions. 🚀🐌
 
-Whether you're a mobile app developer refining user experiences or a tester validating app resilience, Flaker offers an intuitive solution within your development workflow. Elevate your testing strategies and boost your app's performance with Flaker.
+### Emulate Flaky Networks 📶
+Network connections in the real world are rarely stable. Flaker allows you to introduce fail percentage and variance controls, mirroring the unpredictable nature of network connections. Gain a firsthand understanding of the challenges your mobile app might face and ensure it remains resilient. 🔮🔌
+
+### Focused Impact 🎯
+Flaker is designed to impact only your app's network conditions, leaving your device's overall network functionality undisturbed. This means you can test and fine-tune your app's performance without affecting your entire device's connectivity. 📡🔍
+
+## Who Can Benefit from Flaker?
+Whether you're a mobile app developer looking to enhance user experiences or a tester seeking to validate your app's resilience, Flaker provides an intuitive and indispensable tool within your development workflow. Elevate your testing strategies and boost your app's performance with Flaker.
+
+Flaker empowers you to:
+
+✅ Test under various network conditions
+
+✅ Optimize your app for slow networks
+
+✅ Prepare your app for flaky network connections
+
+✅ Ensure your app's stability and reliability
+
+✅ Enhance user satisfaction and retention
 
 ## Demo
+📺 Check out the to see Flaker in action.
 
 https://github.com/RotBolt/Flaker/assets/24780524/3d00e644-0f47-4755-8402-74001fa96a2c
 
+## Usage
+Please refer to the [📚 docs](https://rotbolt.github.io/Flaker/) for detailed usage instructions.
 
-## Getting Started
+## Built with
 
-#### Installation (In Progress - Not yet published to maven central)
+**Kotlin:** 🚀 The primary programming language.
 
-Add the following dependency to your project.
+**Kotlin Multiplatform:** 📱🍏 Sharing common logic across Android and iOS.
 
-```kotlin
-    debugImplementation("io.github.rotbolt:flaker-android-okhttp:${latest_version}")
-    releaseImplementation("io.github.rotbolt:flaker-android-okhttp-no-op:${latest_version}")
-```
+**Jetpack Compose**: 🖼️ For building the UI for the Android companion app. Supports dynamic theming.
 
-**_NOTE:_** It is not yet published to maven central. But you can download all the modules from [github packages](https://github.com/RotBolt?tab=packages&repo_name=Flaker) and add them to your project for now.
+**SqlDelight:** 📊 For a shared database and persistence layer between multiple platforms.
 
-#### flaker-android-okhttp
-Add the following statement to your app's onCreate method.
-```kotlin
-   class MainApplication: Application() {
-       override fun onCreate() {
-           super.onCreate()
-           FlakerAndroidOkhttpContainer.install(this)
-       }
-   }
-```
+**Jetpack DataStore:** 📦 For the shared persistence layer to store user preferences and configuration of Flaker.
 
-Then in your okhttp client builder, add the following interceptor.
-```kotlin
-    val client = OkHttpClient.Builder()
-        .addInterceptor(FlakerInterceptor.Builder().build())
-        .build()
-```
+**Okhttp:** 📡 For creating Flaker for Android apps using Okhttp3 for networking.
 
-#### flaker-android-ktor (In Progress)
+**Ktor:** 🌐 For creating Flaker targeting both Android and iOS apps using Ktor for networking. (🚧 In Progress)
 
-#### flaker-ios-ktor (In Progress)
-
-That's it. Now you can use the companion app to simulate the network conditions.
-
-## Development
-
-### Library Code Map
-![library-code-map.png](docs/assets/library-code-map.png#gh-light-mode-only)
-![library-code-map.png](docs/assets/library-code-map-dark.png#gh-dark-mode-only)
-
-
-### :hammer: Build
- Simply clone this repository in Android Studio Giraffe or above and build the project.
-
-### Module Details
-- **flaker-domain**: Contains domain of flaker library which is used by other modules. Like Network Request and preferences by the user.
-- **flaker-data**: Contains data layer of flaker library which is used by other modules to get the locally stored data. All the persistent data should stay here.
-- **flaker-okhttp-core**: Core module containing the functionality to intercept the network request and simulate the network conditions using OkHttp Interceptor.
-- **flaker-ktor-core**: Core module containing the functionality to intercept the network request and simulate the network conditions using Ktor
-- **flaker-android-ui**: Contains the reusable UI elements and components for the android companion app.
-- **flaker-android-okhttp**: Contains the companion app which gets installed as a part of library. This should be used for the apps which uses OkHttp as their networking library.
-- **flaker-android-ktor**: Contains the companion app which gets installed as a part of library. This should be used for the apps which uses Ktor as their networking library.
-- **flaker-android**: Contains the companion app which gets installed as a part of library. This should be used for the apps which uses both okhttp and Ktor as their networking library.
-
-### Verify
-We use `detekt` for static code analyis and a job is setup in github actions to run it on every PR. You can run it locally using the following command:
-```bash
-// For android related changes
-./gradlew detekt
-
-// For iOS related changes
-./gradlew detektMetadataIosMain
-
-// For common code changes
-./gradlew detektMetadataCommonMain
-```
-
-If you want to `detekt` to auto correct some of the stuff, please add the flag `--auto-correct` to the above commands.
-
+**SwiftUI:** 🍎 For building the UI for the iOS companion app. Supports dynamic theming. (🚧 In Progress)
 
 ## Roadmap
 - [x] flaker-android-okhttp
@@ -95,9 +63,9 @@ If you want to `detekt` to auto correct some of the stuff, please add the flag `
 - [ ] flaker-ios-ktor
 
 ## Contributing
-If you've found an error in this sample, please file an issue.
+If you've found an error in this sample, please 🚩 file an issue.
 
-Patches are encouraged and may be submitted by forking this project and submitting a pull request. Since this project is still in its very early stages, if your change is substantial, please raise an issue first to discuss it.
+Patches are encouraged and may be submitted by forking this project and submitting a pull request. Since this project is still in its very early stages, if your change is substantial, please raise an issue first to discuss it. 🤝
 
 ## License
 ```

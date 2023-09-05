@@ -1,15 +1,28 @@
+---
+hide:
+  - navigation
+---
+
 # Usage
 
-#### Installation (In Progress - Not yet published to maven central)
+## Installation 
 
-Add the following dependency to your project.
+Add `mavenCentral()` to repositories in your `build.gradle` file.
 
 ```kotlin
-    debugImplementation("io.github.rotbolt:flaker-android-okhttp:${latest_version}")
-    releaseImplementation("io.github.rotbolt:flaker-android-okhttp-no-op:${latest_version}")
+   repositories {
+        mavenCentral()
+   }
 ```
 
-**_NOTE:_** It is not yet published to maven central. But you can download all the modules from [github packages](https://github.com/RotBolt?tab=packages&repo_name=Flaker) and add them to your project for now.
+Add the following dependency to your `build.gradle`
+
+```kotlin
+   dependencies {
+        debugImplementation("io.github.rotbolt:flaker-android-okhttp:${latest_version}")
+        releaseImplementation("io.github.rotbolt:flaker-android-okhttp-noop:${latest_version}")
+   }
+```
 
 #### flaker-android-okhttp
 Add the following statement to your app's onCreate method.
@@ -28,9 +41,13 @@ Then in your okhttp client builder, add the following interceptor.
         .addInterceptor(FlakerInterceptor.Builder().build())
         .build()
 ```
+That's it. Now upon installing your app, a companion app `flaker`  will be installed on your device. You can use this app to configure the network conditions for your app.
 
-#### flaker-android-ktor (In Progress)
+#### flaker-android-ktor 
+In progress
 
 #### flaker-ios-ktor (In Progress)
+In progress
 
-That's it. Now you can use the companion app to simulate the network conditions.
+## Releases
+For the latest release versions, please check the [github releases](https://github.com/RotBolt/Flaker/releases)
