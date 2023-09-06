@@ -57,6 +57,10 @@ Flaker empowers you to:
 
 **Ktor:** 🌐 For creating Flaker targeting both Android and iOS apps using Ktor for networking. (🚧 In Progress)
 
-**SwiftUI:** 🍎 For building the UI for the iOS companion app. Supports dynamic theming. (🚧 In Progress)
+**SwiftUI:** 🍏 For building the UI for the iOS companion app. Supports dynamic theming. (🚧 In Progress)
+
+## Find this library useful?
+Support it by joining __[stargazers](https://github.com/rotbolt/Flaker/stargazers)__ for this repository on github. ⭐️ 
+
 
 

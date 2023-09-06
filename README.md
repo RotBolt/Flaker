@@ -62,7 +62,7 @@ Please refer to the [📚 docs](https://rotbolt.github.io/Flaker/) for detailed 
 - [ ] flaker-android-ktor
 - [ ] flaker-ios-ktor
 
-## Find this repository useful? :heart:
+## Find this repository useful?
 Support it by joining __[stargazers](https://github.com/rotbolt/Flaker/stargazers)__ for this repository. :star: 
 
 ## Contributing
