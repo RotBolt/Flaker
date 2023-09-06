@@ -55,12 +55,15 @@ Please refer to the [📚 docs](https://rotbolt.github.io/Flaker/) for detailed 
 
 **Ktor:** 🌐 For creating Flaker targeting both Android and iOS apps using Ktor for networking. (🚧 In Progress)
 
-**SwiftUI:** 🍎 For building the UI for the iOS companion app. Supports dynamic theming. (🚧 In Progress)
+**SwiftUI:** 🍏 For building the UI for the iOS UI. (🚧 In Progress)
 
 ## Roadmap
 - [x] flaker-android-okhttp
 - [ ] flaker-android-ktor
 - [ ] flaker-ios-ktor
+
+## Find this repository useful? :heart:
+Support it by joining __[stargazers](https://github.com/rotbolt/Flaker/stargazers)__ for this repository. :star: 
 
 ## Contributing
 If you've found an error in this sample, please 🚩 file an issue.
