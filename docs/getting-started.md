@@ -24,7 +24,7 @@ Add the following dependency to your `build.gradle`
    }
 ```
 
-#### flaker-android-okhttp
+### flaker-android-okhttp
 Add the following statement to your app's onCreate method.
 ```kotlin
    class MainApplication: Application() {
@@ -43,10 +43,28 @@ Then in your okhttp client builder, add the following interceptor.
 ```
 That's it. Now upon installing your app, a companion app `flaker`  will be installed on your device. You can use this app to configure the network conditions for your app.
 
-#### flaker-android-ktor 
+#### Configuration
+
+You can configure the following parameters in the `FlakerInterceptor`.
+
+- Failure Response by Flaker
+
+```kotlin
+    val flakerFailResponse = FlakerFailResponse(
+        httpCode = 500,
+        message = "Flaker is enabled. This is a flaky response.",
+        responseBodyString = "Test Failure"
+    )
+     val flakerInterceptor = FlakerInterceptor.Builder()
+        .failResponse(flakerFailResponse)
+        .build()
+```
+
+
+### flaker-android-ktor 
 In progress
 
-#### flaker-ios-ktor (In Progress)
+### flaker-ios-ktor (In Progress)
 In progress
 
 ## Releases
