@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import io.github.rotbolt.flakedomain.prefs.FlakerPrefs
 import io.github.rotbolt.flakedomain.prefs.RetentionPolicy
 import io.github.rotbolt.flakerandroidmonitor.FlakerMonitor
+import io.github.rotbolt.flakerandroidui.components.lists.NetworkRequestInfo
 import io.github.rotbolt.flakerandroidui.components.lists.NetworkRequestUi
 import io.github.rotbolt.flakerandroidui.screens.prefs.FlakerPrefsUiDto
 import io.github.rotbolt.flakerandroidui.screens.search.SearchUiDto
@@ -70,11 +71,22 @@ class FlakerViewModel(
             networkRequestRepo.observeAll()
                 .collectLatest { list ->
                     val uiMapList = list
-                        .map { NetworkRequestUi.NetworkRequestItem(it) }
-                        .sortedByDescending { it.networkRequest.requestTime }
+                        .map {
+                            val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                            val date = Date(it.requestTime)
+                            val formattedTime: String = sdf.format(date)
+                            val info = NetworkRequestInfo(
+                                networkRequest = it,
+                                formattedTime = formattedTime
+                            )
+                            NetworkRequestUi.NetworkRequestItem(info)
+                        }
+                        .sortedByDescending { it.networkRequestInfo.networkRequest.requestTime }
                         .groupBy {
                             val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
-                            val formattedString = dateFormatter.format(Date(it.networkRequest.requestTime))
+                            val formattedString = dateFormatter.format(
+                                Date(it.networkRequestInfo.networkRequest.requestTime)
+                            )
                             NetworkRequestUi.DateItem(formattedString)
                         }
                     _viewStateFlow.emit(_viewStateFlow.value.copy(networkRequests = uiMapList))
@@ -171,13 +183,13 @@ class FlakerViewModel(
                 .networkRequests
                 .flatMap { item -> item.value }
                 .filter { item ->
-                    item.networkRequest.host.contains(term, ignoreCase = true) ||
-                        item.networkRequest.path.contains(term, ignoreCase = true)
+                    item.networkRequestInfo.networkRequest.host.contains(term, ignoreCase = true) ||
+                        item.networkRequestInfo.networkRequest.path.contains(term, ignoreCase = true)
                 }
-                .sortedByDescending { it.networkRequest.requestTime }
+                .sortedByDescending { it.networkRequestInfo.networkRequest.requestTime }
                 .groupBy {
                     val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
-                    val formattedString = dateFormatter.format(Date(it.networkRequest.requestTime))
+                    val formattedString = dateFormatter.format(Date(it.networkRequestInfo.networkRequest.requestTime))
                     NetworkRequestUi.DateItem(formattedString)
                 }
             val searchUiDto = _viewStateFlow.value.searchData.copy(filteredContent)

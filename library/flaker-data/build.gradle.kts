@@ -111,7 +111,7 @@ android {
     namespace = "io.github.rotbolt.flakerdata"
     compileSdk = 33
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
         targetSdk = 33
         consumerProguardFiles("consumer-rules.pro")
     }
