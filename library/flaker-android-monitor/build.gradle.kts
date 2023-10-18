@@ -12,7 +12,7 @@ val secretsPropertiesFile = rootProject.file("secrets.properties")
 val secretProperties = Properties()
 secretProperties.load(FileInputStream(secretsPropertiesFile))
 
-version = "0.1.1"
+version = "0.1.2"
 
 android {
     namespace = "io.github.rotbolt.flakerandroidmonitor"
