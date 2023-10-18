@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.di
+package io.github.bolt.flakersampleapp.di
 
 import io.github.rotbolt.flakerokhttpcore.FlakerInterceptor
 import okhttp3.OkHttpClient

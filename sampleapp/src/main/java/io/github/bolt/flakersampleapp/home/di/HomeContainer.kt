@@ -1,13 +1,13 @@
-package io.github.rotbolt.flakersampleapp.home.di
+package io.github.bolt.flakersampleapp.home.di
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import io.github.rotbolt.flakersampleapp.di.CoroutineDispatcherProvider
-import io.github.rotbolt.flakersampleapp.home.HomeViewModel
-import io.github.rotbolt.flakersampleapp.home.data.remote.UsersApiClient
-import io.github.rotbolt.flakersampleapp.home.data.remote.UsersApiService
+import io.github.bolt.flakersampleapp.di.CoroutineDispatcherProvider
+import io.github.bolt.flakersampleapp.home.HomeViewModel
+import io.github.bolt.flakersampleapp.home.data.remote.UsersApiClient
+import io.github.bolt.flakersampleapp.home.data.remote.UsersApiService
 import retrofit2.Retrofit
 
 class HomeContainer(

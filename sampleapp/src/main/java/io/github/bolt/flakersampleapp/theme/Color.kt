@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.theme
+package io.github.bolt.flakersampleapp.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="io.github.rotbolt.flakersampleapp.MainApplication"
+        android:name="io.github.bolt.flakersampleapp.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flaker">
         <activity
-            android:name="io.github.rotbolt.flakersampleapp.home.HomeActivity"
+            android:name="io.github.bolt.flakersampleapp.home.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:taskAffinity="io.github.rotbolt.flakersampleapp.sampleapp"
+            android:taskAffinity="io.github.bolt.flakersampleapp.sampleapp"
             android:theme="@style/Theme.Flaker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

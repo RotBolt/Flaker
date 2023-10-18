@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.di
+package io.github.bolt.flakersampleapp.di
 
 import kotlinx.coroutines.Dispatchers
 

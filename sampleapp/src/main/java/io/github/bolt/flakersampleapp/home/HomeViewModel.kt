@@ -1,10 +1,10 @@
-package io.github.rotbolt.flakersampleapp.home
+package io.github.bolt.flakersampleapp.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.rotbolt.flakersampleapp.data.remote.RemoteResult
-import io.github.rotbolt.flakersampleapp.home.data.remote.UsersApiClient
+import io.github.bolt.flakersampleapp.data.remote.RemoteResult
+import io.github.bolt.flakersampleapp.home.data.remote.UsersApiClient
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
