@@ -56,7 +56,7 @@ fun NetworkRequestList(modifier: Modifier = Modifier, contentProvider: () -> Net
 
                 items(networkRequestList) { item ->
                     NetworkRequestItem(
-                        networkRequest = item.networkRequest,
+                        networkRequestInfo = item.networkRequestInfo,
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                     Spacer(modifier = Modifier.size(8.dp))

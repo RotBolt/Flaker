@@ -23,18 +23,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.rotbolt.flakedomain.networkrequest.NetworkRequest
+import io.github.rotbolt.flakerandroidui.components.lists.NetworkRequestInfo
 import io.github.rotbolt.flakerandroidui.theme.FlakerAndroidTheme
 import io.github.rotbolt.flakerandroidui.theme.statusCodeError
 import io.github.rotbolt.flakerandroidui.theme.statusCodeOther
 import io.github.rotbolt.flakerandroidui.theme.statusCodeSuccess
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun NetworkRequestItem(
     modifier: Modifier = Modifier,
-    networkRequest: NetworkRequest
+    networkRequestInfo: NetworkRequestInfo
 ) {
     Card(
         modifier = modifier
@@ -42,6 +40,8 @@ fun NetworkRequestItem(
             .wrapContentHeight(),
         shape = RoundedCornerShape(8.dp),
     ) {
+        val (networkRequest, formattedTime) = networkRequestInfo
+
         Row(modifier = Modifier.padding(8.dp)) {
             Text(
                 text = networkRequest.responseCode.toString(),
@@ -87,11 +87,8 @@ fun NetworkRequestItem(
                         .padding(vertical = 8.dp)
                         .align(Alignment.Start)
                 ) {
-                    val localTime = Instant.fromEpochMilliseconds(networkRequest.requestTime)
-                        .toLocalDateTime(TimeZone.currentSystemDefault())
-
                     Text(
-                        text = localTime.time.toString().substringBefore("."),
+                        text = formattedTime,
                         modifier = Modifier.align(Alignment.CenterVertically)
                     )
 
@@ -148,7 +145,11 @@ fun NetworkRequestItemPreview() {
                     isFailedByFlaker = it >= 2,
                     createdAt = 1692270425000
                 )
-                NetworkRequestItem(networkRequest = networkRequest, modifier = Modifier.padding(16.dp))
+                val networkRequestInfo = NetworkRequestInfo(
+                    networkRequest = networkRequest,
+                    formattedTime = "11:42:40"
+                )
+                NetworkRequestItem(networkRequestInfo = networkRequestInfo, modifier = Modifier.padding(16.dp))
             }
         }
     }
