@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.theme
+package io.github.bolt.flakersampleapp.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

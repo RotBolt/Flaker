@@ -3,7 +3,6 @@ package io.github.rotbolt.flakerandroidmonitor
 import android.content.Context
 import io.sentry.Sentry
 import io.sentry.SentryEvent
-import io.sentry.SentryLevel
 import io.sentry.SentryOptions
 import io.sentry.android.core.SentryAndroid
 
@@ -11,16 +10,17 @@ class FlakerMonitorImpl : FlakerMonitor {
     override fun initialize(appContext: Context) {
         SentryAndroid.init(appContext) { options ->
             options.dsn = BuildConfig.SENTRY_DSN
-            // Add a callback that will be used before the event is sent to Sentry.
-            // With this callback, you can modify the event or, when returning null, also discard the event.
-            options.beforeSend =
-                SentryOptions.BeforeSendCallback { event: SentryEvent, _ ->
-                    if (SentryLevel.DEBUG == event.level) {
-                        null
-                    } else {
-                        event
-                    }
-                }
+            options.beforeSend = SentryOptions.BeforeSendCallback { event: SentryEvent, _ -> filterEvent(event) }
+        }
+    }
+
+    private fun filterEvent(event: SentryEvent): SentryEvent? {
+        return event.throwable?.stackTrace?.let { stackTrace ->
+            if (stackTrace.any { it.className.startsWith("io.github.rotbolt") }) {
+                event
+            } else {
+                null
+            }
         }
     }
 

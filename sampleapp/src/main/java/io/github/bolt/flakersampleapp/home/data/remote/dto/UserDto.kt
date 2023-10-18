@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.home.data.remote.dto
+package io.github.bolt.flakersampleapp.home.data.remote.dto
 
 @Suppress("ConstructorParameterNaming")
 data class UserData(

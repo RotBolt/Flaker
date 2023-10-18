@@ -1,8 +1,8 @@
-package io.github.rotbolt.flakersampleapp
+package io.github.bolt.flakersampleapp
 
 import android.app.Application
+import io.github.bolt.flakersampleapp.di.AppContainer
 import io.github.rotbolt.flakerandroidokhttp.di.FlakerAndroidOkhttpContainer
-import io.github.rotbolt.flakersampleapp.di.AppContainer
 
 class MainApplication : Application() {
 

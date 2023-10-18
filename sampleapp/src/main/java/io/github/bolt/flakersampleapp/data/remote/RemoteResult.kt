@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.data.remote
+package io.github.bolt.flakersampleapp.data.remote
 
 import retrofit2.HttpException
 import retrofit2.Response

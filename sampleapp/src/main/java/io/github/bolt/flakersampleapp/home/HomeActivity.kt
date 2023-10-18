@@ -1,4 +1,4 @@
-package io.github.rotbolt.flakersampleapp.home
+package io.github.bolt.flakersampleapp.home
 
 import android.os.Bundle
 import android.widget.Toast
@@ -25,9 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.rotbolt.flakersampleapp.MainApplication
-import io.github.rotbolt.flakersampleapp.home.di.HomeContainer
-import io.github.rotbolt.flakersampleapp.theme.FlakerTheme
+import io.github.bolt.flakersampleapp.MainApplication
+import io.github.bolt.flakersampleapp.home.di.HomeContainer
+import io.github.bolt.flakersampleapp.theme.FlakerTheme
 import kotlinx.coroutines.flow.collectLatest
 
 class HomeActivity : ComponentActivity() {

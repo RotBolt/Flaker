@@ -1,8 +1,8 @@
-package io.github.rotbolt.flakersampleapp.home.data.remote
+package io.github.bolt.flakersampleapp.home.data.remote
 
-import io.github.rotbolt.flakersampleapp.data.remote.RemoteResult
-import io.github.rotbolt.flakersampleapp.data.remote.handleRemoteResponse
-import io.github.rotbolt.flakersampleapp.home.data.remote.dto.UserData
+import io.github.bolt.flakersampleapp.data.remote.RemoteResult
+import io.github.bolt.flakersampleapp.data.remote.handleRemoteResponse
+import io.github.bolt.flakersampleapp.home.data.remote.dto.UserData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
